@@ -1,0 +1,1263 @@
+<mvc:View
+    controllerName="com.sap.sj.jobreq.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:t="sap.ui.table"
+    xmlns:l="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:sap.ui.fl="sap.ui.fl"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <!-- <Wizard id="wizardControl" complete="onWizardComplete">
+                    
+                    <WizardStep
+                        id="step1"
+                        title="Positions"
+                        validated="false"> -->
+
+            <!-- Filter Bar -->
+            <fb:FilterBar
+                id="jobfilterbar"
+                useToolbar="false"
+                search=".onGoPress"
+                filterChange=".onFilterChange"
+            >
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem
+                        id="idtpdPart"
+                        name="OpCo"
+                        label="OpCo"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="OpFilter"
+                                items="{filterModel>/categories}"
+                            >
+                                <core:Item id="_IDGenItem1"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem"
+                        name="BusinessEntity"
+                        label="BusinessEntity"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="beFilter"
+                                items="{filterModel>/regions}"
+                            >
+                                <core:Item id="_IDGenItem2"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem1"
+                        name="OperatingCompany"
+                        label="Operating Company"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="oCFilter"
+                                items="{filterModel>/statuses}"
+                            >
+                                <core:Item id="_IDGenItem3"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem2"
+                        name="OperatingUnit"
+                        label="Operating Unit"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="oUFilter"
+                                items="{filterModel>/statuses}"
+                            >
+                                <core:Item id="_IDGenItem4"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem3"
+                        name="divison"
+                        label="Divison/Entity"
+                        groupName="Group1"
+                        visibleInFilterBar="false"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="deFilter"
+                                items="{filterModel>/statuses}"
+                            >
+                                <core:Item id="_IDGenItem5"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem4"
+                        name="department"
+                        label="Department"
+                        groupName="Group1"
+                        visibleInFilterBar="false"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="depFilter"
+                                items="{filterModel>/statuses}"
+                            >
+                                <core:Item id="_IDGenItem6"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem id="_IDGenFilterGroupItem5"
+                        name="location"
+                        label="Location(City)"
+                        groupName="Group1"
+                        visibleInFilterBar="false"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="locFilter"
+                                items="{filterModel>/statuses}"
+                            >
+                                <core:Item id="_IDGenItem7"
+                                    key="{filterModel>key}"
+                                    text="{filterModel>text}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+
+            <t:Table
+                id="positionsTable"
+                rowMode="Interactive"
+                rows="{path:'tableModel>/'}"
+                selectionBehavior="Row"
+                ariaLabelledBy="title"
+                enableSelectAll="true"
+                alternateRowColors="true"
+                sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
+            >
+                <t:rowMode>
+                    <rowmodes:Interactive id="_IDGenInteractive"
+                        xmlns:rowmodes="sap.ui.table.rowmodes"
+                        rowCount="7"
+                        minRowCount="7"
+                    />
+                </t:rowMode>
+                <t:extension>
+                    <OverflowToolbar id="_IDGenOverflowToolbar">
+                        <content>
+                            <Title
+                                id="htText"
+                                text="Job Positions"
+                                level="H2"
+                                visible="true"
+                            />
+                            <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                              <Button id="_IDGenButton"
+                text="Generate Requisition"
+                press="onSelectPress"
+            />
+                            <Button id="_IDGenButton1"
+                                icon="sap-icon://excel-attachment"
+                                press="onExport"
+                            />
+                            <Button id="_IDGenButton2"
+                                icon="sap-icon://action-settings"
+                                press="openPersoDialog"
+                            />
+                        </content>
+                    </OverflowToolbar>
+                </t:extension>
+                <t:columns>
+                    <t:Column
+                        id="icode"
+                        filterProperty="ID"
+                        sortProperty="TPDNumber"
+                        visible="true"
+                    >
+                        <Label id="_IDGenLabel" text="Code" />
+                        <t:template>
+                            <Link id="_IDGenLink" text="{tableModel>Code}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iptitle"
+                        filterProperty="TPDNumber"
+                        sortProperty="TPDNumber"
+                    >
+                        <Label id="_IDGenLabel1" text="Position Title" />
+                        <t:template>
+                            <Link id="_IDGenLink1"
+                                text="{tableModel>PositionTitle}"
+                                press="onNavigatetoTPDMenu"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="isdate"
+                        filterProperty="PolestarPartNumber"
+                        sortProperty="PolestarPartNumber"
+                    >
+                        <Label id="_IDGenLabel2" text="Start Date" />
+                        <t:template>
+                            <Text id="_IDGenText" text="{tableModel>StartDate}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="istatus"
+                        autoResizable="true"
+                        filterProperty="PartName"
+                        sortProperty="PartName"
+                    >
+                        <Label id="_IDGenLabel3" text="Status" />
+                        <t:template>
+                            <Text id="_IDGenText1"
+                                text="{tableModel>Status}"
+                                wrapping="false"
+                                tooltip="{tableModel>Status}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iop"
+                        filterProperty="LeadingWorkgroup"
+                        sortProperty="LeadingWorkgroup"
+                    >
+                        <Label id="_IDGenLabel4" text="OpCo" />
+                        <t:template>
+                            <Text id="_IDGenText2"
+                                text="{tableModel>OpCo}"
+                                wrapping="false"
+                                tooltip="{tableModel>OpCo}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ibentity"
+                    >
+                        <Label id="_IDGenLabel5" text="Business Entity" />
+                        <t:template>
+                            <Text id="_IDGenText3"
+                                text="{tableModel>BusinessEntity}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iopcomp"
+                        filterProperty="PartOwner"
+                        sortProperty="PartOwner"
+                    >
+                        <Label id="_IDGenLabel6" text="Operating Company" />
+                        <t:template>
+                            <Text id="_IDGenText4"
+                                text="{tableModel>OperatingCompany}"
+                                wrapping="false"
+                                tooltip="{PartOwner}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iopunit"
+                        filterProperty="StatusText"
+                        sortProperty="StatusText"
+                    >
+                        <Label id="_IDGenLabel7" text="Operating Unit" />
+                        <t:template>
+                            <Text id="_IDGenText5"
+                                text="{tableModel>OperatingUnit}"
+                                wrapping="false"
+                                tooltip="{StatusText}"
+                                class="{path:'StatusID',formatter:'.formatter.getstatColor'}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iversion"
+                        filterProperty="Version"
+                        sortProperty="Version"
+                    >
+                        <Label id="_IDGenLabel8" text="Division/Entity" />
+                        <t:template>
+                            <Text id="_IDGenText6"
+                                text="{tableModel>Division}"
+                                wrapping="false"
+                                tooltip="{Division}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="idep"
+                        sortProperty="DateValidFrom"
+                    >
+                        <Label id="_IDGenLabel9" text="Department" />
+                        <t:template>
+                            <Text id="_IDGenText7"
+                                text="{tableModel>Department}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iloc"
+                        filterProperty="StartWeek"
+                        sortProperty="StartWeek"
+                    >
+                        <Label id="_IDGenLabel10" text="Location(City)" />
+                        <t:template>
+                            <Text id="_IDGenText8"
+                                text="{tableModel>Location}"
+                                wrapping="false"
+                                tooltip="{Location}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ccentre"
+                        sortProperty="DateValidTo"
+                    >
+                        <Label id="_IDGenLabel11" text="Cost Centre" />
+                        <t:template>
+                            <Text id="_IDGenText9"
+                                text="{tableModel>CostCentre}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iwloc"
+                        filterProperty="EndWeek"
+                        sortProperty="EndWeek"
+                    >
+                        <Label id="_IDGenLabel12" text="Work Location" />
+                        <t:template>
+                            <Text id="_IDGenText10"
+                                text="{tableModel>WorkLocation}"
+                                wrapping="false"
+                                tooltip="{EndWeek}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="iorgname"
+                        filterProperty="WorkflowLevel"
+                        sortProperty="WorkflowLevel"
+                    >
+                        <Label id="_IDGenLabel13" text="Organization Name" />
+                        <t:template>
+                            <Text id="_IDGenText11"
+                                text="{tableModel>OrganizationName}"
+                                wrapping="false"
+                                tooltip="{OrganizationName}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ijcode"
+                        filterProperty="PolestarSQMContact"
+                        sortProperty="PolestarSQMContact"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel14" text="Job Code" />
+                        <t:template>
+                            <Text id="_IDGenText12"
+                                text="{tableModel>JobCode}"
+                                wrapping="false"
+                                tooltip="{JobCode}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ijtitle"
+                        width="9rem"
+                        filterProperty="PolestarRDContact"
+                        sortProperty="PolestarRDContact"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel15" text="Job Title" />
+                        <t:template>
+                            <Text id="_IDGenText13"
+                                text="{tableModel>JobTitle}"
+                                wrapping="false"
+                                tooltip="{JobTitle}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ioplevel"
+                        width="9rem"
+                        sortProperty="createdAt"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel16" text="OpCo Level" />
+                        <t:template>
+                            <Text id="_IDGenText14"
+                                text="{tableModel>OpCoLevel}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ijfn"
+                        width="6rem"
+                        filterProperty="IssuerName"
+                        sortProperty="IssuerName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel17" text="Job Function" />
+                        <t:template>
+                            <Text id="_IDGenText15"
+                                text="{tableModel>JobFunction}"
+                                wrapping="false"
+                                tooltip="{JobFunction}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ijfam"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierCode"
+                        sortProperty="SupplierDetails_SupplierCode"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel18" text="Job Family" />
+                        <t:template>
+                            <Text id="_IDGenText16"
+                                text="{tableModel>JobFamily}"
+                                wrapping="false"
+                                tooltip="{JobFamily}"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column
+                        id="ifte"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel19" text="FTE" />
+                        <t:template>
+                            <Text id="_IDGenText17"
+                                text="{tableModel>FTE}"
+                                tooltip="{FTE}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ipgrd"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel20" text="Pay Grade" />
+                        <t:template>
+                            <Text id="_IDGenText18"
+                                text="{tableModel>PayGrade}"
+                                tooltip="{PayGrade}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="imipay"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel21" text="Minimum Pay" />
+                        <t:template>
+                            <Text id="_IDGenText19"
+                                text="{tableModel>MinimumPay}"
+                                tooltip="{MinimumPay}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="impoint"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel22" text="Mid Point" />
+                        <t:template>
+                            <Text id="_IDGenText20"
+                                text="{tableModel>MidPoint}"
+                                tooltip="{MidPoint}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="imapay"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel23" text="Maximum Pay" />
+                        <t:template>
+                            <Text id="_IDGenText21"
+                                text="{tableModel>MaximumPay}"
+                                tooltip="{MaximumPay}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ieclass"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel24" text="Employee Class" />
+                        <t:template>
+                            <Text id="_IDGenText22"
+                                text="{tableModel>EmployeeClass}"
+                                tooltip="{EmployeeClass}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="iregtemp"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel25" text="Regular/Temporary" />
+                        <t:template>
+                            <Text id="_IDGenText23"
+                                text="{tableModel>Regular}"
+                                tooltip="{Regular}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="icalevel"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel26" text="Career Level" />
+                        <t:template>
+                            <Text id="_IDGenText24"
+                                text="{tableModel>CareerLevel}"
+                                tooltip="{CareerLevel}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="irarch"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel27" text="Role Archetype" />
+                        <t:template>
+                            <Text id="_IDGenText25"
+                                text="{tableModel>RoleArchetype}"
+                                tooltip="{RoleArchetype}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ibudg"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel28" text="Budgeted" />
+                        <t:template>
+                            <Text id="_IDGenText26"
+                                text="{tableModel>Budgeted}"
+                                tooltip="{Budgeted}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="itbre"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel29" text="To Be Recruited" />
+                        <t:template>
+                            <Text id="_IDGenText27"
+                                text="{tableModel>ToBeRecruited}"
+                                tooltip="{ToBeRecruited}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="impo"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel30" text="Mass Position" />
+                        <t:template>
+                            <Text id="_IDGenText28"
+                                text="{tableModel>MassPosition}"
+                                tooltip="{MassPosition}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="icrpos"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel31" text="Critical Position" />
+                        <t:template>
+                            <Text id="_IDGenText29"
+                                text="{tableModel>CriticalPosition}"
+                                tooltip="{CriticalPosition}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ihlpos"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel32" text="Higher-Level Position" />
+                        <t:template>
+                            <Text id="_IDGenText30"
+                                text="{tableModel>HigherLevelPosition}"
+                                tooltip="{HigherLevelPosition}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ioh"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel33" text="Overseas Hirewith" />
+                        <t:template>
+                            <Text id="_IDGenText31"
+                                text="{tableModel>OverseasHirewith}"
+                                tooltip="{OverseasHirewith}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="icom"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel34" text="Comment" />
+                        <t:template>
+                            <Text id="_IDGenText32"
+                                text="{tableModel>Comment}"
+                                tooltip="{Comment}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="irclass"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel35" text="Role Classification" />
+                        <t:template>
+                            <Text id="_IDGenText33"
+                                text="{tableModel>RoleClassification}"
+                                tooltip="{RoleClassification}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ihrl"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel36" text="HRL" />
+                        <t:template>
+                            <Text id="_IDGenText34"
+                                text="{tableModel>HRL}"
+                                tooltip="{HRL}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ilevel"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel37" text="Level" />
+                        <t:template>
+                            <Text id="_IDGenText35"
+                                text="{tableModel>Level}"
+                                tooltip="{Level}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="iexlevel"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel38" text="Executive Level" />
+                        <t:template>
+                            <Text id="_IDGenText36"
+                                text="{tableModel>ExecutiveLevel}"
+                                tooltip="{ExecutiveLevel}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ibrand"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel39" text="Brand" />
+                        <t:template>
+                            <Text id="_IDGenText37"
+                                text="{tableModel>Brand}"
+                                tooltip="{Brand}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ibrlevel"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel40" text="Brand Level" />
+                        <t:template>
+                            <Text id="_IDGenText38"
+                                text="{tableModel>BrandLevel}"
+                                tooltip="{BrandLevel}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="isur"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel41" text="Succession Urgency Rating" />
+                        <t:template>
+                            <Text id="_IDGenText39"
+                                text="{tableModel>SuccessionUrgencyRating}"
+                                tooltip="{SuccessionUrgencyRating}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                     <t:Column
+                        id="ipjfn"
+                        width="9rem"
+                        filterProperty="SupplierDetails_SupplierName"
+                        sortProperty="SupplierDetails_SupplierName"
+                        visible="false"
+                    >
+                        <Label id="_IDGenLabel42" text="Position Job Function" />
+                        <t:template>
+                            <Text id="_IDGenText40"
+                                text="{tableModel>PositionJobFunction}"
+                                tooltip="{PositionJobFunction}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:Table>
+
+              <t:Table
+                            id="reqTable"
+                            rows="{selectedItems>/}"
+                            selectionMode="MultiToggle"
+                            enableColumnReordering="true"
+                            enableSelectAll="true"
+                            ariaLabelledBy="title">                   
+                            <t:extension>
+                                <OverflowToolbar id="_IDGenOverflowToolbar1">
+                                    <Title id="title" text="Job Requisitions" level="H2"/>
+                                    <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                                    <Button id="_IDGenButton3" text="Mass Update Fields" press="onMassUpdate"/>
+                                     <Button id="_IDGenButton4"
+                                         text="Save Requisitions"
+                                        press="onPost"/>
+                                    <Button id="_IDGenButton5"
+                                        icon="sap-icon://action-settings"
+                                        press="onreqPersonalize"/>
+                                    <Button id="_IDGenButton6"
+                                        icon="sap-icon://excel-attachment"
+                                        press="onExport"/>
+                                </OverflowToolbar>
+                            </t:extension>
+
+                            <t:columns>
+                                <t:Column id="iccode" visible="true" width="120px" sortProperty="CompanyCode" filterProperty="CompanyCode">
+                                    <Label id="_IDGenLabel43" text="Company Code"/>
+                                    <t:template>
+                                        <Text id="_IDGenText41" text="{selectedItems>CompanyCode}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ifyear" visible="true" width="100px" sortProperty="FiscalYear" filterProperty="FiscalYear">
+                                    <Label id="_IDGenLabel44" text="Fiscal Year"/>
+                                    <t:template>
+                                        <Text id="_IDGenText42" text="{selectedItems>FiscalYear}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iadoc" visible="true" width="150px" sortProperty="AccountingDocument" filterProperty="AccountingDocument">
+                                    <Label id="_IDGenLabel45" text="Accounting Document"/>
+                                    <t:template>
+                                        <Text id="_IDGenText43" text="{selectedItems>AccountingDocument}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iditem" width="120px" visible="true" sortProperty="AccountingDocumentItem" filterProperty="AccountingDocumentItem">
+                                    <Label id="_IDGenLabel46" text="Document Item"/>
+                                    <t:template>
+                                        <Text id="_IDGenText44" text="{selectedItems>AccountingDocumentItem}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ilglitem" width="140px" visible="true" sortProperty="LedgerGLLineItem" filterProperty="LedgerGLLineItem">
+                                    <Label id="_IDGenLabel47" text="Ledger GL Line Item"/>
+                                    <t:template>
+                                        <Text id="_IDGenText45" text="{selectedItems>LedgerGLLineItem}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iledg" visible="true" width="100px" sortProperty="Ledger" filterProperty="Ledger">
+                                    <Label id="_IDGenLabel48" text="Ledger"/>
+                                    <t:template>
+                                        <Text id="_IDGenText46" text="{selectedItems>Ledger}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipdate" width="120px" visible="true" sortProperty="PostingDate" filterProperty="PostingDate">
+                                    <Label id="_IDGenLabel49" text="Posting Date"/>
+                                    <t:template>
+                                        <Text id="_IDGenText47" text="{selectedItems>PostingDate}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iddate" width="120px" visible="true" sortProperty="DocumentDate" filterProperty="DocumentDate">
+                                    <Label id="_IDGenLabel50" text="Document Date"/>
+                                    <t:template>
+                                        <Text id="_IDGenText48" text="{selectedItems>DocumentDate}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iadtype" visible="true" width="130px" sortProperty="AccountingDocumentType" filterProperty="AccountingDocumentType">
+                                    <Label id="_IDGenLabel51" text="Document Type"/>
+                                    <t:template>
+                                        <Text id="_IDGenText49" text="{selectedItems>AccountingDocumentType}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="idhtxt" visible="false" width="200px" sortProperty="AccountingDocumentHeaderText" filterProperty="AccountingDocumentHeaderText">
+                                    <Label id="_IDGenLabel52" text="Document Header Text"/>
+                                    <t:template>
+                                        <Text id="_IDGenText50" text="{selectedItems>AccountingDocumentHeaderText}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="itcode" visible="false" width="130px" sortProperty="TransactionCode" filterProperty="TransactionCode">
+                                    <Label id="_IDGenLabel53" text="Transaction Code"/>
+                                    <t:template>
+                                        <Text id="_IDGenText51" text="{selectedItems>TransactionCode}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iitrans" visible="false" width="160px" sortProperty="IntercompanyTransaction" filterProperty="IntercompanyTransaction">
+                                    <Label id="_IDGenLabel54" text="Intercompany Transaction"/>
+                                    <t:template>
+                                        <Text id="_IDGenText52" text="{selectedItems>IntercompanyTransaction}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="idref" visible="false" width="160px" sortProperty="DocumentReferenceID" filterProperty="DocumentReferenceID">
+                                    <Label id="_IDGenLabel55" text="Document Reference ID"/>
+                                    <t:template>
+                                        <Text id="_IDGenText53" text="{selectedItems>DocumentReferenceID}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iradoc" visible="false" width="180px" sortProperty="RecurringAccountingDocument" filterProperty="RecurringAccountingDocument">
+                                    <Label id="_IDGenLabel56" text="Recurring Accounting Document"/>
+                                    <t:template>
+                                        <Text id="_IDGenText54" text="{selectedItems>RecurringAccountingDocument}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="irdoc" visible="false" width="150px" sortProperty="ReverseDocument" filterProperty="ReverseDocument">
+                                    <Label id="_IDGenLabel57" text="Reverse Document"/>
+                                    <t:template>
+                                        <Text id="_IDGenText55" text="{selectedItems>ReverseDocument}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="irdfy" visible="false" width="180px" sortProperty="ReverseDocumentFiscalYear" filterProperty="ReverseDocumentFiscalYear">
+                                    <Label id="_IDGenLabel58" text="Reverse Doc Fiscal Year"/>
+                                    <t:template>
+                                        <Text id="_IDGenText56" text="{selectedItems>ReverseDocumentFiscalYear}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iadc" visible="false" width="150px" sortProperty="AccountingDocumentCategory" filterProperty="AccountingDocumentCategory">
+                                    <Label id="_IDGenLabel59" text="Document Category"/>
+                                    <t:template>
+                                        <Text id="_IDGenText57" text="{selectedItems>AccountingDocumentCategory}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipkey" visible="false" width="110px" sortProperty="PostingKey" filterProperty="PostingKey">
+                                    <Label id="_IDGenLabel60" text="Posting Key"/>
+                                    <t:template>
+                                        <Text id="_IDGenText58" text="{selectedItems>PostingKey}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iglacc" visible="false" width="120px" sortProperty="GLAccount" filterProperty="GLAccount">
+                                    <Label id="_IDGenLabel61" text="GL Account"/>
+                                    <t:template>
+                                        <Text id="_IDGenText59" text="{selectedItems>GLAccount}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iscomp" visible="false" width="130px" sortProperty="SourceCompany" filterProperty="SourceCompany">
+                                    <Label id="_IDGenLabel62" text="Source Company"/>
+                                    <t:template>
+                                        <Text id="_IDGenText60" text="{selectedItems>SourceCompany}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="irccentre" visible="false" width="110px" sortProperty="CostCenter" filterProperty="CostCenter">
+                                    <Label id="_IDGenLabel63" text="Cost Center"/>
+                                    <t:template>
+                                        <Text id="_IDGenText61" text="{selectedItems>CostCenter}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipcenter" visible="false" width="120px" sortProperty="ProfitCenter" filterProperty="ProfitCenter">
+                                    <Label id="_IDGenLabel64" text="Profit Center"/>
+                                    <t:template>
+                                        <Text id="_IDGenText62" text="{selectedItems>ProfitCenter}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ifnarea" visible="false" width="140px" sortProperty="FunctionalArea" filterProperty="FunctionalArea">
+                                    <Label id="_IDGenLabel65" text="Functional Area"/>
+                                    <t:template>
+                                        <Text id="_IDGenText63" text="{selectedItems>FunctionalArea}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ibarea" visible="false" width="130px" sortProperty="BusinessArea" filterProperty="BusinessArea">
+                                    <Label id="_IDGenLabel66" text="Business Area"/>
+                                    <t:template>
+                                        <Text id="_IDGenText64" text="{selectedItems>BusinessArea}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="icarea" visible="false" width="140px" sortProperty="ControllingArea" filterProperty="ControllingArea">
+                                    <Label id="_IDGenLabel67" text="Controlling Area"/>
+                                    <t:template>
+                                        <Text id="_IDGenText65" text="{selectedItems>ControllingArea}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="isegment" visible="false" width="110px" sortProperty="Segment" filterProperty="Segment">
+                                    <Label id="_IDGenLabel68" text="Segment"/>
+                                    <t:template>
+                                        <Text id="_IDGenText66" text="{selectedItems>Segment}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipccenter" visible="false" width="160px" sortProperty="PartnerCostCenter" filterProperty="PartnerCostCenter">
+                                    <Label id="_IDGenLabel69" text="Partner Cost Center"/>
+                                    <t:template>
+                                        <Text id="_IDGenText67" text="{selectedItems>PartnerCostCenter}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ippcenter" visible="false" width="170px" sortProperty="PartnerProfitCenter" filterProperty="PartnerProfitCenter">
+                                    <Label id="_IDGenLabel70" text="Partner Profit Center"/>
+                                    <t:template>
+                                        <Text id="_IDGenText68" text="{selectedItems>PartnerProfitCenter}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipfnarea" visible="false" width="180px" sortProperty="PartnerFunctionalArea" filterProperty="PartnerFunctionalArea">
+                                    <Label id="_IDGenLabel71" text="Partner Functional Area"/>
+                                    <t:template>
+                                        <Text id="_IDGenText69" text="{selectedItems>PartnerFunctionalArea}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipbarea" visible="false" width="170px" sortProperty="PartnerBusinessArea" filterProperty="PartnerBusinessArea">
+                                    <Label id="_IDGenLabel72" text="Partner Business Area"/>
+                                    <t:template>
+                                        <Text id="_IDGenText70" text="{selectedItems>PartnerBusinessArea}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ipcomp" visible="false" width="150px" sortProperty="PartnerCompany" filterProperty="PartnerCompany">
+                                    <Label id="_IDGenLabel73" text="Partner Company"/>
+                                    <t:template>
+                                        <Text id="_IDGenText71" text="{selectedItems>PartnerCompany}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column  id="ipseg" visible="false" width="150px" sortProperty="PartnerSegment" filterProperty="PartnerSegment">
+                                    <Label id="_IDGenLabel74" text="Partner Segment"/>
+                                    <t:template>
+                                        <Text id="_IDGenText72" text="{selectedItems>PartnerSegment}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ibtcurr" visible="false" width="160px" sortProperty="BalanceTransactionCurrency" filterProperty="BalanceTransactionCurrency">
+                                    <Label id="_IDGenLabel75" text="Balance Trans Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText73" text="{selectedItems>BalanceTransactionCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iabtr" visible="false" width="180px" sortProperty="AmountInBalanceTransacCrcy" filterProperty="AmountInBalanceTransacCrcy">
+                                    <Label id="_IDGenLabel76" text="Amount in Balance Trans Crcy"/>
+                                    <t:template>
+                                        <Text id="_IDGenText74" text="{selectedItems>AmountInBalanceTransacCrcy}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="itcurr" visible="false" width="150px" sortProperty="TransactionCurrency" filterProperty="TransactionCurrency">
+                                    <Label id="_IDGenLabel77" text="Transaction Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText75" text="{selectedItems>TransactionCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iatcurr" visible="false" width="180px" sortProperty="AmountInTransactionCurrency" filterProperty="AmountInTransactionCurrency">
+                                    <Label id="_IDGenLabel78" text="Amount in Trans Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText76" text="{selectedItems>AmountInTransactionCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iccodecur" visible="false" width="170px" sortProperty="CompanyCodeCurrency" filterProperty="CompanyCodeCurrency">
+                                    <Label id="_IDGenLabel79" text="Company Code Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText77" text="{selectedItems>CompanyCodeCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iaccurr" visible="false" width="190px" sortProperty="AmountInCompanyCodeCurrency" filterProperty="AmountInCompanyCodeCurrency">
+                                    <Label id="_IDGenLabel80" text="Amount in Company Code Crcy"/>
+                                    <t:template>
+                                        <Text id="_IDGenText78" text="{selectedItems>AmountInCompanyCodeCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="igcurr" visible="false" width="140px" sortProperty="GlobalCurrency" filterProperty="GlobalCurrency">
+                                    <Label id="_IDGenLabel81" text="Global Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText79" text="{selectedItems>GlobalCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iaigcurr" visible="false" width="170px" sortProperty="AmountInGlobalCurrency" filterProperty="AmountInGlobalCurrency">
+                                    <Label id="_IDGenLabel82" text="Amount in Global Crcy"/>
+                                    <t:template>
+                                        <Text id="_IDGenText80" text="{selectedItems>AmountInGlobalCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ifncurr" visible="false"  width="160px" sortProperty="FunctionalCurrency" filterProperty="FunctionalCurrency">
+                                    <Label id="_IDGenLabel83" text="Functional Currency"/>
+                                    <t:template>
+                                        <Text id="_IDGenText81" text="{selectedItems>FunctionalCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iaifcurr" visible="false" width="190px" sortProperty="AmountInFunctionalCurrency" filterProperty="AmountInFunctionalCurrency">
+                                    <Label id="_IDGenLabel84" text="Amount in Functional Crcy"/>
+                                    <t:template>
+                                        <Text id="_IDGenText82" text="{selectedItems>AmountInFunctionalCurrency}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="ibunit" width="110px" visible="false" sortProperty="BaseUnit" filterProperty="BaseUnit">
+                                    <Label id="_IDGenLabel85" text="Base Unit"/>
+                                    <t:template>
+                                        <Text id="_IDGenText83" text="{selectedItems>BaseUnit}"/>
+                                    </t:template>
+                                </t:Column>
+
+                                <t:Column id="iquan" width="100px" visible="false" sortProperty="Quantity" filterProperty="Quantity">
+                                    <Label id="_IDGenLabel86" text="Quantity"/>
+                                    <t:template>
+                                        <Text id="_IDGenText84" text="{selectedItems>Quantity}"/>
+                                    </t:template>
+                                </t:Column>
+                            </t:columns>
+                        </t:Table>
+
+
+            <!-- <Table
+                id="selectedItemsTable"
+                items="{selectedItems>/data}"
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Selected Items" />
+                        <ToolbarSpacer />
+                        <Label text="Update Value:" />
+                        <Input
+                            id="updateValueInput"
+                            width="150px"
+                            type="Number"
+                            value="{updateModel>/updateValue}"
+                            placeholder="Enter value"
+                        />
+                        <Button
+                            text="Save"
+                            type="Emphasized"
+                            press="onSavePress"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <header>
+                            <Label text="Product" />
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Label text="Category" />
+                        </header>
+                    </Column>
+                    <Column hAlign="End">
+                        <header>
+                            <Label text="Quantity" />
+                        </header>
+                    </Column>
+                    <Column hAlign="End">
+                        <header>
+                            <Label text="Price" />
+                        </header>
+                    </Column>
+                    <Column hAlign="End">
+                        <header>
+                            <Label text="Updated Value" />
+                        </header>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{selectedItems>product}" />
+                            <Text text="{selectedItems>category}" />
+                            <Text text="{selectedItems>quantity}" />
+                            <Text text="${selectedItems>price}" />
+                            <Text text="{selectedItems>value}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->
+
+            <!-- <Button
+                            text="Complete"
+                            type="Success"
+                            press="onCompletePress"
+                            class="sapUiSmallMarginTop"/> -->
+            <!-- </WizardStep>
+                    
+                </Wizard> -->
+        </content>
+    </Page>
+</mvc:View>

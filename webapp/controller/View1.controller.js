@@ -22,6 +22,7 @@ sap.ui.define([
 
     return Controller.extend("com.sap.sj.jobreq.controller.View1", {
         onInit: function () {
+           // this._loadPositions();
             // Sample data for dropdowns
             var aCategories = [
                 { key: "OpCo North America", text: "OpCo North America" },
@@ -40,416 +41,6 @@ sap.ui.define([
                 { key: "Pending", text: "Pending" },
                 { key: "Inactive", text: "Inactive" }
             ];
-         
-            
-
-            // All available data
-            var allTableData = [
-                {
-                    Code: "POS-2024-001",
-                    PositionTitle: "Senior Software Engineer",
-                    StartDate: "2024-01-15",
-                    Status: "Active",
-                    OpCo: "OpCo North America",
-                    BusinessEntity: "Technology Services",
-                    OperatingUnit: "Software Development",
-                    OperatingCompany: "Tech Solutions Inc.",
-                    "Division": "Engineering Division",
-                    Department: "Application Development",
-                    "Location": "New York",
-                    CostCentre: "CC-1001",
-                    WorkLocation: "Hybrid",
-                    "OrganizationName": "Tech Corp International",
-                    JobCode: "JC-SE-001",
-                    JobTitle: "Senior Software Engineer",
-                    OpCoLevel: "Level 3",
-                    JobFunction: "Engineering",
-                    JobFamily: "Software Development",
-                    FTE: "1.0",
-                    PayGrade: "Grade 7",
-                    MinimumPay: "85000",
-                    MidPoint: "105000",
-                    MaximumPay: "125000",
-                    EmployeeClass: "Professional",
-                    Regular: "Regular",
-                    CareerLevel: "Senior",
-                    RoleArchetype: "Technical Expert",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "No",
-                    CriticalPosition: "Yes",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Key position for digital transformation",
-                    RoleClassification: "Technical",
-                    HRL: "HRL-3",
-                    Level: "P3",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Tech Brand",
-                    BrandLevel: "Senior Professional",
-                    SuccessionUrgencyRating: "Medium",
-                    PositionJobFunction: "Software Engineering"
-                },
-                {
-                    Code: "POS-2024-002",
-                    PositionTitle: "Marketing Manager",
-                    StartDate: "2024-02-01",
-                    Status: "Active",
-                    OpCo: "OpCo Europe",
-                    BusinessEntity: "Commercial Operations",
-                    OperatingUnit: "Marketing",
-                    OperatingCompany: "Marketing Solutions Ltd.",
-                    "Division": "Sales & Marketing",
-                    Department: "Digital Marketing",
-                    "Location": "London",
-                    CostCentre: "CC-2001",
-                    WorkLocation: "Office",
-                    "OrgnaizationName": "Global Marketing Corp",
-                    JobCode: "JC-MM-002",
-                    JobTitle: "Marketing Manager",
-                    OpCoLevel: "Level 4",
-                    JobFunction: "Marketing",
-                    JobFamily: "Commercial",
-                    FTE: "1.0",
-                    PayGrade: "Grade 8",
-                    MinimumPay: "75000",
-                    MidPoint: "95000",
-                    MaximumPay: "115000",
-                    EmployeeClass: "Management",
-                    Regular: "Regular",
-                    CareerLevel: "Manager",
-                    RoleArchetype: "People Manager",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "Yes",
-                    MassPosition: "No",
-                    CriticalPosition: "Yes",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Responsible for European market expansion",
-                    RoleClassification: "Commercial",
-                    HRL: "HRL-4",
-                    Level: "M1",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Premium Brand",
-                    BrandLevel: "Manager",
-                    SuccessionUrgencyRating: "High",
-                    PositionJobFunction: "Marketing Management"
-                },
-                {
-                    Code: "POS-2024-003",
-                    PositionTitle: "HR Business Partner",
-                    StartDate: "2024-01-20",
-                    Status: "Active",
-                    OpCo: "OpCo Asia Pacific",
-                    BusinessEntity: "Human Resources",
-                    OperatingUnit: "HR Operations",
-                    OperatingCompany: "HR Services Asia",
-                    "Division": "Corporate Services",
-                    Department: "Human Resources",
-                    "Location": "Singapore",
-                    CostCentre: "CC-3001",
-                    WorkLocation: "Hybrid",
-                    "OrganizationName": "Asia Pacific Holdings",
-                    JobCode: "JC-HR-003",
-                    JobTitle: "HR Business Partner",
-                    OpCoLevel: "Level 3",
-                    JobFunction: "Human Resources",
-                    JobFamily: "HR",
-                    FTE: "1.0",
-                    PayGrade: "Grade 7",
-                    MinimumPay: "70000",
-                    MidPoint: "88000",
-                    MaximumPay: "106000",
-                    EmployeeClass: "Professional",
-                    Regular: "Regular",
-                    CareerLevel: "Senior",
-                    RoleArchetype: "Business Partner",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "No",
-                    CriticalPosition: "No",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Supporting 200+ employees across APAC",
-                    RoleClassification: "Support",
-                    HRL: "HRL-3",
-                    Level: "P3",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Corporate Brand",
-                    BrandLevel: "Senior Professional",
-                    SuccessionUrgencyRating: "Low",
-                    PositionJobFunction: "HR Partnership"
-                },
-                {
-                    Code: "POS-2024-004",
-                    PositionTitle: "Financial Controller",
-                    StartDate: "2024-03-01",
-                    Status: "Pending",
-                    OpCo: "OpCo Middle East",
-                    BusinessEntity: "Finance",
-                    OperatingUnit: "Financial Planning",
-                    OperatingCompany: "Finance Corp ME",
-                    "Division": "Finance Division",
-                    Department: "Financial Control",
-                    "Location": "Dubai",
-                    CostCentre: "CC-4001",
-                    WorkLocation: "Office",
-                    "OrganizationName": "Middle East Operations",
-                    JobCode: "JC-FC-004",
-                    JobTitle: "Financial Controller",
-                    OpCoLevel: "Level 5",
-                    JobFunction: "Finance",
-                    JobFamily: "Finance & Accounting",
-                    FTE: "1.0",
-                    PayGrade: "Grade 9",
-                    MinimumPay: "95000",
-                    MidPoint: "120000",
-                    MaximumPay: "145000",
-                    EmployeeClass: "Management",
-                    Regular: "Regular",
-                    CareerLevel: "Senior Manager",
-                    RoleArchetype: "Financial Leader",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "Yes",
-                    MassPosition: "No",
-                    CriticalPosition: "Yes",
-                    "HigherLevelPosition": "Yes",
-                    "OverseasHirewith": "Yes",
-                    Comment: "Strategic finance leadership role",
-                    RoleClassification: "Finance",
-                    HRL: "HRL-5",
-                    Level: "M2",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Premium Brand",
-                    BrandLevel: "Senior Manager",
-                    SuccessionUrgencyRating: "High",
-                    PositionJobFunction: "Financial Control"
-                },
-                {
-                    Code: "POS-2024-005",
-                    PositionTitle: "Data Analyst",
-                    StartDate: "2024-02-15",
-                    Status: "Active",
-                    OpCo: "OpCo North America",
-                    BusinessEntity: "Analytics",
-                    OperatingUnit: "Business Intelligence",
-                    OperatingCompany: "Data Solutions Inc.",
-                    "Division": "Technology Division",
-                    Department: "Data Analytics",
-                    "Location": "San Francisco",
-                    CostCentre: "CC-1002",
-                    WorkLocation: "Remote",
-                    "OrganizationName": "Tech Corp International",
-                    JobCode: "JC-DA-005",
-                    JobTitle: "Data Analyst",
-                    OpCoLevel: "Level 2",
-                    JobFunction: "Analytics",
-                    JobFamily: "Data & Analytics",
-                    FTE: "1.0",
-                    PayGrade: "Grade 5",
-                    MinimumPay: "60000",
-                    MidPoint: "75000",
-                    MaximumPay: "90000",
-                    EmployeeClass: "Professional",
-                    Regular: "Regular",
-                    CareerLevel: "Mid-Level",
-                    RoleArchetype: "Analyst",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "No",
-                    CriticalPosition: "No",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Focus on business intelligence reporting",
-                    RoleClassification: "Technical",
-                    HRL: "HRL-2",
-                    Level: "P2",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Tech Brand",
-                    BrandLevel: "Professional",
-                    SuccessionUrgencyRating: "Low",
-                    PositionJobFunction: "Data Analysis"
-                },
-                {
-                    Code: "POS-2024-006",
-                    PositionTitle: "Supply Chain Manager",
-                    StartDate: "2024-01-10",
-                    Status: "Active",
-                    OpCo: "OpCo Europe",
-                    BusinessEntity: "Operations",
-                    OperatingUnit: "Supply Chain",
-                    OperatingCompany: "Logistics Europe Ltd.",
-                    "Division": "Operations Division",
-                    Department: "Supply Chain Management",
-                    "Location": "Amsterdam",
-                    CostCentre: "CC-2002",
-                    WorkLocation: "Hybrid",
-                    "OrganizationName": "European Logistics Corp",
-                    JobCode: "JC-SCM-006",
-                    JobTitle: "Supply Chain Manager",
-                    OpCoLevel: "Level 4",
-                    JobFunction: "Operations",
-                    JobFamily: "Supply Chain",
-                    FTE: "1.0",
-                    PayGrade: "Grade 8",
-                    MinimumPay: "80000",
-                    MidPoint: "100000",
-                    MaximumPay: "120000",
-                    EmployeeClass: "Management",
-                    Regular: "Regular",
-                    CareerLevel: "Manager",
-                    RoleArchetype: "Operational Manager",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "No",
-                    CriticalPosition: "Yes",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Managing end-to-end supply chain",
-                    RoleClassification: "Operations",
-                    HRL: "HRL-4",
-                    Level: "M1",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Corporate Brand",
-                    BrandLevel: "Manager",
-                    SuccessionUrgencyRating: "Medium",
-                    PositionJobFunction: "Supply Chain Operations"
-                },
-                {
-                    Code: "POS-2024-007",
-                    PositionTitle: "Customer Service Representative",
-                    StartDate: "2024-02-20",
-                    Status: "Active",
-                    OpCo: "OpCo Asia Pacific",
-                    BusinessEntity: "Customer Service",
-                    OperatingUnit: "Support Operations",
-                    OperatingCompany: "Service Center Asia",
-                    "Division": "Customer Experience",
-                    Department: "Customer Support",
-                    "Location": "Manila",
-                    CostCentre: "CC-3002",
-                    WorkLocation: "Office",
-                    "OrganizationName": "Customer Solutions Asia",
-                    JobCode: "JC-CSR-007",
-                    JobTitle: "Customer Service Representative",
-                    OpCoLevel: "Level 1",
-                    JobFunction: "Customer Service",
-                    JobFamily: "Customer Support",
-                    FTE: "1.0",
-                    PayGrade: "Grade 3",
-                    MinimumPay: "25000",
-                    MidPoint: "32000",
-                    MaximumPay: "39000",
-                    EmployeeClass: "Support Staff",
-                    Regular: "Regular",
-                    CareerLevel: "Entry-Level",
-                    RoleArchetype: "Service Provider",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "Yes",
-                    CriticalPosition: "No",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Part of 24/7 customer support team",
-                    RoleClassification: "Support",
-                    HRL: "HRL-1",
-                    Level: "P1",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Service Brand",
-                    BrandLevel: "Entry Professional",
-                    SuccessionUrgencyRating: "Low",
-                    PositionJobFunction: "Customer Support"
-                },
-                {
-                    Code: "POS-2024-008",
-                    PositionTitle: "Chief Technology Officer",
-                    StartDate: "2024-04-01",
-                    Status: "Pending",
-                    OpCo: "OpCo North America",
-                    BusinessEntity: "Executive Leadership",
-                    OperatingUnit: "Technology",
-                    OperatingCompany: "Tech Corp NA",
-                    "Division": "Executive Office",
-                    Department: "Executive Management",
-                    "Location": "Boston",
-                    CostCentre: "CC-1003",
-                    WorkLocation: "Hybrid",
-                    "OrganizationName": "Tech Corp International",
-                    JobCode: "JC-CTO-008",
-                    JobTitle: "Chief Technology Officer",
-                    OpCoLevel: "Level 7",
-                    JobFunction: "Executive Leadership",
-                    JobFamily: "C-Suite",
-                    FTE: "1.0",
-                    PayGrade: "Grade 12",
-                    MinimumPay: "180000",
-                    MidPoint: "230000",
-                    MaximumPay: "280000",
-                    EmployeeClass: "Executive",
-                    Regular: "Regular",
-                    CareerLevel: "Executive",
-                    RoleArchetype: "Strategic Leader",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "Yes",
-                    MassPosition: "No",
-                    CriticalPosition: "Yes",
-                    "HigherLevelPosition": "Yes",
-                    "OverseasHirewith": "Yes",
-                    Comment: "Leading technology strategy and innovation",
-                    RoleClassification: "Executive",
-                    HRL: "HRL-7",
-                    Level: "E1",
-                    ExecutiveLevel: "C-Suite",
-                    Brand: "Executive Brand",
-                    BrandLevel: "Executive",
-                    SuccessionUrgencyRating: "Critical",
-                    PositionJobFunction: "Technology Leadership"
-                },
-                {
-                    Code: "POS-2024-009",
-                    PositionTitle: "Product Designer",
-                    StartDate: "2024-01-25",
-                    Status: "Active",
-                    OpCo: "OpCo Europe",
-                    BusinessEntity: "Product Development",
-                    OperatingUnit: "Design",
-                    OperatingCompany: "Design Studios EU",
-                    "Division": "Product Division",
-                    Department: "UX Design",
-                    "Location": "Berlin",
-                    CostCentre: "CC-2003",
-                    WorkLocation: "Hybrid",
-                    "OrganizationName": "Design Corp Europe",
-                    JobCode: "JC-PD-009",
-                    JobTitle: "Product Designer",
-                    OpCoLevel: "Level 2",
-                    JobFunction: "Design",
-                    JobFamily: "Product Design",
-                    FTE: "1.0",
-                    PayGrade: "Grade 6",
-                    MinimumPay: "65000",
-                    MidPoint: "82000",
-                    MaximumPay: "99000",
-                    EmployeeClass: "Professional",
-                    Regular: "Regular",
-                    CareerLevel: "Mid-Level",
-                    RoleArchetype: "Creative Professional",
-                    Budgeted: "Yes",
-                    ToBeRecruited: "No",
-                    MassPosition: "No",
-                    CriticalPosition: "No",
-                    "HigherLevelPosition": "No",
-                    "OverseasHirewith": "No",
-                    Comment: "Working on next-gen product experiences",
-                    RoleClassification: "Creative",
-                    HRL: "HRL-2",
-                    Level: "P2",
-                    ExecutiveLevel: "Non-Executive",
-                    Brand: "Design Brand",
-                    BrandLevel: "Professional",
-                    SuccessionUrgencyRating: "Low",
-                    PositionJobFunction: "Product Design"
-                }];
 
             // Initialize models
             var oFilterModel = new JSONModel({
@@ -461,21 +52,38 @@ sap.ui.define([
                 statuses: aStatuses
             });
 
-            var oTableModel = new JSONModel(allTableData);
-
-          
-
             var oUpdateModel = new JSONModel({
                 updateValue: ""
             });
 
-            // Set models to view
             this.getView().setModel(oFilterModel, "filterModel");
-            this.getView().setModel(oTableModel, "tableModel");
-         
+
             this.getView().setModel(oUpdateModel, "updateModel");
             this._registerForP13n();
             this._registerForrP13n();
+        },
+
+        _loadPositions: function () {
+            var oModel = this.getOwnerComponent().getModel();
+            var oTable = this.byId("positionsTable");
+
+            oModel.read("/Position", {
+                urlParameters: {
+                    "$top": 10
+                },
+                success: function (oData) {
+
+                    var oTableModel = new JSONModel(oData.results);
+                    this.getView().setModel(oTableModel, "tableModel");
+
+                    oTable.setModel(oTableModel, "tableModel");
+                    oTable.bindRows("tableModel>/");
+                }.bind(this),
+
+                error: function (oErr) {
+                    MessageToast.show("Failed to load Positions");
+                }
+            });
         },
 
         openPersoDialog: function (oEvt) {
@@ -488,8 +96,8 @@ sap.ui.define([
                 source: oEvt.getSource()
             });
         },
-        onreqPersonalize:function(oEvt){
-             var oView = this.getView();
+        onreqPersonalize: function (oEvt) {
+            var oView = this.getView();
             var oTable = oView.byId("reqTable");
 
             Engine.getInstance().show(oTable, ["Columns", "Sorter", "Groups"], {
@@ -502,64 +110,64 @@ sap.ui.define([
             var oView = this.getView();
             var oTable = oView.byId("reqTable");
             var oState = oEvt.getParameter("state");
-            var oId=oEvt.getParameters().control.getId();
-             if(oId.indexOf("reqTable")!==-1){
-            oTable.getColumns().forEach(function (oColumn) {
-                oColumn.setVisible(false);
+            var oId = oEvt.getParameters().control.getId();
+            if (oId.indexOf("reqTable") !== -1) {
+                oTable.getColumns().forEach(function (oColumn) {
+                    oColumn.setVisible(false);
 
-            });
+                });
 
-            oState.Columns.forEach(function (oProp, iIndex) {
-                var oCol = oView.byId(oProp.key);
-                oCol.setVisible(true);
+                oState.Columns.forEach(function (oProp, iIndex) {
+                    var oCol = oView.byId(oProp.key);
+                    oCol.setVisible(true);
 
-                oTable.removeColumn(oCol);
-                oTable.insertColumn(oCol, iIndex);
-            }.bind(this));
+                    oTable.removeColumn(oCol);
+                    oTable.insertColumn(oCol, iIndex);
+                }.bind(this));
 
-            var aSorter = [];
-            oState.Sorter.forEach(function (oSorter) {
-                var oColumn = oView.byId(oSorter.key);
-                oColumn.setSorted(true);
-                oColumn.setSortOrder(oSorter.descending ? CoreLibrary.SortOrder.Descending : CoreLibrary.SortOrder.Ascending);
-                aSorter.push(new Sorter(this.oMetadataHelper.getProperty(oSorter.key).path, oSorter.descending));
-            }.bind(this));
-            oTable.getBinding("rows").sort(aSorter);
-        }
+                var aSorter = [];
+                oState.Sorter.forEach(function (oSorter) {
+                    var oColumn = oView.byId(oSorter.key);
+                    oColumn.setSorted(true);
+                    oColumn.setSortOrder(oSorter.descending ? CoreLibrary.SortOrder.Descending : CoreLibrary.SortOrder.Ascending);
+                    aSorter.push(new Sorter(this.oMetadataHelper.getProperty(oSorter.key).path, oSorter.descending));
+                }.bind(this));
+                oTable.getBinding("rows").sort(aSorter);
+            }
 
         },
         handleStateChange: function (oEvt) {
             var oView = this.getView();
             var oTable = oView.byId("positionsTable");
             var oState = oEvt.getParameter("state");
-            var oId=oEvt.getParameters().control.getId();
+            var oId = oEvt.getParameters().control.getId();
 
-            if(oId.indexOf("positionsTable")!==-1){
-            
-            
+            if (oId.indexOf("positionsTable") !== -1) {
 
-            oTable.getColumns().forEach(function (oColumn) {
-                oColumn.setVisible(false);
 
-            });
 
-            oState.Columns.forEach(function (oProp, iIndex) {
-                var oCol = oView.byId(oProp.key);
-                oCol.setVisible(true);
+                oTable.getColumns().forEach(function (oColumn) {
+                    oColumn.setVisible(false);
 
-                oTable.removeColumn(oCol);
-                oTable.insertColumn(oCol, iIndex);
-            }.bind(this));
+                });
 
-            var aSorter = [];
-            oState.Sorter.forEach(function (oSorter) {
-                var oColumn = oView.byId(oSorter.key);
-                oColumn.setSorted(true);
-                oColumn.setSortOrder(oSorter.descending ? CoreLibrary.SortOrder.Descending : CoreLibrary.SortOrder.Ascending);
-                aSorter.push(new Sorter(this.oMetadataHelper.getProperty(oSorter.key).path, oSorter.descending));
-            }.bind(this));
-            oTable.getBinding("rows").sort(aSorter);
-        }
+                oState.Columns.forEach(function (oProp, iIndex) {
+                    var oCol = oView.byId(oProp.key);
+                    oCol.setVisible(true);
+
+                    oTable.removeColumn(oCol);
+                    oTable.insertColumn(oCol, iIndex);
+                }.bind(this));
+
+                var aSorter = [];
+                oState.Sorter.forEach(function (oSorter) {
+                    var oColumn = oView.byId(oSorter.key);
+                    oColumn.setSorted(true);
+                    oColumn.setSortOrder(oSorter.descending ? CoreLibrary.SortOrder.Descending : CoreLibrary.SortOrder.Ascending);
+                    aSorter.push(new Sorter(this.oMetadataHelper.getProperty(oSorter.key).path, oSorter.descending));
+                }.bind(this));
+                oTable.getBinding("rows").sort(aSorter);
+            }
 
         },
         onExport: function () {
@@ -653,49 +261,49 @@ sap.ui.define([
             var oView = this.getView();
             var oTable = oView.byId("positionsTable");
             this.oMetadataHelper = new MetadataHelper([
-                { key: "icode", path: "Code", label: "Code" },
-                { key: "iptitle", path: "PositionTitle", label: "Position Title" },
-                { key: "isdate", path: "StartDate", label: "Start Date" },
-                { key: "istatus", path: "Status", label: "Status" },
-                { key: "iop", path: "OpCo", label: "OpCo" },
-                { key: "ibentity", path: "BusinessEntity", label: "Business Entity" },
-                { key: "iopunit", path: "OperatingUnit", label: "Operating Unit" },
-                { key: "iopcomp", path: "OperatingCompany", label: "Operating Company" },
-                { key: "idivision", path: "Division", label: "Division/Entity" },
-                { key: "idep", path: "Department", label: "Department" },
-                { key: "iloc", path: "Location", label: "Location(City)" },
-                { key: "ccentre", path: "CostCentre", label: "Cost Centre" },
-                { key: "iwloc", path: "WorkLocation", label: "Work Location" },
-                { key: "iorgname", path: "Orgnaisation Name", label: "Orgnaisation Name" },
-                { key: "ijcode", path: "JobCode", label: "Job Code" },
-                { key: "ijtitle", path: "JobTitle", label: "Job Title" },
-                { key: "ioplevel", path: "OpCoLevel", label: "OpCo Level" },
-                { key: "ijfn", path: "JobFunction", label: "Job Function" },
-                { key: "ijfam", path: "JobFamily", label: "Job Family" },
-                { key: "ifte", path: "FTE", label: "FTE" },
-                { key: "ipgrd", path: "PayGrade", label: "Pay Grade" },
-                { key: "imipay", path: "MinimumPay", label: "Minimum Pay" },
-                { key: "impoint", path: "MidPoint", label: "Mid Point" },
-                { key: "imapay", path: "PartOwner", label: "Maximum Pay" },
-                { key: "ieclass", path: "EmployeeClass", label: "Employee Class" },
-                { key: "iregtemp", path: "Regular", label: "Regular/Temporary" },
-                { key: "icalevel", path: "CareerLevel", label: "Career Level" },
-                { key: "irarch", path: "RoleArchetype", label: "Role Archetype" },
-                { key: "ibudg", path: "Budgeted", label: "Budgeted" },
-                { key: "itbre", path: "ToBeRecruited", label: "To Be Recruited" },
-                { key: "impo", path: "MassPosition", label: "Mass Position" },
+                { key: "icode", path: "code", label: "Code" },
+                { key: "iptitle", path: "jobTitle", label: "Position Title" },
+                { key: "isdate", path: "effectiveStartDate", label: "Start Date" },
+                { key: "istatus", path: "effectiveStatus", label: "Status" },
+                { key: "iop", path: "cust_opcoNav/label_defaultValue", label: "OpCo" },
+                { key: "ibentity", path: "cust_BusinessUnitNav/label_defaultValue", label: "Business Entity" },
+                { key: "iopunit", path: "businessUnit", label: "Operating Unit" },
+                { key: "iopcomp", path: "company", label: "Operating Company" },
+                { key: "idivision", path: "division", label: "Division/Entity" },
+                { key: "idep", path: "department", label: "Department" },
+                { key: "iloc", path: "location", label: "Location(City)" },
+                { key: "ccentre", path: "CostCenter", label: "Cost Centre" },
+                { key: "iwloc", path: "cust_City", label: "Work Location" },
+                { key: "iorgname", path: "cust_Organization_NameNav/label_defaultValue", label: "Orgnaisation Name" },
+                { key: "ijcode", path: "jobCode", label: "Job Code" },
+                { key: "ijtitle", path: "jobTitle", label: "Job Title" },
+                { key: "ioplevel", path: "cust_OpcoLevelNav/label_defaultValue", label: "OpCo Level" },
+                { key: "ijfn", path: "cust_JobFunction", label: "Job Function" },
+                { key: "ijfam", path: "JobFamicust_JobFamilyNav/label_defaultValuely", label: "Job Family" },
+                { key: "ifte", path: "targetFTE", label: "FTE" },
+                { key: "ipgrd", path: "payGrade", label: "Pay Grade" },
+                { key: "imipay", path: "cust_MinimumPay", label: "Minimum Pay" },
+                { key: "impoint", path: "cust_MidPoint", label: "Mid Point" },
+                { key: "imapay", path: "cust_MaximumPay", label: "Maximum Pay" },
+                { key: "ieclass", path: "employeeClassNav/label_defaultValue", label: "Employee Class" },
+                { key: "iregtemp", path: "regularTemporaryNav/label_defaultValue", label: "Regular/Temporary" },
+                { key: "icalevel", path: "cust_OrgLevelNav/label_defaultValue", label: "Career Level" },
+                { key: "irarch", path: "cust_RoleArchetypeNav/label_defaultValue", label: "Role Archetype" },
+                { key: "ibudg", path: "cust_BudgetedNonBudgetedNav/label_defaultValue", label: "Budgeted" },
+                { key: "itbre", path: "vacant", label: "To Be Recruited" },
+                { key: "impo", path: "multipleIncumbentsAllowed", label: "Mass Position" },
                 { key: "icrpos", path: "CriticalPosition", label: "Critical Position" },
                 { key: "ihlpos", path: "HigherLevelPosition", label: "Higher-Level Position" },
-                { key: "ioh", path: "OverseasHirewith", label: "Overseas Hirewith" },
-                { key: "icom", path: "Comment", label: "Comment" },
-                { key: "irclass", path: "RoleClassification", label: "Role Classification" },
-                { key: "ihrl", path: "HRL", label: "HRL" },
-                { key: "ilevel", path: "Level", label: "Level" },
-                { key: "iexlevel", path: "ExecutiveLevel", label: "Executive Level" },
-                { key: "ibrand", path: "Brand", label: "Brand" },
-                { key: "ibrlevel", path: "BrandLevel", label: "Brand Level" },
-                { key: "isur", path: "SuccessionUrgencyRating", label: "Succession Urgency Rating" },
-                { key: "ipjfn", path: "PositionJobFunction", label: "Position Job Function" }
+                { key: "ioh", path: "cust_relocationagency", label: "Overseas Hirewith" },
+                { key: "icom", path: "comment", label: "Comment" },
+                { key: "irclass", path: "cust_roleClassNav/label_defaultValue", label: "Role Classification" },
+                { key: "ihrl", path: "cust_HRLNav/label_defaultValue", label: "HRL" },
+                { key: "ilevel", path: "cust_LevelNav/label_defaultValue", label: "Level" },
+                { key: "iexlevel", path: "cust_Executive_LevelNav/label_defaultValue", label: "Executive Level" },
+                { key: "ibrand", path: "cust_BandNav/label_defaultValue", label: "Band" },
+                { key: "ibrlevel", path: "cust_Band_LevelNav/label_defaultValue", label: "Band Level" },
+                { key: "isur", path: "cust_SuccessionurgencyNav/label_defaultValue", label: "Succession Urgency Rating" },
+                { key: "ipjfn", path: "cust_PositionJobFunctionNav/label_defaultValue", label: "Position Job Function" }
 
             ]);
             Engine.getInstance().register(oTable, {
@@ -723,51 +331,51 @@ sap.ui.define([
             var oView = this.getView();
             var orTable = oView.byId("reqTable");
             this.oMetadataHelperr = new MetadataHelper([
-                    { key:"iccode",path: "CompanyCode", label: "Company Code" },
-                    { key:"ifyear",path: "FiscalYear", label: "Fiscal Year" },
-                    { key:"iadoc",path: "AccountingDocument", label: "Accounting Document"},
-                    { key:"iditem",path: "AccountingDocumentItem", label: "Document Item"},
-                    { key:"ilglitem",path: "LedgerGLLineItem", label: "Ledger GL Line Item"},
-                    { key:"iledg",path: "Ledger", label: "Ledger"},
-                    { key:"ipdate",path: "PostingDate", label: "Posting Date"},
-                    { key:"iddate",path: "DocumentDate", label: "Document Date"},
-                    { key:"iadtype",path: "AccountingDocumentType", label: "Document Type"},
-                    { key:"iadhtxt",path: "AccountingDocumentHeaderText", label: "Document Header Text" },
-                    { key:"itcode",path: "TransactionCode", label: "Transaction Code"},
-                    { key:"iitrans",path: "IntercompanyTransaction", label: "Intercompany Transaction" },
-                    { key:"idref",path: "DocumentReferenceID", label: "Document Reference ID"},
-                    { key:"iradoc",path: "RecurringAccountingDocument", label: "Recurring Document" },
-                    { key:"irdoc",path: "ReverseDocument", label: "Reverse Document" },
-                    { key:"irdfy",path: "ReverseDocumentFiscalYear", label: "Reverse Doc Fiscal Year" },
-                    { key:"iadc",path: "AccountingDocumentCategory", label: "Document Category"},
-                    { key:"ipkey",path: "PostingKey", label: "Posting Key"},
-                    { key:"iglacc",path: "GLAccount", label: "GL Account"},
-                    { key:"iscomp",path: "SourceCompany", label: "Source Company" },
-                    { key:"irccentre",path: "CostCenter", label: "Cost Center"},
-                    { key:"ipcenter",path: "ProfitCenter", label: "Profit Center"},
-                    { key:"ifnarea",path: "FunctionalArea", label: "Functional Area" },
-                    { key:"ibarea",path: "BusinessArea", label: "Business Area" },
-                    { key:"icarea",path: "ControllingArea", label: "Controlling Area" },
-                    { key:"isegment",path: "Segment", label: "Segment" },
-                    { key:"ipccenter",path: "PartnerCostCenter", label: "Partner Cost Center" },
-                    { key:"ippcenter",path: "PartnerProfitCenter", label: "Partner Profit Center" },
-                    { key:"ipfnarea",path: "PartnerFunctionalArea", label: "Partner Functional Area" },
-                    { key:"ipbarea",path: "PartnerBusinessArea", label: "Partner Business Area" },
-                    { key:"ipcomp",path: "PartnerCompany", label: "Partner Company" },
-                    { key:"ipseg",path: "PartnerSegment", label: "Partner Segment" },
-                    { key:"ibtcurr",path: "BalanceTransactionCurrency", label: "Balance Trans Currency"},
-                    { key:"iabtr",path: "AmountInBalanceTransacCrcy", label: "Amount in Balance Trans Crcy"},
-                    { key:"itcurr",path: "TransactionCurrency", label: "Transaction Currency"},
-                    { key:"iatcurr",path: "AmountInTransactionCurrency", label: "Amount in Trans Currency"},
-                    { key:"iccodecur",path: "CompanyCodeCurrency", label: "Company Code Currency" },
-                    { key:"iaccurr",path: "AmountInCompanyCodeCurrency", label: "Amount in Co Code Crcy" },
-                    { key:"igcurr",path: "GlobalCurrency", label: "Global Currency" },
-                    { key:"iaigcurr",path: "AmountInGlobalCurrency", label: "Amount in Global Crcy" },
-                    { key:"ifncurr",path: "FunctionalCurrency", label: "Functional Currency" },
-                    { key:"iaifcurr",path: "AmountInFunctionalCurrency", label: "Amount in Functional Crcy" },
-                    { key:"ibunit",path: "BaseUnit", label: "Base Unit" },
-                    { key:"iquan",path: "Quantity", label: "Quantity" }
-                ]);
+                { key: "iccode", path: "CompanyCode", label: "Company Code" },
+                { key: "ifyear", path: "FiscalYear", label: "Fiscal Year" },
+                { key: "iadoc", path: "AccountingDocument", label: "Accounting Document" },
+                { key: "iditem", path: "AccountingDocumentItem", label: "Document Item" },
+                { key: "ilglitem", path: "LedgerGLLineItem", label: "Ledger GL Line Item" },
+                { key: "iledg", path: "Ledger", label: "Ledger" },
+                { key: "ipdate", path: "PostingDate", label: "Posting Date" },
+                { key: "iddate", path: "DocumentDate", label: "Document Date" },
+                { key: "iadtype", path: "AccountingDocumentType", label: "Document Type" },
+                { key: "iadhtxt", path: "AccountingDocumentHeaderText", label: "Document Header Text" },
+                { key: "itcode", path: "TransactionCode", label: "Transaction Code" },
+                { key: "iitrans", path: "IntercompanyTransaction", label: "Intercompany Transaction" },
+                { key: "idref", path: "DocumentReferenceID", label: "Document Reference ID" },
+                { key: "iradoc", path: "RecurringAccountingDocument", label: "Recurring Document" },
+                { key: "irdoc", path: "ReverseDocument", label: "Reverse Document" },
+                { key: "irdfy", path: "ReverseDocumentFiscalYear", label: "Reverse Doc Fiscal Year" },
+                { key: "iadc", path: "AccountingDocumentCategory", label: "Document Category" },
+                { key: "ipkey", path: "PostingKey", label: "Posting Key" },
+                { key: "iglacc", path: "GLAccount", label: "GL Account" },
+                { key: "iscomp", path: "SourceCompany", label: "Source Company" },
+                { key: "irccentre", path: "CostCenter", label: "Cost Center" },
+                { key: "ipcenter", path: "ProfitCenter", label: "Profit Center" },
+                { key: "ifnarea", path: "FunctionalArea", label: "Functional Area" },
+                { key: "ibarea", path: "BusinessArea", label: "Business Area" },
+                { key: "icarea", path: "ControllingArea", label: "Controlling Area" },
+                { key: "isegment", path: "Segment", label: "Segment" },
+                { key: "ipccenter", path: "PartnerCostCenter", label: "Partner Cost Center" },
+                { key: "ippcenter", path: "PartnerProfitCenter", label: "Partner Profit Center" },
+                { key: "ipfnarea", path: "PartnerFunctionalArea", label: "Partner Functional Area" },
+                { key: "ipbarea", path: "PartnerBusinessArea", label: "Partner Business Area" },
+                { key: "ipcomp", path: "PartnerCompany", label: "Partner Company" },
+                { key: "ipseg", path: "PartnerSegment", label: "Partner Segment" },
+                { key: "ibtcurr", path: "BalanceTransactionCurrency", label: "Balance Trans Currency" },
+                { key: "iabtr", path: "AmountInBalanceTransacCrcy", label: "Amount in Balance Trans Crcy" },
+                { key: "itcurr", path: "TransactionCurrency", label: "Transaction Currency" },
+                { key: "iatcurr", path: "AmountInTransactionCurrency", label: "Amount in Trans Currency" },
+                { key: "iccodecur", path: "CompanyCodeCurrency", label: "Company Code Currency" },
+                { key: "iaccurr", path: "AmountInCompanyCodeCurrency", label: "Amount in Co Code Crcy" },
+                { key: "igcurr", path: "GlobalCurrency", label: "Global Currency" },
+                { key: "iaigcurr", path: "AmountInGlobalCurrency", label: "Amount in Global Crcy" },
+                { key: "ifncurr", path: "FunctionalCurrency", label: "Functional Currency" },
+                { key: "iaifcurr", path: "AmountInFunctionalCurrency", label: "Amount in Functional Crcy" },
+                { key: "ibunit", path: "BaseUnit", label: "Base Unit" },
+                { key: "iquan", path: "Quantity", label: "Quantity" }
+            ]);
             Engine.getInstance().register(orTable, {
                 helper: this.oMetadataHelperr,
                 controller: {
@@ -845,8 +453,8 @@ sap.ui.define([
             }
 
             // Get selected data
-              var osData = 
-               [
+            var osData =
+                [
                     {
                         CompanyCode: "1000",
                         FiscalYear: "2024",
@@ -896,7 +504,7 @@ sap.ui.define([
                 ]
             var oSelectedItemsModel = new JSONModel(osData);
             this.getView().setModel(oSelectedItemsModel, "selectedItems");
-    
+
         },
 
         onSavePress: function () {

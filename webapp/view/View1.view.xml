@@ -162,14 +162,14 @@
             <t:Table
                 id="positionsTable"
                 rowMode="Interactive"
-                rows="{path:'tableModel>/'}"
+                rows="{path:'/Position', filters : [{ path : 'effectiveStatus', operator : 'EQ', value1 : 'A'}],parameters:{expand:'cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav'}}"
                 selectionBehavior="Row"
                 ariaLabelledBy="title"
                 enableSelectAll="true"
                 alternateRowColors="true"
                 sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
             >
-                <t:rowMode>
+                <t:rowMode>	
                     <rowmodes:Interactive id="_IDGenInteractive"
                         xmlns:rowmodes="sap.ui.table.rowmodes"
                         rowCount="7"
@@ -204,50 +204,49 @@
                 <t:columns>
                     <t:Column
                         id="icode"
-                        filterProperty="ID"
-                        sortProperty="TPDNumber"
+                        filterProperty="code"
+                        sortProperty="code"
                         visible="true"
                     >
                         <Label id="_IDGenLabel" text="Code" />
                         <t:template>
-                            <Link id="_IDGenLink" text="{tableModel>Code}" />
+                            <Link id="_IDGenLink" text="{code}" />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iptitle"
-                        filterProperty="TPDNumber"
-                        sortProperty="TPDNumber"
+                        filterProperty="jobTitle"
+                        sortProperty="jobTitle"
                     >
                         <Label id="_IDGenLabel1" text="Position Title" />
                         <t:template>
                             <Link id="_IDGenLink1"
-                                text="{tableModel>PositionTitle}"
-                                press="onNavigatetoTPDMenu"
+                                text="{jobTitle}"          
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="isdate"
-                        filterProperty="PolestarPartNumber"
-                        sortProperty="PolestarPartNumber"
+                        filterProperty="effectiveStartDate"
+                        sortProperty="effectiveStartDate"
                     >
                         <Label id="_IDGenLabel2" text="Start Date" />
                         <t:template>
-                            <Text id="_IDGenText" text="{tableModel>StartDate}" />
+                            <Text id="_IDGenText" text="{effectiveStartDate}" />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="istatus"
                         autoResizable="true"
-                        filterProperty="PartName"
-                        sortProperty="PartName"
+                        filterProperty="effectiveStatus"
+                        sortProperty="effectiveStatus"
                     >
                         <Label id="_IDGenLabel3" text="Status" />
                         <t:template>
                             <Text id="_IDGenText1"
-                                text="{tableModel>Status}"
+                                text="{effectiveStatus}"
                                 wrapping="false"
-                                tooltip="{tableModel>Status}"
+                                tooltip="{effectiveStatus}"
                             />
                         </t:template>
                     </t:Column>
@@ -259,9 +258,9 @@
                         <Label id="_IDGenLabel4" text="OpCo" />
                         <t:template>
                             <Text id="_IDGenText2"
-                                text="{tableModel>OpCo}"
+                                text="{cust_opcoNav/label_defaultValue}"
                                 wrapping="false"
-                                tooltip="{tableModel>OpCo}"
+                                tooltip="{OpCo}"
                             />
                         </t:template>
                     </t:Column>
@@ -271,103 +270,105 @@
                         <Label id="_IDGenLabel5" text="Business Entity" />
                         <t:template>
                             <Text id="_IDGenText3"
-                                text="{tableModel>BusinessEntity}"
+                                text="{cust_BusinessUnitNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iopcomp"
-                        filterProperty="PartOwner"
-                        sortProperty="PartOwner"
+                        filterProperty="company"
+                        sortProperty="company"
                     >
                         <Label id="_IDGenLabel6" text="Operating Company" />
                         <t:template>
                             <Text id="_IDGenText4"
-                                text="{tableModel>OperatingCompany}"
+                                text="{company}"
                                 wrapping="false"
-                                tooltip="{PartOwner}"
+                                tooltip="{company}"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iopunit"
-                        filterProperty="StatusText"
-                        sortProperty="StatusText"
+                        filterProperty="businessUnit"
+                        sortProperty="businessUnit"
                     >
                         <Label id="_IDGenLabel7" text="Operating Unit" />
                         <t:template>
                             <Text id="_IDGenText5"
-                                text="{tableModel>OperatingUnit}"
+                                text="{businessUnit}"
                                 wrapping="false"
-                                tooltip="{StatusText}"
-                                class="{path:'StatusID',formatter:'.formatter.getstatColor'}"
+                                tooltip="{businessUnit}"
+                                
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iversion"
-                        filterProperty="Version"
-                        sortProperty="Version"
+                        filterProperty="division"
+                        sortProperty="division"
                     >
                         <Label id="_IDGenLabel8" text="Division/Entity" />
                         <t:template>
                             <Text id="_IDGenText6"
-                                text="{tableModel>Division}"
+                                text="{division}"
                                 wrapping="false"
-                                tooltip="{Division}"
+                                tooltip="{division}"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="idep"
-                        sortProperty="DateValidFrom"
+                        sortProperty="department"
+                        filterProperty="department"
                     >
                         <Label id="_IDGenLabel9" text="Department" />
                         <t:template>
                             <Text id="_IDGenText7"
-                                text="{tableModel>Department}"
+                                text="{department}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iloc"
-                        filterProperty="StartWeek"
-                        sortProperty="StartWeek"
+                        filterProperty="location"
+                        sortProperty="location"
                     >
                         <Label id="_IDGenLabel10" text="Location(City)" />
                         <t:template>
                             <Text id="_IDGenText8"
-                                text="{tableModel>Location}"
+                                text="{location}"
                                 wrapping="false"
-                                tooltip="{Location}"
+                                tooltip="{location}"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="ccentre"
-                        sortProperty="DateValidTo"
+                        sortProperty="costCenter"
+                        filterProperty="costCenter"
                     >
-                        <Label id="_IDGenLabel11" text="Cost Centre" />
+                        <Label id="_IDGenLabel11" text="Cost Center" />
                         <t:template>
                             <Text id="_IDGenText9"
-                                text="{tableModel>CostCentre}"
+                                text="{costCenter}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="iwloc"
-                        filterProperty="EndWeek"
-                        sortProperty="EndWeek"
+                        filterProperty="cust_City"
+                        sortProperty="cust_City"
                     >
                         <Label id="_IDGenLabel12" text="Work Location" />
                         <t:template>
                             <Text id="_IDGenText10"
-                                text="{tableModel>WorkLocation}"
+                                text="{cust_City}"
                                 wrapping="false"
-                                tooltip="{EndWeek}"
+                                tooltip="{cust_City}"
                             />
                         </t:template>
                     </t:Column>
@@ -379,40 +380,40 @@
                         <Label id="_IDGenLabel13" text="Organization Name" />
                         <t:template>
                             <Text id="_IDGenText11"
-                                text="{tableModel>OrganizationName}"
+                                text="{cust_Organization_NameNav/label_defaultValue}"
                                 wrapping="false"
-                                tooltip="{OrganizationName}"
+                                tooltip="{cust_Organization_NameNav/label_defaultValue}"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="ijcode"
-                        filterProperty="PolestarSQMContact"
-                        sortProperty="PolestarSQMContact"
+                        filterProperty="jobCode"
+                        sortProperty="jobCode"
                         visible="false"
                     >
                         <Label id="_IDGenLabel14" text="Job Code" />
                         <t:template>
                             <Text id="_IDGenText12"
-                                text="{tableModel>JobCode}"
+                                text="{jobCode}"
                                 wrapping="false"
-                                tooltip="{JobCode}"
+                                tooltip="{jobCode}"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column
                         id="ijtitle"
                         width="9rem"
-                        filterProperty="PolestarRDContact"
-                        sortProperty="PolestarRDContact"
+                        filterProperty="jobTitle"
+                        sortProperty="jobTitle"
                         visible="false"
                     >
                         <Label id="_IDGenLabel15" text="Job Title" />
                         <t:template>
                             <Text id="_IDGenText13"
-                                text="{tableModel>JobTitle}"
+                                text="{jobTitle}"
                                 wrapping="false"
-                                tooltip="{JobTitle}"
+                                tooltip="{jobTitle}"
                             />
                         </t:template>
                     </t:Column>
@@ -425,7 +426,7 @@
                         <Label id="_IDGenLabel16" text="OpCo Level" />
                         <t:template>
                             <Text id="_IDGenText14"
-                                text="{tableModel>OpCoLevel}"
+                                text="{cust_OpcoLevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -433,16 +434,16 @@
                     <t:Column
                         id="ijfn"
                         width="6rem"
-                        filterProperty="IssuerName"
-                        sortProperty="IssuerName"
+                        filterProperty="cust_JobFunction"
+                        sortProperty="cust_JobFunction"
                         visible="false"
                     >
                         <Label id="_IDGenLabel17" text="Job Function" />
                         <t:template>
                             <Text id="_IDGenText15"
-                                text="{tableModel>JobFunction}"
+                                text="{cust_JobFunction}"
                                 wrapping="false"
-                                tooltip="{JobFunction}"
+                                tooltip="{cust_JobFunction}"
                             />
                         </t:template>
                     </t:Column>
@@ -456,9 +457,9 @@
                         <Label id="_IDGenLabel18" text="Job Family" />
                         <t:template>
                             <Text id="_IDGenText16"
-                                text="{tableModel>JobFamily}"
+                                text="{cust_JobFamilyNav/label_defaultValue}"
                                 wrapping="false"
-                                tooltip="{JobFamily}"
+                                tooltip="{cust_JobFamilyNav/label_defaultValue}"
                             />
                         </t:template>
                     </t:Column>
@@ -472,8 +473,8 @@
                         <Label id="_IDGenLabel19" text="FTE" />
                         <t:template>
                             <Text id="_IDGenText17"
-                                text="{tableModel>FTE}"
-                                tooltip="{FTE}"
+                                text="{targetFTE}"
+                                tooltip="{targetFTE}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -481,15 +482,15 @@
                      <t:Column
                         id="ipgrd"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="payGrade"
+                        sortProperty="payGrade"
                         visible="false"
                     >
                         <Label id="_IDGenLabel20" text="Pay Grade" />
                         <t:template>
                             <Text id="_IDGenText18"
-                                text="{tableModel>PayGrade}"
-                                tooltip="{PayGrade}"
+                                text="{payGrade}"
+                                tooltip="{payGrade}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -497,15 +498,15 @@
                      <t:Column
                         id="imipay"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="cust_MinimumPay"
+                        sortProperty="cust_MinimumPay"
                         visible="false"
                     >
                         <Label id="_IDGenLabel21" text="Minimum Pay" />
                         <t:template>
                             <Text id="_IDGenText19"
-                                text="{tableModel>MinimumPay}"
-                                tooltip="{MinimumPay}"
+                                text="{cust_MinimumPay}"
+                                tooltip="{cust_MinimumPay}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -513,15 +514,15 @@
                      <t:Column
                         id="impoint"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="cust_MidPoint"
+                        sortProperty="cust_MidPoint"
                         visible="false"
                     >
                         <Label id="_IDGenLabel22" text="Mid Point" />
                         <t:template>
                             <Text id="_IDGenText20"
-                                text="{tableModel>MidPoint}"
-                                tooltip="{MidPoint}"
+                                text="{cust_MidPoint}"
+                                tooltip="{cust_MidPoint}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -529,15 +530,15 @@
                      <t:Column
                         id="imapay"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="cust_MaximumPay"
+                        sortProperty="cust_MaximumPay"
                         visible="false"
                     >
                         <Label id="_IDGenLabel23" text="Maximum Pay" />
                         <t:template>
                             <Text id="_IDGenText21"
-                                text="{tableModel>MaximumPay}"
-                                tooltip="{MaximumPay}"
+                                text="{cust_MaximumPay}"
+                                tooltip="{cust_MaximumPay}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -552,8 +553,8 @@
                         <Label id="_IDGenLabel24" text="Employee Class" />
                         <t:template>
                             <Text id="_IDGenText22"
-                                text="{tableModel>EmployeeClass}"
-                                tooltip="{EmployeeClass}"
+                                text="{employeeClassNav/label_defaultValue}"
+                                tooltip="{employeeClassNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -568,8 +569,8 @@
                         <Label id="_IDGenLabel25" text="Regular/Temporary" />
                         <t:template>
                             <Text id="_IDGenText23"
-                                text="{tableModel>Regular}"
-                                tooltip="{Regular}"
+                                text="{regularTemporaryNav/label_defaultValue}"
+                                tooltip="{regularTemporaryNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -584,8 +585,8 @@
                         <Label id="_IDGenLabel26" text="Career Level" />
                         <t:template>
                             <Text id="_IDGenText24"
-                                text="{tableModel>CareerLevel}"
-                                tooltip="{CareerLevel}"
+                                text="{cust_OrgLevelNav/label_defaultValue}"
+                                tooltip="{cust_OrgLevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -600,8 +601,8 @@
                         <Label id="_IDGenLabel27" text="Role Archetype" />
                         <t:template>
                             <Text id="_IDGenText25"
-                                text="{tableModel>RoleArchetype}"
-                                tooltip="{RoleArchetype}"
+                                text="{cust_RoleArchetypeNav/label_defaultValue}"
+                                tooltip="{cust_RoleArchetypeNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -616,8 +617,8 @@
                         <Label id="_IDGenLabel28" text="Budgeted" />
                         <t:template>
                             <Text id="_IDGenText26"
-                                text="{tableModel>Budgeted}"
-                                tooltip="{Budgeted}"
+                                text="{cust_BudgetedNonBudgetedNav/label_defaultValue}"
+                                tooltip="{cust_BudgetedNonBudgetedNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -625,15 +626,15 @@
                      <t:Column
                         id="itbre"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="vacant"
+                        sortProperty="vacant"
                         visible="false"
                     >
                         <Label id="_IDGenLabel29" text="To Be Recruited" />
                         <t:template>
                             <Text id="_IDGenText27"
-                                text="{tableModel>ToBeRecruited}"
-                                tooltip="{ToBeRecruited}"
+                                text="{vacant}"
+                                tooltip="{vacant}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -641,15 +642,15 @@
                      <t:Column
                         id="impo"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="multipleIncumbentsAllowed"
+                        sortProperty="multipleIncumbentsAllowed"
                         visible="false"
                     >
                         <Label id="_IDGenLabel30" text="Mass Position" />
                         <t:template>
                             <Text id="_IDGenText28"
-                                text="{tableModel>MassPosition}"
-                                tooltip="{MassPosition}"
+                                text="{multipleIncumbentsAllowed}"
+                                tooltip="{multipleIncumbentsAllowed}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -664,8 +665,8 @@
                         <Label id="_IDGenLabel31" text="Critical Position" />
                         <t:template>
                             <Text id="_IDGenText29"
-                                text="{tableModel>CriticalPosition}"
-                                tooltip="{CriticalPosition}"
+                                text="{comment}"
+                                tooltip="{comment}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -680,8 +681,8 @@
                         <Label id="_IDGenLabel32" text="Higher-Level Position" />
                         <t:template>
                             <Text id="_IDGenText30"
-                                text="{tableModel>HigherLevelPosition}"
-                                tooltip="{HigherLevelPosition}"
+                                text="{comment}"
+                                tooltip="{comment}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -689,15 +690,15 @@
                      <t:Column
                         id="ioh"
                         width="9rem"
-                        filterProperty="SupplierDetails_SupplierName"
-                        sortProperty="SupplierDetails_SupplierName"
+                        filterProperty="cust_relocationagency"
+                        sortProperty="cust_relocationagency"
                         visible="false"
                     >
                         <Label id="_IDGenLabel33" text="Overseas Hirewith" />
                         <t:template>
                             <Text id="_IDGenText31"
-                                text="{tableModel>OverseasHirewith}"
-                                tooltip="{OverseasHirewith}"
+                                text="{cust_relocationagency}"
+                                tooltip="{cust_relocationagency}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -712,7 +713,7 @@
                         <Label id="_IDGenLabel34" text="Comment" />
                         <t:template>
                             <Text id="_IDGenText32"
-                                text="{tableModel>Comment}"
+                                text="{Comment}"
                                 tooltip="{Comment}"
                                 wrapping="false"
                             />
@@ -728,8 +729,8 @@
                         <Label id="_IDGenLabel35" text="Role Classification" />
                         <t:template>
                             <Text id="_IDGenText33"
-                                text="{tableModel>RoleClassification}"
-                                tooltip="{RoleClassification}"
+                                text="{cust_roleClassNav/label_defaultValue}"
+                                tooltip="{cust_roleClassNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -744,8 +745,8 @@
                         <Label id="_IDGenLabel36" text="HRL" />
                         <t:template>
                             <Text id="_IDGenText34"
-                                text="{tableModel>HRL}"
-                                tooltip="{HRL}"
+                                text="{cust_HRLNav/label_defaultValue}"
+                                tooltip="{cust_HRLNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -760,8 +761,8 @@
                         <Label id="_IDGenLabel37" text="Level" />
                         <t:template>
                             <Text id="_IDGenText35"
-                                text="{tableModel>Level}"
-                                tooltip="{Level}"
+                                text="{cust_LevelNav/label_defaultValue}"
+                                tooltip="{cust_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -776,8 +777,8 @@
                         <Label id="_IDGenLabel38" text="Executive Level" />
                         <t:template>
                             <Text id="_IDGenText36"
-                                text="{tableModel>ExecutiveLevel}"
-                                tooltip="{ExecutiveLevel}"
+                                text="{cust_Executive_LevelNav/label_defaultValue}"
+                                tooltip="{cust_Executive_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -789,11 +790,11 @@
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel39" text="Brand" />
+                        <Label id="_IDGenLabel39" text="Band" />
                         <t:template>
                             <Text id="_IDGenText37"
-                                text="{tableModel>Brand}"
-                                tooltip="{Brand}"
+                                text="{cust_BandNav/label_defaultValue}"
+                                tooltip="{cust_BandNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -805,11 +806,11 @@
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel40" text="Brand Level" />
+                        <Label id="_IDGenLabel40" text="Band Level" />
                         <t:template>
                             <Text id="_IDGenText38"
-                                text="{tableModel>BrandLevel}"
-                                tooltip="{BrandLevel}"
+                                text="{cust_Band_LevelNav/label_defaultValue}"
+                                tooltip="{cust_Band_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -824,8 +825,8 @@
                         <Label id="_IDGenLabel41" text="Succession Urgency Rating" />
                         <t:template>
                             <Text id="_IDGenText39"
-                                text="{tableModel>SuccessionUrgencyRating}"
-                                tooltip="{SuccessionUrgencyRating}"
+                                text="{cust_SuccessionurgencyNav/label_defaultValue}"
+                                tooltip="{cust_SuccessionurgencyNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -840,8 +841,8 @@
                         <Label id="_IDGenLabel42" text="Position Job Function" />
                         <t:template>
                             <Text id="_IDGenText40"
-                                text="{tableModel>PositionJobFunction}"
-                                tooltip="{PositionJobFunction}"
+                                text="{cust_PositionJobFunctionNav/label_defaultValue}"
+                                tooltip="{cust_PositionJobFunctionNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>

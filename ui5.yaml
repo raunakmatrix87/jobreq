@@ -15,6 +15,10 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - url: https://api2.successfactors.eu
+            destination: SF_New_Tech_Account
+            path: /odata
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

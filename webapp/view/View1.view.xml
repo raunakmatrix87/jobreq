@@ -40,14 +40,16 @@
                                 id="OpFilter"
                                 items="{filterModel>/categories}"
                             >
-                                <core:Item id="_IDGenItem1"
+                                <core:Item
+                                    id="_IDGenItem1"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
                             </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem"
                         name="BusinessEntity"
                         label="BusinessEntity"
                         groupName="Group1"
@@ -58,14 +60,16 @@
                                 id="beFilter"
                                 items="{filterModel>/regions}"
                             >
-                                <core:Item id="_IDGenItem2"
+                                <core:Item
+                                    id="_IDGenItem2"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
                             </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem1"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem1"
                         name="OperatingCompany"
                         label="Operating Company"
                         groupName="Group1"
@@ -76,14 +80,16 @@
                                 id="oCFilter"
                                 items="{filterModel>/statuses}"
                             >
-                                <core:Item id="_IDGenItem3"
+                                <core:Item
+                                    id="_IDGenItem3"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
                             </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem2"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem2"
                         name="OperatingUnit"
                         label="Operating Unit"
                         groupName="Group1"
@@ -94,14 +100,16 @@
                                 id="oUFilter"
                                 items="{filterModel>/statuses}"
                             >
-                                <core:Item id="_IDGenItem4"
+                                <core:Item
+                                    id="_IDGenItem4"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
                             </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem3"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem3"
                         name="divison"
                         label="Divison/Entity"
                         groupName="Group1"
@@ -112,14 +120,16 @@
                                 id="deFilter"
                                 items="{filterModel>/statuses}"
                             >
-                                <core:Item id="_IDGenItem5"
+                                <core:Item
+                                    id="_IDGenItem5"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
                             </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem4"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem4"
                         name="department"
                         label="Department"
                         groupName="Group1"
@@ -130,7 +140,8 @@
                                 id="depFilter"
                                 items="{filterModel>/statuses}"
                             >
-                                <core:Item id="_IDGenItem6"
+                                <core:Item
+                                    id="_IDGenItem6"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
@@ -138,7 +149,8 @@
                         </fb:control>
                     </fb:FilterGroupItem>
 
-                    <fb:FilterGroupItem id="_IDGenFilterGroupItem5"
+                    <fb:FilterGroupItem
+                        id="_IDGenFilterGroupItem5"
                         name="location"
                         label="Location(City)"
                         groupName="Group1"
@@ -149,7 +161,8 @@
                                 id="locFilter"
                                 items="{filterModel>/statuses}"
                             >
-                                <core:Item id="_IDGenItem7"
+                                <core:Item
+                                    id="_IDGenItem7"
                                     key="{filterModel>key}"
                                     text="{filterModel>text}"
                                 />
@@ -162,15 +175,16 @@
             <t:Table
                 id="positionsTable"
                 rowMode="Interactive"
-                rows="{path:'/Position', filters : [{ path : 'effectiveStatus', operator : 'EQ', value1 : 'A'}],parameters:{expand:'cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav'}}"
+                rows="{path:'/Position', filters : [{ path : 'effectiveStatus', operator : 'EQ', value1 : 'A'}],parameters:{expand:'cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav,companyNav,companyNav/countryOfRegistrationNav,companyNav/cust_OnbofficerNav'}}"
                 selectionBehavior="Row"
                 ariaLabelledBy="title"
                 enableSelectAll="true"
                 alternateRowColors="true"
                 sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
             >
-                <t:rowMode>	
-                    <rowmodes:Interactive id="_IDGenInteractive"
+                <t:rowMode>
+                    <rowmodes:Interactive
+                        id="_IDGenInteractive"
                         xmlns:rowmodes="sap.ui.table.rowmodes"
                         rowCount="7"
                         minRowCount="7"
@@ -186,15 +200,18 @@
                                 visible="true"
                             />
                             <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                              <Button id="_IDGenButton"
-                text="Generate Requisition"
-                press="onSelectPress"
-            />
-                            <Button id="_IDGenButton1"
+                            <Button
+                                id="_IDGenButton"
+                                text="Generate Requisition"
+                                press="onGenRequsition"
+                            />
+                            <Button
+                                id="_IDGenButton1"
                                 icon="sap-icon://excel-attachment"
                                 press="onExport"
                             />
-                            <Button id="_IDGenButton2"
+                            <Button
+                                id="_IDGenButton2"
                                 icon="sap-icon://action-settings"
                                 press="openPersoDialog"
                             />
@@ -208,9 +225,15 @@
                         sortProperty="code"
                         visible="true"
                     >
-                        <Label id="_IDGenLabel" text="Code" />
+                        <Label
+                            id="_IDGenLabel"
+                            text="Code"
+                        />
                         <t:template>
-                            <Link id="_IDGenLink" text="{code}" />
+                            <Link
+                                id="_IDGenLink"
+                                text="{code}"
+                            />
                         </t:template>
                     </t:Column>
                     <t:Column
@@ -218,10 +241,14 @@
                         filterProperty="jobTitle"
                         sortProperty="jobTitle"
                     >
-                        <Label id="_IDGenLabel1" text="Position Title" />
+                        <Label
+                            id="_IDGenLabel1"
+                            text="Position Title"
+                        />
                         <t:template>
-                            <Link id="_IDGenLink1"
-                                text="{jobTitle}"          
+                            <Link
+                                id="_IDGenLink1"
+                                text="{jobTitle}"
                             />
                         </t:template>
                     </t:Column>
@@ -230,9 +257,15 @@
                         filterProperty="effectiveStartDate"
                         sortProperty="effectiveStartDate"
                     >
-                        <Label id="_IDGenLabel2" text="Start Date" />
+                        <Label
+                            id="_IDGenLabel2"
+                            text="Start Date"
+                        />
                         <t:template>
-                            <Text id="_IDGenText" text="{effectiveStartDate}" />
+                            <Text
+                                id="_IDGenText"
+                                text="{effectiveStartDate}"
+                            />
                         </t:template>
                     </t:Column>
                     <t:Column
@@ -241,9 +274,13 @@
                         filterProperty="effectiveStatus"
                         sortProperty="effectiveStatus"
                     >
-                        <Label id="_IDGenLabel3" text="Status" />
+                        <Label
+                            id="_IDGenLabel3"
+                            text="Status"
+                        />
                         <t:template>
-                            <Text id="_IDGenText1"
+                            <Text
+                                id="_IDGenText1"
                                 text="{effectiveStatus}"
                                 wrapping="false"
                                 tooltip="{effectiveStatus}"
@@ -255,21 +292,27 @@
                         filterProperty="LeadingWorkgroup"
                         sortProperty="LeadingWorkgroup"
                     >
-                        <Label id="_IDGenLabel4" text="OpCo" />
+                        <Label
+                            id="_IDGenLabel4"
+                            text="OpCo"
+                        />
                         <t:template>
-                            <Text id="_IDGenText2"
+                            <Text
+                                id="_IDGenText2"
                                 text="{cust_opcoNav/label_defaultValue}"
                                 wrapping="false"
                                 tooltip="{OpCo}"
                             />
                         </t:template>
                     </t:Column>
-                    <t:Column
-                        id="ibentity"
-                    >
-                        <Label id="_IDGenLabel5" text="Business Entity" />
+                    <t:Column id="ibentity">
+                        <Label
+                            id="_IDGenLabel5"
+                            text="Business Entity"
+                        />
                         <t:template>
-                            <Text id="_IDGenText3"
+                            <Text
+                                id="_IDGenText3"
                                 text="{cust_BusinessUnitNav/label_defaultValue}"
                                 wrapping="false"
                             />
@@ -280,9 +323,13 @@
                         filterProperty="company"
                         sortProperty="company"
                     >
-                        <Label id="_IDGenLabel6" text="Operating Company" />
+                        <Label
+                            id="_IDGenLabel6"
+                            text="Operating Company"
+                        />
                         <t:template>
-                            <Text id="_IDGenText4"
+                            <Text
+                                id="_IDGenText4"
                                 text="{company}"
                                 wrapping="false"
                                 tooltip="{company}"
@@ -294,13 +341,16 @@
                         filterProperty="businessUnit"
                         sortProperty="businessUnit"
                     >
-                        <Label id="_IDGenLabel7" text="Operating Unit" />
+                        <Label
+                            id="_IDGenLabel7"
+                            text="Operating Unit"
+                        />
                         <t:template>
-                            <Text id="_IDGenText5"
+                            <Text
+                                id="_IDGenText5"
                                 text="{businessUnit}"
                                 wrapping="false"
                                 tooltip="{businessUnit}"
-                                
                             />
                         </t:template>
                     </t:Column>
@@ -309,9 +359,13 @@
                         filterProperty="division"
                         sortProperty="division"
                     >
-                        <Label id="_IDGenLabel8" text="Division/Entity" />
+                        <Label
+                            id="_IDGenLabel8"
+                            text="Division/Entity"
+                        />
                         <t:template>
-                            <Text id="_IDGenText6"
+                            <Text
+                                id="_IDGenText6"
                                 text="{division}"
                                 wrapping="false"
                                 tooltip="{division}"
@@ -323,9 +377,13 @@
                         sortProperty="department"
                         filterProperty="department"
                     >
-                        <Label id="_IDGenLabel9" text="Department" />
+                        <Label
+                            id="_IDGenLabel9"
+                            text="Department"
+                        />
                         <t:template>
-                            <Text id="_IDGenText7"
+                            <Text
+                                id="_IDGenText7"
                                 text="{department}"
                                 wrapping="false"
                             />
@@ -336,9 +394,13 @@
                         filterProperty="location"
                         sortProperty="location"
                     >
-                        <Label id="_IDGenLabel10" text="Location(City)" />
+                        <Label
+                            id="_IDGenLabel10"
+                            text="Location(City)"
+                        />
                         <t:template>
-                            <Text id="_IDGenText8"
+                            <Text
+                                id="_IDGenText8"
                                 text="{location}"
                                 wrapping="false"
                                 tooltip="{location}"
@@ -350,9 +412,13 @@
                         sortProperty="costCenter"
                         filterProperty="costCenter"
                     >
-                        <Label id="_IDGenLabel11" text="Cost Center" />
+                        <Label
+                            id="_IDGenLabel11"
+                            text="Cost Center"
+                        />
                         <t:template>
-                            <Text id="_IDGenText9"
+                            <Text
+                                id="_IDGenText9"
                                 text="{costCenter}"
                                 wrapping="false"
                             />
@@ -363,9 +429,13 @@
                         filterProperty="cust_City"
                         sortProperty="cust_City"
                     >
-                        <Label id="_IDGenLabel12" text="Work Location" />
+                        <Label
+                            id="_IDGenLabel12"
+                            text="Work Location"
+                        />
                         <t:template>
-                            <Text id="_IDGenText10"
+                            <Text
+                                id="_IDGenText10"
                                 text="{cust_City}"
                                 wrapping="false"
                                 tooltip="{cust_City}"
@@ -377,9 +447,13 @@
                         filterProperty="WorkflowLevel"
                         sortProperty="WorkflowLevel"
                     >
-                        <Label id="_IDGenLabel13" text="Organization Name" />
+                        <Label
+                            id="_IDGenLabel13"
+                            text="Organization Name"
+                        />
                         <t:template>
-                            <Text id="_IDGenText11"
+                            <Text
+                                id="_IDGenText11"
                                 text="{cust_Organization_NameNav/label_defaultValue}"
                                 wrapping="false"
                                 tooltip="{cust_Organization_NameNav/label_defaultValue}"
@@ -392,9 +466,13 @@
                         sortProperty="jobCode"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel14" text="Job Code" />
+                        <Label
+                            id="_IDGenLabel14"
+                            text="Job Code"
+                        />
                         <t:template>
-                            <Text id="_IDGenText12"
+                            <Text
+                                id="_IDGenText12"
                                 text="{jobCode}"
                                 wrapping="false"
                                 tooltip="{jobCode}"
@@ -408,9 +486,13 @@
                         sortProperty="jobTitle"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel15" text="Job Title" />
+                        <Label
+                            id="_IDGenLabel15"
+                            text="Job Title"
+                        />
                         <t:template>
-                            <Text id="_IDGenText13"
+                            <Text
+                                id="_IDGenText13"
                                 text="{jobTitle}"
                                 wrapping="false"
                                 tooltip="{jobTitle}"
@@ -423,9 +505,13 @@
                         sortProperty="createdAt"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel16" text="OpCo Level" />
+                        <Label
+                            id="_IDGenLabel16"
+                            text="OpCo Level"
+                        />
                         <t:template>
-                            <Text id="_IDGenText14"
+                            <Text
+                                id="_IDGenText14"
                                 text="{cust_OpcoLevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
@@ -438,9 +524,13 @@
                         sortProperty="cust_JobFunction"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel17" text="Job Function" />
+                        <Label
+                            id="_IDGenLabel17"
+                            text="Job Function"
+                        />
                         <t:template>
-                            <Text id="_IDGenText15"
+                            <Text
+                                id="_IDGenText15"
                                 text="{cust_JobFunction}"
                                 wrapping="false"
                                 tooltip="{cust_JobFunction}"
@@ -454,9 +544,13 @@
                         sortProperty="SupplierDetails_SupplierCode"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel18" text="Job Family" />
+                        <Label
+                            id="_IDGenLabel18"
+                            text="Job Family"
+                        />
                         <t:template>
-                            <Text id="_IDGenText16"
+                            <Text
+                                id="_IDGenText16"
                                 text="{cust_JobFamilyNav/label_defaultValue}"
                                 wrapping="false"
                                 tooltip="{cust_JobFamilyNav/label_defaultValue}"
@@ -470,377 +564,473 @@
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel19" text="FTE" />
+                        <Label
+                            id="_IDGenLabel19"
+                            text="FTE"
+                        />
                         <t:template>
-                            <Text id="_IDGenText17"
+                            <Text
+                                id="_IDGenText17"
                                 text="{targetFTE}"
                                 tooltip="{targetFTE}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ipgrd"
                         width="9rem"
                         filterProperty="payGrade"
                         sortProperty="payGrade"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel20" text="Pay Grade" />
+                        <Label
+                            id="_IDGenLabel20"
+                            text="Pay Grade"
+                        />
                         <t:template>
-                            <Text id="_IDGenText18"
+                            <Text
+                                id="_IDGenText18"
                                 text="{payGrade}"
                                 tooltip="{payGrade}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="imipay"
                         width="9rem"
                         filterProperty="cust_MinimumPay"
                         sortProperty="cust_MinimumPay"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel21" text="Minimum Pay" />
+                        <Label
+                            id="_IDGenLabel21"
+                            text="Minimum Pay"
+                        />
                         <t:template>
-                            <Text id="_IDGenText19"
+                            <Text
+                                id="_IDGenText19"
                                 text="{cust_MinimumPay}"
                                 tooltip="{cust_MinimumPay}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="impoint"
                         width="9rem"
                         filterProperty="cust_MidPoint"
                         sortProperty="cust_MidPoint"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel22" text="Mid Point" />
+                        <Label
+                            id="_IDGenLabel22"
+                            text="Mid Point"
+                        />
                         <t:template>
-                            <Text id="_IDGenText20"
+                            <Text
+                                id="_IDGenText20"
                                 text="{cust_MidPoint}"
                                 tooltip="{cust_MidPoint}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="imapay"
                         width="9rem"
                         filterProperty="cust_MaximumPay"
                         sortProperty="cust_MaximumPay"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel23" text="Maximum Pay" />
+                        <Label
+                            id="_IDGenLabel23"
+                            text="Maximum Pay"
+                        />
                         <t:template>
-                            <Text id="_IDGenText21"
+                            <Text
+                                id="_IDGenText21"
                                 text="{cust_MaximumPay}"
                                 tooltip="{cust_MaximumPay}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ieclass"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel24" text="Employee Class" />
+                        <Label
+                            id="_IDGenLabel24"
+                            text="Employee Class"
+                        />
                         <t:template>
-                            <Text id="_IDGenText22"
+                            <Text
+                                id="_IDGenText22"
                                 text="{employeeClassNav/label_defaultValue}"
                                 tooltip="{employeeClassNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="iregtemp"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel25" text="Regular/Temporary" />
+                        <Label
+                            id="_IDGenLabel25"
+                            text="Regular/Temporary"
+                        />
                         <t:template>
-                            <Text id="_IDGenText23"
+                            <Text
+                                id="_IDGenText23"
                                 text="{regularTemporaryNav/label_defaultValue}"
                                 tooltip="{regularTemporaryNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="icalevel"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel26" text="Career Level" />
+                        <Label
+                            id="_IDGenLabel26"
+                            text="Career Level"
+                        />
                         <t:template>
-                            <Text id="_IDGenText24"
+                            <Text
+                                id="_IDGenText24"
                                 text="{cust_OrgLevelNav/label_defaultValue}"
                                 tooltip="{cust_OrgLevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="irarch"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel27" text="Role Archetype" />
+                        <Label
+                            id="_IDGenLabel27"
+                            text="Role Archetype"
+                        />
                         <t:template>
-                            <Text id="_IDGenText25"
+                            <Text
+                                id="_IDGenText25"
                                 text="{cust_RoleArchetypeNav/label_defaultValue}"
                                 tooltip="{cust_RoleArchetypeNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ibudg"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel28" text="Budgeted" />
+                        <Label
+                            id="_IDGenLabel28"
+                            text="Budgeted"
+                        />
                         <t:template>
-                            <Text id="_IDGenText26"
+                            <Text
+                                id="_IDGenText26"
                                 text="{cust_BudgetedNonBudgetedNav/label_defaultValue}"
                                 tooltip="{cust_BudgetedNonBudgetedNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="itbre"
                         width="9rem"
                         filterProperty="vacant"
                         sortProperty="vacant"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel29" text="To Be Recruited" />
+                        <Label
+                            id="_IDGenLabel29"
+                            text="To Be Recruited"
+                        />
                         <t:template>
-                            <Text id="_IDGenText27"
+                            <Text
+                                id="_IDGenText27"
                                 text="{vacant}"
                                 tooltip="{vacant}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="impo"
                         width="9rem"
                         filterProperty="multipleIncumbentsAllowed"
                         sortProperty="multipleIncumbentsAllowed"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel30" text="Mass Position" />
+                        <Label
+                            id="_IDGenLabel30"
+                            text="Mass Position"
+                        />
                         <t:template>
-                            <Text id="_IDGenText28"
+                            <Text
+                                id="_IDGenText28"
                                 text="{multipleIncumbentsAllowed}"
                                 tooltip="{multipleIncumbentsAllowed}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="icrpos"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel31" text="Critical Position" />
+                        <Label
+                            id="_IDGenLabel31"
+                            text="Critical Position"
+                        />
                         <t:template>
-                            <Text id="_IDGenText29"
+                            <Text
+                                id="_IDGenText29"
                                 text="{comment}"
                                 tooltip="{comment}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ihlpos"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel32" text="Higher-Level Position" />
+                        <Label
+                            id="_IDGenLabel32"
+                            text="Higher-Level Position"
+                        />
                         <t:template>
-                            <Text id="_IDGenText30"
+                            <Text
+                                id="_IDGenText30"
                                 text="{comment}"
                                 tooltip="{comment}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ioh"
                         width="9rem"
                         filterProperty="cust_relocationagency"
                         sortProperty="cust_relocationagency"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel33" text="Overseas Hirewith" />
+                        <Label
+                            id="_IDGenLabel33"
+                            text="Overseas Hirewith"
+                        />
                         <t:template>
-                            <Text id="_IDGenText31"
+                            <Text
+                                id="_IDGenText31"
                                 text="{cust_relocationagency}"
                                 tooltip="{cust_relocationagency}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="icom"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel34" text="Comment" />
+                        <Label
+                            id="_IDGenLabel34"
+                            text="Comment"
+                        />
                         <t:template>
-                            <Text id="_IDGenText32"
+                            <Text
+                                id="_IDGenText32"
                                 text="{Comment}"
                                 tooltip="{Comment}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="irclass"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel35" text="Role Classification" />
+                        <Label
+                            id="_IDGenLabel35"
+                            text="Role Classification"
+                        />
                         <t:template>
-                            <Text id="_IDGenText33"
+                            <Text
+                                id="_IDGenText33"
                                 text="{cust_roleClassNav/label_defaultValue}"
                                 tooltip="{cust_roleClassNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ihrl"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel36" text="HRL" />
+                        <Label
+                            id="_IDGenLabel36"
+                            text="HRL"
+                        />
                         <t:template>
-                            <Text id="_IDGenText34"
+                            <Text
+                                id="_IDGenText34"
                                 text="{cust_HRLNav/label_defaultValue}"
                                 tooltip="{cust_HRLNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ilevel"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel37" text="Level" />
+                        <Label
+                            id="_IDGenLabel37"
+                            text="Level"
+                        />
                         <t:template>
-                            <Text id="_IDGenText35"
+                            <Text
+                                id="_IDGenText35"
                                 text="{cust_LevelNav/label_defaultValue}"
                                 tooltip="{cust_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="iexlevel"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel38" text="Executive Level" />
+                        <Label
+                            id="_IDGenLabel38"
+                            text="Executive Level"
+                        />
                         <t:template>
-                            <Text id="_IDGenText36"
+                            <Text
+                                id="_IDGenText36"
                                 text="{cust_Executive_LevelNav/label_defaultValue}"
                                 tooltip="{cust_Executive_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ibrand"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel39" text="Band" />
+                        <Label
+                            id="_IDGenLabel39"
+                            text="Band"
+                        />
                         <t:template>
-                            <Text id="_IDGenText37"
+                            <Text
+                                id="_IDGenText37"
                                 text="{cust_BandNav/label_defaultValue}"
                                 tooltip="{cust_BandNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ibrlevel"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel40" text="Band Level" />
+                        <Label
+                            id="_IDGenLabel40"
+                            text="Band Level"
+                        />
                         <t:template>
-                            <Text id="_IDGenText38"
+                            <Text
+                                id="_IDGenText38"
                                 text="{cust_Band_LevelNav/label_defaultValue}"
                                 tooltip="{cust_Band_LevelNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="isur"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel41" text="Succession Urgency Rating" />
+                        <Label
+                            id="_IDGenLabel41"
+                            text="Succession Urgency Rating"
+                        />
                         <t:template>
-                            <Text id="_IDGenText39"
+                            <Text
+                                id="_IDGenText39"
                                 text="{cust_SuccessionurgencyNav/label_defaultValue}"
                                 tooltip="{cust_SuccessionurgencyNav/label_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
-                     <t:Column
+                    <t:Column
                         id="ipjfn"
                         width="9rem"
                         filterProperty="SupplierDetails_SupplierName"
                         sortProperty="SupplierDetails_SupplierName"
                         visible="false"
                     >
-                        <Label id="_IDGenLabel42" text="Position Job Function" />
+                        <Label
+                            id="_IDGenLabel42"
+                            text="Position Job Function"
+                        />
                         <t:template>
-                            <Text id="_IDGenText40"
+                            <Text
+                                id="_IDGenText40"
                                 text="{cust_PositionJobFunctionNav/label_defaultValue}"
                                 tooltip="{cust_PositionJobFunctionNav/label_defaultValue}"
                                 wrapping="false"
@@ -850,345 +1040,774 @@
                 </t:columns>
             </t:Table>
 
-              <t:Table
-                            id="reqTable"
-                            rows="{selectedItems>/}"
-                            selectionMode="MultiToggle"
-                            enableColumnReordering="true"
-                            enableSelectAll="true"
-                            ariaLabelledBy="title">                   
-                            <t:extension>
-                                <OverflowToolbar id="_IDGenOverflowToolbar1">
-                                    <Title id="title" text="Job Requisitions" level="H2"/>
-                                    <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-                                    <Button id="_IDGenButton3" text="Mass Update Fields" press="onMassUpdate"/>
-                                     <Button id="_IDGenButton4"
-                                         text="Save Requisitions"
-                                        press="onPost"/>
-                                    <Button id="_IDGenButton5"
-                                        icon="sap-icon://action-settings"
-                                        press="onreqPersonalize"/>
-                                    <Button id="_IDGenButton6"
-                                        icon="sap-icon://excel-attachment"
-                                        press="onExport"/>
-                                </OverflowToolbar>
-                            </t:extension>
+            <t:Table
+                id="reqTable"
+                rows="{jobReqModel>/}"
+                selectionMode="MultiToggle"
+                enableColumnReordering="true"
+                enableSelectAll="true"
+                ariaLabelledBy="title"
+            >
+                <t:extension>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title
+                            id="title"
+                            text="Job Requisitions"
+                            level="H2"
+                        />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                        <Button
+                            id="_IDGenButton3"
+                            text="Mass Update Fields"
+                            press="onMassUpdate"
+                        />
+                        <Button
+                            id="_IDGenButton4"
+                            text="Save Requisitions"
+                            press="onPostRequsitions"
+                        />
+                        <Button
+                            id="_IDGenButton5"
+                            icon="sap-icon://action-settings"
+                            press="onreqPersonalize"
+                        />
+                        <Button
+                            id="_IDGenButton6"
+                            icon="sap-icon://excel-attachment"
+                            press="onExport"
+                        />
+                    </OverflowToolbar>
+                </t:extension>
 
-                            <t:columns>
-                                <t:Column id="iccode" visible="true" width="120px" sortProperty="CompanyCode" filterProperty="CompanyCode">
-                                    <Label id="_IDGenLabel43" text="Company Code"/>
-                                    <t:template>
-                                        <Text id="_IDGenText41" text="{selectedItems>CompanyCode}"/>
-                                    </t:template>
-                                </t:Column>
+                <t:columns>
+                    <t:Column
+                        id="quickapply"
+                        width="150px"
+                        visible="true"
+                        sortProperty="quickApply"
+                        filterProperty="quickApply"
+                    >
+                        <Label text="Quick Apply" />
+                        <t:template>
+                            <Text text="{jobReqModel>quickApply}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ifyear" visible="true" width="100px" sortProperty="FiscalYear" filterProperty="FiscalYear">
-                                    <Label id="_IDGenLabel44" text="Fiscal Year"/>
-                                    <t:template>
-                                        <Text id="_IDGenText42" text="{selectedItems>FiscalYear}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="evergreen"
+                        width="180px"
+                        visible="true"
+                        sortProperty="evergreen"
+                        filterProperty="evergreen"
+                    >
+                        <Label text="Evergreen Job Requisition" />
+                        <t:template>
+                            <Text text="{jobReqModel>evergreen}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iadoc" visible="true" width="150px" sortProperty="AccountingDocument" filterProperty="AccountingDocument">
-                                    <Label id="_IDGenLabel45" text="Accounting Document"/>
-                                    <t:template>
-                                        <Text id="_IDGenText43" text="{selectedItems>AccountingDocument}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="reqtype"
+                        width="150px"
+                        visible="true"
+                        sortProperty="sfstd_jobReqType"
+                        filterProperty="sfstd_jobReqType"
+                    >
+                        <Label text="Job Requisition Type" />
+                        <t:template>
+                            <Text text="{jobReqModel>sfstd_jobReqType}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iditem" width="120px" visible="true" sortProperty="AccountingDocumentItem" filterProperty="AccountingDocumentItem">
-                                    <Label id="_IDGenLabel46" text="Document Item"/>
-                                    <t:template>
-                                        <Text id="_IDGenText44" text="{selectedItems>AccountingDocumentItem}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="reqid"
+                        width="140px"
+                        visible="true"
+                        sortProperty="id"
+                        filterProperty="id"
+                    >
+                        <Label text="Requisition ID" />
+                        <t:template>
+                            <Text text="{jobReqModel>id}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ilglitem" width="140px" visible="true" sortProperty="LedgerGLLineItem" filterProperty="LedgerGLLineItem">
-                                    <Label id="_IDGenLabel47" text="Ledger GL Line Item"/>
-                                    <t:template>
-                                        <Text id="_IDGenText45" text="{selectedItems>LedgerGLLineItem}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="posid"
+                        width="140px"
+                        visible="true"
+                        sortProperty="positionNumber"
+                        filterProperty="positionNumber"
+                    >
+                        <Label text="Position ID" />
+                        <t:template>
+                            <Text text="{jobReqModel>positionNumber}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iledg" visible="true" width="100px" sortProperty="Ledger" filterProperty="Ledger">
-                                    <Label id="_IDGenLabel48" text="Ledger"/>
-                                    <t:template>
-                                        <Text id="_IDGenText46" text="{selectedItems>Ledger}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="reqstatus"
+                        width="160px"
+                        visible="true"
+                        sortProperty="status"
+                        filterProperty="status"
+                    >
+                        <Label text="Requisition Status" />
+                        <t:template>
+                            <Text text="{jobReqModel>status}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipdate" width="120px" visible="true" sortProperty="PostingDate" filterProperty="PostingDate">
-                                    <Label id="_IDGenLabel49" text="Posting Date"/>
-                                    <t:template>
-                                        <Text id="_IDGenText47" text="{selectedItems>PostingDate}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="jobtitleint"
+                        width="200px"
+                        visible="true"
+                        sortProperty="title"
+                        filterProperty="title"
+                    >
+                        <Label text="Job Title (Internal)" />
+                        <t:template>
+                            <Text text="{jobReqModel>title}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iddate" width="120px" visible="true" sortProperty="DocumentDate" filterProperty="DocumentDate">
-                                    <Label id="_IDGenLabel50" text="Document Date"/>
-                                    <t:template>
-                                        <Text id="_IDGenText48" text="{selectedItems>DocumentDate}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="jobtitleext"
+                        width="200px"
+                        visible="true"
+                        sortProperty="extTitle"
+                        filterProperty="extTitle"
+                    >
+                        <Label text="Job Title (External)" />
+                        <t:template>
+                            <Text text="{jobReqModel>extTitle}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iadtype" visible="true" width="130px" sortProperty="AccountingDocumentType" filterProperty="AccountingDocumentType">
-                                    <Label id="_IDGenLabel51" text="Document Type"/>
-                                    <t:template>
-                                        <Text id="_IDGenText49" text="{selectedItems>AccountingDocumentType}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="competencies"
+                        width="200px"
+                        visible="true"
+                        sortProperty="competencies"
+                        filterProperty="competencies"
+                    >
+                        <Label text="Competencies" />
+                        <t:template>
+                            <Text text="{jobReqModel>competencies}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="idhtxt" visible="false" width="200px" sortProperty="AccountingDocumentHeaderText" filterProperty="AccountingDocumentHeaderText">
-                                    <Label id="_IDGenLabel52" text="Document Header Text"/>
-                                    <t:template>
-                                        <Text id="_IDGenText50" text="{selectedItems>AccountingDocumentHeaderText}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="funccompetencies"
+                        width="220px"
+                        visible="true"
+                        sortProperty="cust_functionalcompetencies"
+                        filterProperty="cust_functionalcompetencies"
+                    >
+                        <Label text="Functional Competencies" />
+                        <t:template>
+                            <Text
+                                text="{jobReqModel>cust_functionalcompetencies}"
+                            />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="itcode" visible="false" width="130px" sortProperty="TransactionCode" filterProperty="TransactionCode">
-                                    <Label id="_IDGenLabel53" text="Transaction Code"/>
-                                    <t:template>
-                                        <Text id="_IDGenText51" text="{selectedItems>TransactionCode}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="country"
+                        width="130px"
+                        visible="true"
+                        sortProperty="country"
+                        filterProperty="country"
+                    >
+                        <Label text="Country" />
+                        <t:template>
+                            <Text text="{jobReqModel>country}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iitrans" visible="false" width="160px" sortProperty="IntercompanyTransaction" filterProperty="IntercompanyTransaction">
-                                    <Label id="_IDGenLabel54" text="Intercompany Transaction"/>
-                                    <t:template>
-                                        <Text id="_IDGenText52" text="{selectedItems>IntercompanyTransaction}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="opco"
+                        width="140px"
+                        visible="true"
+                        sortProperty="cust_OpCo"
+                        filterProperty="cust_OpCo"
+                    >
+                        <Label text="OpCo" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_OpCo}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="idref" visible="false" width="160px" sortProperty="DocumentReferenceID" filterProperty="DocumentReferenceID">
-                                    <Label id="_IDGenLabel55" text="Document Reference ID"/>
-                                    <t:template>
-                                        <Text id="_IDGenText53" text="{selectedItems>DocumentReferenceID}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="company"
+                        width="160px"
+                        visible="true"
+                        sortProperty="Cust_company"
+                        filterProperty="Cust_company"
+                    >
+                        <Label text="Company" />
+                        <t:template>
+                            <Text text="{jobReqModel>Cust_company}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iradoc" visible="false" width="180px" sortProperty="RecurringAccountingDocument" filterProperty="RecurringAccountingDocument">
-                                    <Label id="_IDGenLabel56" text="Recurring Accounting Document"/>
-                                    <t:template>
-                                        <Text id="_IDGenText54" text="{selectedItems>RecurringAccountingDocument}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="companycode"
+                        width="160px"
+                        visible="true"
+                        sortProperty="Cust_company_code"
+                        filterProperty="Cust_company_code"
+                    >
+                        <Label text="Company Code" />
+                        <t:template>
+                            <Text text="{jobReqModel>Cust_company_code}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="irdoc" visible="false" width="150px" sortProperty="ReverseDocument" filterProperty="ReverseDocument">
-                                    <Label id="_IDGenLabel57" text="Reverse Document"/>
-                                    <t:template>
-                                        <Text id="_IDGenText55" text="{selectedItems>ReverseDocument}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="businessunit"
+                        width="160px"
+                        visible="true"
+                        sortProperty="Cust_businessUnit"
+                        filterProperty="Cust_businessUnit"
+                    >
+                        <Label text="Business Unit" />
+                        <t:template>
+                            <Text text="{jobReqModel>Cust_businessUnit}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="irdfy" visible="false" width="180px" sortProperty="ReverseDocumentFiscalYear" filterProperty="ReverseDocumentFiscalYear">
-                                    <Label id="_IDGenLabel58" text="Reverse Doc Fiscal Year"/>
-                                    <t:template>
-                                        <Text id="_IDGenText56" text="{selectedItems>ReverseDocumentFiscalYear}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="division"
+                        width="160px"
+                        visible="true"
+                        sortProperty="division_obj"
+                        filterProperty="division_obj"
+                    >
+                        <Label text="Division/Entity" />
+                        <t:template>
+                            <Text text="{jobReqModel>division_obj}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iadc" visible="false" width="150px" sortProperty="AccountingDocumentCategory" filterProperty="AccountingDocumentCategory">
-                                    <Label id="_IDGenLabel59" text="Document Category"/>
-                                    <t:template>
-                                        <Text id="_IDGenText57" text="{selectedItems>AccountingDocumentCategory}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="department"
+                        width="150px"
+                        visible="true"
+                        sortProperty="department_obj"
+                        filterProperty="department_obj"
+                    >
+                        <Label text="Department" />
+                        <t:template>
+                            <Text text="{jobReqModel>department_obj}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipkey" visible="false" width="110px" sortProperty="PostingKey" filterProperty="PostingKey">
-                                    <Label id="_IDGenLabel60" text="Posting Key"/>
-                                    <t:template>
-                                        <Text id="_IDGenText58" text="{selectedItems>PostingKey}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="worklocation"
+                        width="160px"
+                        visible="true"
+                        sortProperty="cust_city"
+                        filterProperty="cust_city"
+                    >
+                        <Label text="Work Location" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_city}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iglacc" visible="false" width="120px" sortProperty="GLAccount" filterProperty="GLAccount">
-                                    <Label id="_IDGenLabel61" text="GL Account"/>
-                                    <t:template>
-                                        <Text id="_IDGenText59" text="{selectedItems>GLAccount}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="costcenter"
+                        width="140px"
+                        visible="true"
+                        sortProperty="cust_costCenterId"
+                        filterProperty="cust_costCenterId"
+                    >
+                        <Label text="Cost Center" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_costCenterId}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iscomp" visible="false" width="130px" sortProperty="SourceCompany" filterProperty="SourceCompany">
-                                    <Label id="_IDGenLabel62" text="Source Company"/>
-                                    <t:template>
-                                        <Text id="_IDGenText60" text="{selectedItems>SourceCompany}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="joiningdate"
+                        width="180px"
+                        visible="true"
+                        sortProperty="jobStartDate"
+                        filterProperty="jobStartDate"
+                    >
+                        <Label text="Expected Joining Date" />
+                        <t:template>
+                            <Text text="{jobReqModel>jobStartDate}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="irccentre" visible="false" width="110px" sortProperty="CostCenter" filterProperty="CostCenter">
-                                    <Label id="_IDGenLabel63" text="Cost Center"/>
-                                    <t:template>
-                                        <Text id="_IDGenText61" text="{selectedItems>CostCenter}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="vacancies"
+                        width="150px"
+                        visible="true"
+                        sortProperty="numberOpenings"
+                        filterProperty="numberOpenings"
+                    >
+                        <Label text="Number of Vacancies" />
+                        <t:template>
+                            <Text text="{jobReqModel>numberOpenings}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipcenter" visible="false" width="120px" sortProperty="ProfitCenter" filterProperty="ProfitCenter">
-                                    <Label id="_IDGenLabel64" text="Profit Center"/>
-                                    <t:template>
-                                        <Text id="_IDGenText62" text="{selectedItems>ProfitCenter}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="addreplace"
+                        width="160px"
+                        visible="true"
+                        sortProperty="custaddRep"
+                        filterProperty="custaddRep"
+                    >
+                        <Label text="Addition/Replacement" />
+                        <t:template>
+                            <Text text="{jobReqModel>custaddRep}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ifnarea" visible="false" width="140px" sortProperty="FunctionalArea" filterProperty="FunctionalArea">
-                                    <Label id="_IDGenLabel65" text="Functional Area"/>
-                                    <t:template>
-                                        <Text id="_IDGenText63" text="{selectedItems>FunctionalArea}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="employeename"
+                        width="200px"
+                        visible="true"
+                        sortProperty="replacementFor"
+                        filterProperty="replacementFor"
+                    >
+                        <Label text="Employee Name (If Replacement Position)" />
+                        <t:template>
+                            <Text text="{jobReqModel>replacementFor}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ibarea" visible="false" width="130px" sortProperty="BusinessArea" filterProperty="BusinessArea">
-                                    <Label id="_IDGenLabel66" text="Business Area"/>
-                                    <t:template>
-                                        <Text id="_IDGenText64" text="{selectedItems>BusinessArea}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="roleprofile"
+                        width="160px"
+                        visible="true"
+                        sortProperty="roleDesc"
+                        filterProperty="roleDesc"
+                    >
+                        <Label text="Role Profile" />
+                        <t:template>
+                            <Text text="{jobReqModel>roleDesc}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="icarea" visible="false" width="140px" sortProperty="ControllingArea" filterProperty="ControllingArea">
-                                    <Label id="_IDGenLabel67" text="Controlling Area"/>
-                                    <t:template>
-                                        <Text id="_IDGenText65" text="{selectedItems>ControllingArea}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="jobcode"
+                        width="120px"
+                        visible="true"
+                        sortProperty="jobCode"
+                        filterProperty="jobCode"
+                    >
+                        <Label text="Job Code" />
+                        <t:template>
+                            <Text text="{jobReqModel>jobCode}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="isegment" visible="false" width="110px" sortProperty="Segment" filterProperty="Segment">
-                                    <Label id="_IDGenLabel68" text="Segment"/>
-                                    <t:template>
-                                        <Text id="_IDGenText66" text="{selectedItems>Segment}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="jobfunction"
+                        width="150px"
+                        visible="true"
+                        sortProperty="jobFunction"
+                        filterProperty="jobFunction"
+                    >
+                        <Label text="Job Function" />
+                        <t:template>
+                            <Text text="{jobReqModel>jobFunction}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipccenter" visible="false" width="160px" sortProperty="PartnerCostCenter" filterProperty="PartnerCostCenter">
-                                    <Label id="_IDGenLabel69" text="Partner Cost Center"/>
-                                    <t:template>
-                                        <Text id="_IDGenText67" text="{selectedItems>PartnerCostCenter}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="rolecategory"
+                        width="150px"
+                        visible="true"
+                        sortProperty="Job_Category"
+                        filterProperty="Job_Category"
+                    >
+                        <Label text="Role Category" />
+                        <t:template>
+                            <Text text="{jobReqModel>Job_Category}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ippcenter" visible="false" width="170px" sortProperty="PartnerProfitCenter" filterProperty="PartnerProfitCenter">
-                                    <Label id="_IDGenLabel70" text="Partner Profit Center"/>
-                                    <t:template>
-                                        <Text id="_IDGenText68" text="{selectedItems>PartnerProfitCenter}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="careerlevel"
+                        width="140px"
+                        visible="true"
+                        sortProperty="orgLevel"
+                        filterProperty="orgLevel"
+                    >
+                        <Label text="Career Level" />
+                        <t:template>
+                            <Text text="{jobReqModel>orgLevel}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipfnarea" visible="false" width="180px" sortProperty="PartnerFunctionalArea" filterProperty="PartnerFunctionalArea">
-                                    <Label id="_IDGenLabel71" text="Partner Functional Area"/>
-                                    <t:template>
-                                        <Text id="_IDGenText69" text="{selectedItems>PartnerFunctionalArea}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="paygrade"
+                        width="130px"
+                        visible="true"
+                        sortProperty="cust_jobGrade"
+                        filterProperty="cust_jobGrade"
+                    >
+                        <Label text="Pay Grade" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_jobGrade}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipbarea" visible="false" width="170px" sortProperty="PartnerBusinessArea" filterProperty="PartnerBusinessArea">
-                                    <Label id="_IDGenLabel72" text="Partner Business Area"/>
-                                    <t:template>
-                                        <Text id="_IDGenText70" text="{selectedItems>PartnerBusinessArea}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="hrl"
+                        width="100px"
+                        visible="true"
+                        sortProperty="cust_HRL"
+                        filterProperty="cust_HRL"
+                    >
+                        <Label text="HRL" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_HRL}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ipcomp" visible="false" width="150px" sortProperty="PartnerCompany" filterProperty="PartnerCompany">
-                                    <Label id="_IDGenLabel73" text="Partner Company"/>
-                                    <t:template>
-                                        <Text id="_IDGenText71" text="{selectedItems>PartnerCompany}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="bandlevel"
+                        width="150px"
+                        visible="true"
+                        sortProperty="BandLevel"
+                        filterProperty="BandLevel"
+                    >
+                        <Label text="Band Level" />
+                        <t:template>
+                            <Text text="{jobReqModel>BandLevel}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column  id="ipseg" visible="false" width="150px" sortProperty="PartnerSegment" filterProperty="PartnerSegment">
-                                    <Label id="_IDGenLabel74" text="Partner Segment"/>
-                                    <t:template>
-                                        <Text id="_IDGenText72" text="{selectedItems>PartnerSegment}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="employmenttype"
+                        width="160px"
+                        visible="true"
+                        sortProperty="jobType"
+                        filterProperty="jobType"
+                    >
+                        <Label text="Employment Type" />
+                        <t:template>
+                            <Text text="{jobReqModel>jobType}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ibtcurr" visible="false" width="160px" sortProperty="BalanceTransactionCurrency" filterProperty="BalanceTransactionCurrency">
-                                    <Label id="_IDGenLabel75" text="Balance Trans Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText73" text="{selectedItems>BalanceTransactionCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="currency"
+                        width="120px"
+                        visible="true"
+                        sortProperty="currency"
+                        filterProperty="currency"
+                    >
+                        <Label text="Currency" />
+                        <t:template>
+                            <Text text="{jobReqModel>currency}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iabtr" visible="false" width="180px" sortProperty="AmountInBalanceTransacCrcy" filterProperty="AmountInBalanceTransacCrcy">
-                                    <Label id="_IDGenLabel76" text="Amount in Balance Trans Crcy"/>
-                                    <t:template>
-                                        <Text id="_IDGenText74" text="{selectedItems>AmountInBalanceTransacCrcy}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="minsalary"
+                        width="180px"
+                        visible="true"
+                        sortProperty="cust_salaryMin"
+                        filterProperty="cust_salaryMin"
+                    >
+                        <Label text="Minimum Monthly Salary" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_salaryMin}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="itcurr" visible="false" width="150px" sortProperty="TransactionCurrency" filterProperty="TransactionCurrency">
-                                    <Label id="_IDGenLabel77" text="Transaction Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText75" text="{selectedItems>TransactionCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="medsalary"
+                        width="180px"
+                        visible="true"
+                        sortProperty="cust_salaryMid"
+                        filterProperty="cust_salaryMid"
+                    >
+                        <Label text="Medium Monthly Salary" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_salaryMid}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iatcurr" visible="false" width="180px" sortProperty="AmountInTransactionCurrency" filterProperty="AmountInTransactionCurrency">
-                                    <Label id="_IDGenLabel78" text="Amount in Trans Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText76" text="{selectedItems>AmountInTransactionCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="maxsalary"
+                        width="180px"
+                        visible="true"
+                        sortProperty="cust_salaryMax"
+                        filterProperty="cust_salaryMax"
+                    >
+                        <Label text="Maximum Monthly Salary" />
+                        <t:template>
+                            <Text text="{jobReqModel>cust_salaryMax}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iccodecur" visible="false" width="170px" sortProperty="CompanyCodeCurrency" filterProperty="CompanyCodeCurrency">
-                                    <Label id="_IDGenLabel79" text="Company Code Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText77" text="{selectedItems>CompanyCodeCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="eligibleforreferral"
+                        width="220px"
+                        visible="true"
+                        sortProperty="ReferralEligibility"
+                        filterProperty="ReferralEligibility"
+                    >
+                        <Label text="Is this vacancy eligible for referrals?" />
+                        <t:template>
+                            <Text text="{jobReqModel>ReferralEligibility}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iaccurr" visible="false" width="190px" sortProperty="AmountInCompanyCodeCurrency" filterProperty="AmountInCompanyCodeCurrency">
-                                    <Label id="_IDGenLabel80" text="Amount in Company Code Crcy"/>
-                                    <t:template>
-                                        <Text id="_IDGenText78" text="{selectedItems>AmountInCompanyCodeCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="eligibleforbonus"
+                        width="230px"
+                        visible="true"
+                        sortProperty="ReferralBonusEligibility"
+                        filterProperty="ReferralBonusEligibility"
+                    >
+                        <Label
+                            text="Is this vacancy eligible for Referral Bonus?"
+                        />
+                        <t:template>
+                            <Text
+                                text="{jobReqModel>ReferralBonusEligibility}"
+                            />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="igcurr" visible="false" width="140px" sortProperty="GlobalCurrency" filterProperty="GlobalCurrency">
-                                    <Label id="_IDGenLabel81" text="Global Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText79" text="{selectedItems>GlobalCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="erpamount"
+                        width="150px"
+                        visible="true"
+                        sortProperty="erpAmount"
+                        filterProperty="erpAmount"
+                    >
+                        <Label text="ERP Amount" />
+                        <t:template>
+                            <Text text="{jobReqModel>erpAmount}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iaigcurr" visible="false" width="170px" sortProperty="AmountInGlobalCurrency" filterProperty="AmountInGlobalCurrency">
-                                    <Label id="_IDGenLabel82" text="Amount in Global Crcy"/>
-                                    <t:template>
-                                        <Text id="_IDGenText80" text="{selectedItems>AmountInGlobalCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="alignedreferral"
+                        width="260px"
+                        visible="true"
+                        sortProperty="ReferralInfoCheck_LMHC"
+                        filterProperty="ReferralInfoCheck_LMHC"
+                    >
+                        <Label
+                            text="Are you aligned with the Referral Information section for this role?"
+                        />
+                        <t:template>
+                            <Text text="{jobReqModel>ReferralInfoCheck_LMHC}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ifncurr" visible="false"  width="160px" sortProperty="FunctionalCurrency" filterProperty="FunctionalCurrency">
-                                    <Label id="_IDGenLabel83" text="Functional Currency"/>
-                                    <t:template>
-                                        <Text id="_IDGenText81" text="{selectedItems>FunctionalCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="linemanager"
+                        width="180px"
+                        visible="true"
+                        sortProperty="hiringManagerName"
+                        filterProperty="hiringManagerName"
+                    >
+                        <Label text="Line Manager" />
+                        <t:template>
+                            <Text text="{jobReqModel>hiringManagerName}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iaifcurr" visible="false" width="190px" sortProperty="AmountInFunctionalCurrency" filterProperty="AmountInFunctionalCurrency">
-                                    <Label id="_IDGenLabel84" text="Amount in Functional Crcy"/>
-                                    <t:template>
-                                        <Text id="_IDGenText82" text="{selectedItems>AmountInFunctionalCurrency}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="sourcinglead"
+                        width="160px"
+                        visible="true"
+                        sortProperty="secondRecruiterName"
+                        filterProperty="secondRecruiterName"
+                    >
+                        <Label text="Sourcing Lead" />
+                        <t:template>
+                            <Text text="{jobReqModel>secondRecruiterName}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="ibunit" width="110px" visible="false" sortProperty="BaseUnit" filterProperty="BaseUnit">
-                                    <Label id="_IDGenLabel85" text="Base Unit"/>
-                                    <t:template>
-                                        <Text id="_IDGenText83" text="{selectedItems>BaseUnit}"/>
-                                    </t:template>
-                                </t:Column>
+                    <t:Column
+                        id="mainrecruiter"
+                        width="200px"
+                        visible="true"
+                        sortProperty="recruiterName"
+                        filterProperty="recruiterName"
+                    >
+                        <Label text="Main Recruiter / Project Sponsor" />
+                        <t:template>
+                            <Text text="{jobReqModel>recruiterName}" />
+                        </t:template>
+                    </t:Column>
 
-                                <t:Column id="iquan" width="100px" visible="false" sortProperty="Quantity" filterProperty="Quantity">
-                                    <Label id="_IDGenLabel86" text="Quantity"/>
-                                    <t:template>
-                                        <Text id="_IDGenText84" text="{selectedItems>Quantity}"/>
-                                    </t:template>
-                                </t:Column>
-                            </t:columns>
-                        </t:Table>
+                    <t:Column
+                        id="assignedrecruiter"
+                        width="180px"
+                        visible="true"
+                        sortProperty="vpOfStaffingName"
+                        filterProperty="vpOfStaffingName"
+                    >
+                        <Label text="Assigned Recruiter" />
+                        <t:template>
+                            <Text text="{jobReqModel>vpOfStaffingName}" />
+                        </t:template>
+                    </t:Column>
 
+                    <t:Column
+                        id="onboardingofficer"
+                        width="180px"
+                        visible="true"
+                        sortProperty="sourcerName"
+                        filterProperty="sourcerName"
+                    >
+                        <Label text="Onboarding Officer" />
+                        <t:template>
+                            <Text text="{jobReqModel>sourcerName}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="sourcingspecialist"
+                        width="180px"
+                        visible="true"
+                        sortProperty="coordinatorName"
+                        filterProperty="coordinatorName"
+                    >
+                        <Label text="Sourcing Specialist" />
+                        <t:template>
+                            <Text text="{jobReqModel>coordinatorName}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="intdescheader"
+                        width="180px"
+                        visible="true"
+                        sortProperty="intJobDescHeader"
+                        filterProperty="intJobDescHeader"
+                    >
+                        <Label text="Internal Job Desc Header" />
+                        <t:template>
+                            <Text text="{jobReqModel>intJobDescHeader}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="intdescription"
+                        width="200px"
+                        visible="true"
+                        sortProperty="listingLayout"
+                        filterProperty="listingLayout"
+                    >
+                        <Label text="Internal Job Description" />
+                        <t:template>
+                            <Text text="{jobReqModel>listingLayout}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="intdescfooter"
+                        width="180px"
+                        visible="true"
+                        sortProperty="intJobDescFooter"
+                        filterProperty="intJobDescFooter"
+                    >
+                        <Label text="Internal Job Desc Footer" />
+                        <t:template>
+                            <Text text="{jobReqModel>intJobDescFooter}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="extdescheader"
+                        width="180px"
+                        visible="true"
+                        sortProperty="extJobDescHeader"
+                        filterProperty="extJobDescHeader"
+                    >
+                        <Label text="External Job Desc Header" />
+                        <t:template>
+                            <Text text="{jobReqModel>extJobDescHeader}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="extdescription"
+                        width="200px"
+                        visible="true"
+                        sortProperty="extListingLayout"
+                        filterProperty="extListingLayout"
+                    >
+                        <Label text="External Job Description" />
+                        <t:template>
+                            <Text text="{jobReqModel>extListingLayout}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="extdescfooter"
+                        width="180px"
+                        visible="true"
+                        sortProperty="extJobDescFooter"
+                        filterProperty="extJobDescFooter"
+                    >
+                        <Label text="External Job Desc Footer" />
+                        <t:template>
+                            <Text text="{jobReqModel>extJobDescFooter}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="comments"
+                        width="200px"
+                        visible="true"
+                        sortProperty="Lmcomment"
+                        filterProperty="Lmcomment"
+                    >
+                        <Label text="Additional Comments" />
+                        <t:template>
+                            <Text text="{jobReqModel>Lmcomment}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="supportdocs"
+                        width="180px"
+                        visible="true"
+                        sortProperty="supportDocs"
+                        filterProperty="supportDocs"
+                    >
+                        <Label text="Supporting Documents" />
+                        <t:template>
+                            <Text text="{jobReqModel>supportDocs}" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="uaenational"
+                        width="200px"
+                        visible="true"
+                        sortProperty="custuaenation"
+                        filterProperty="custuaenation"
+                    >
+                        <Label text="Is Role for UAE National Hires?" />
+                        <t:template>
+                            <Text text="{jobReqModel>custuaenation}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:Table>
 
             <!-- <Table
-                id="selectedItemsTable"
-                items="{selectedItems>/data}"
+                id="jobReqModelTable"
+                items="{jobReqModel>/data}"
             >
                 <headerToolbar>
                     <OverflowToolbar>
@@ -1241,11 +1860,11 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{selectedItems>product}" />
-                            <Text text="{selectedItems>category}" />
-                            <Text text="{selectedItems>quantity}" />
-                            <Text text="${selectedItems>price}" />
-                            <Text text="{selectedItems>value}" />
+                            <Text text="{jobReqModel>product}" />
+                            <Text text="{jobReqModel>category}" />
+                            <Text text="{jobReqModel>quantity}" />
+                            <Text text="${jobReqModel>price}" />
+                            <Text text="{jobReqModel>value}" />
                         </cells>
                     </ColumnListItem>
                 </items>

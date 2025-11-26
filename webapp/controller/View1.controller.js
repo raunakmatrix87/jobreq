@@ -22,18 +22,18 @@ sap.ui.define([
 
     return Controller.extend("com.sap.sj.jobreq.controller.View1", {
         onInit: function () {
-           // this._loadPositions();
+            // this._loadPositions();
             // Sample data for dropdowns
             var aCategories = [
-                { key: "OpCo North America", text: "OpCo North America" },
+                { key: "Majid Al Futtaim Ventures", text: "Majid Al Futtaim Ventures" },
                 { key: "OpCo Europe", text: "OpCo Europe" }
             ];
 
             var aRegions = [
-                { key: "North", text: "North" },
-                { key: "South", text: "South" },
-                { key: "East", text: "East" },
-                { key: "West", text: "West" }
+                { key: "LifeStyle", text: "LifeStyle" },
+                { key: "L&E", text: "L&E" },
+                { key: "Cinemas", text: "Cinemas" },
+                { key: "Finance", text: "Finance" }
             ];
 
             var aStatuses = [
@@ -59,6 +59,8 @@ sap.ui.define([
             this.getView().setModel(oFilterModel, "filterModel");
 
             this.getView().setModel(oUpdateModel, "updateModel");
+            var oSelectedItemsModel = new JSONModel([]);
+            this.getView().setModel(oSelectedItemsModel, "jobReqModel");
             this._registerForP13n();
             this._registerForrP13n();
         },
@@ -330,54 +332,68 @@ sap.ui.define([
         _registerForrP13n: function () {
             var oView = this.getView();
             var orTable = oView.byId("reqTable");
-            this.oMetadataHelperr = new MetadataHelper([
-                { key: "iccode", path: "CompanyCode", label: "Company Code" },
-                { key: "ifyear", path: "FiscalYear", label: "Fiscal Year" },
-                { key: "iadoc", path: "AccountingDocument", label: "Accounting Document" },
-                { key: "iditem", path: "AccountingDocumentItem", label: "Document Item" },
-                { key: "ilglitem", path: "LedgerGLLineItem", label: "Ledger GL Line Item" },
-                { key: "iledg", path: "Ledger", label: "Ledger" },
-                { key: "ipdate", path: "PostingDate", label: "Posting Date" },
-                { key: "iddate", path: "DocumentDate", label: "Document Date" },
-                { key: "iadtype", path: "AccountingDocumentType", label: "Document Type" },
-                { key: "iadhtxt", path: "AccountingDocumentHeaderText", label: "Document Header Text" },
-                { key: "itcode", path: "TransactionCode", label: "Transaction Code" },
-                { key: "iitrans", path: "IntercompanyTransaction", label: "Intercompany Transaction" },
-                { key: "idref", path: "DocumentReferenceID", label: "Document Reference ID" },
-                { key: "iradoc", path: "RecurringAccountingDocument", label: "Recurring Document" },
-                { key: "irdoc", path: "ReverseDocument", label: "Reverse Document" },
-                { key: "irdfy", path: "ReverseDocumentFiscalYear", label: "Reverse Doc Fiscal Year" },
-                { key: "iadc", path: "AccountingDocumentCategory", label: "Document Category" },
-                { key: "ipkey", path: "PostingKey", label: "Posting Key" },
-                { key: "iglacc", path: "GLAccount", label: "GL Account" },
-                { key: "iscomp", path: "SourceCompany", label: "Source Company" },
-                { key: "irccentre", path: "CostCenter", label: "Cost Center" },
-                { key: "ipcenter", path: "ProfitCenter", label: "Profit Center" },
-                { key: "ifnarea", path: "FunctionalArea", label: "Functional Area" },
-                { key: "ibarea", path: "BusinessArea", label: "Business Area" },
-                { key: "icarea", path: "ControllingArea", label: "Controlling Area" },
-                { key: "isegment", path: "Segment", label: "Segment" },
-                { key: "ipccenter", path: "PartnerCostCenter", label: "Partner Cost Center" },
-                { key: "ippcenter", path: "PartnerProfitCenter", label: "Partner Profit Center" },
-                { key: "ipfnarea", path: "PartnerFunctionalArea", label: "Partner Functional Area" },
-                { key: "ipbarea", path: "PartnerBusinessArea", label: "Partner Business Area" },
-                { key: "ipcomp", path: "PartnerCompany", label: "Partner Company" },
-                { key: "ipseg", path: "PartnerSegment", label: "Partner Segment" },
-                { key: "ibtcurr", path: "BalanceTransactionCurrency", label: "Balance Trans Currency" },
-                { key: "iabtr", path: "AmountInBalanceTransacCrcy", label: "Amount in Balance Trans Crcy" },
-                { key: "itcurr", path: "TransactionCurrency", label: "Transaction Currency" },
-                { key: "iatcurr", path: "AmountInTransactionCurrency", label: "Amount in Trans Currency" },
-                { key: "iccodecur", path: "CompanyCodeCurrency", label: "Company Code Currency" },
-                { key: "iaccurr", path: "AmountInCompanyCodeCurrency", label: "Amount in Co Code Crcy" },
-                { key: "igcurr", path: "GlobalCurrency", label: "Global Currency" },
-                { key: "iaigcurr", path: "AmountInGlobalCurrency", label: "Amount in Global Crcy" },
-                { key: "ifncurr", path: "FunctionalCurrency", label: "Functional Currency" },
-                { key: "iaifcurr", path: "AmountInFunctionalCurrency", label: "Amount in Functional Crcy" },
-                { key: "ibunit", path: "BaseUnit", label: "Base Unit" },
-                { key: "iquan", path: "Quantity", label: "Quantity" }
-            ]);
+
+            this.oRMetadataHelper = new MetadataHelper([
+                { key: "quickapply", path: "quickApply", label: "Quick Apply" },
+                { key: "evergreen", path: "evergreen", label: "Evergreen Job Requisition" },
+                { key: "reqtype", path: "sfstd_jobReqType", label: "Job Requisition Type" },
+                { key: "reqid", path: "id", label: "Requisition ID" },
+                { key: "posid", path: "positionNumber", label: "Position ID" },
+                { key: "reqstatus", path: "status", label: "Requisition Status" },
+                { key: "jobtitleint", path: "title", label: "Job Title (Internal)" },
+                { key: "jobtitleext", path: "extTitle", label: "Job Title (External)" },
+                { key: "competencies", path: "competencies", label: "Competencies" },
+                { key: "funccompetencies", path: "cust_functionalcompetencies", label: "Functional Competencies" },
+                { key: "country", path: "country", label: "Country" },
+                { key: "opco", path: "cust_OpCo", label: "OpCo" },
+                { key: "company", path: "Cust_company", label: "Company" },
+                { key: "companycode", path: "Cust_company_code", label: "Company Code" },
+                { key: "businessunit", path: "Cust_businessUnit", label: "Business Unit" },
+                { key: "division", path: "division_obj", label: "Division/Entity" },
+                { key: "department", path: "department_obj", label: "Department" },
+                { key: "worklocation", path: "cust_city", label: "Work Location" },
+                { key: "costcenter", path: "cust_costCenterId", label: "Cost Center" },
+                { key: "joiningdate", path: "jobStartDate", label: "Expected Joining Date" },
+                { key: "vacancies", path: "numberOpenings", label: "Number of Vacancies" },
+                { key: "addreplace", path: "custaddRep", label: "Addition/Replacement" },
+                { key: "employeename", path: "replacementFor", label: "Employee Name (If Replacement Position)" },
+                { key: "roleprofile", path: "roleDesc", label: "Role Profile" },
+                { key: "jobcode", path: "jobCode", label: "Job Code" },
+                { key: "jobfunction", path: "jobFunction", label: "Job Function" },
+                { key: "rolecategory", path: "Job_Category", label: "Role Category" },
+                { key: "careerlevel", path: "orgLevel", label: "Career Level" },
+                { key: "paygrade", path: "cust_jobGrade", label: "Pay Grade" },
+                { key: "hrl", path: "cust_HRL", label: "HRL" },
+                { key: "bandlevel", path: "BandLevel", label: "Band Level" },
+                { key: "employmenttype", path: "jobType", label: "Employment Type" },
+                { key: "currency", path: "currency", label: "Currency" },
+                { key: "minsalary", path: "cust_salaryMin", label: "Minimum Monthly Salary" },
+                { key: "medsalary", path: "cust_salaryMid", label: "Medium Monthly Salary" },
+                { key: "maxsalary", path: "cust_salaryMax", label: "Maximum Monthly Salary" },
+                { key: "eligibleforreferral", path: "ReferralEligibility", label: "Is this vacancy eligible for referrals?" },
+                { key: "eligibleforbonus", path: "ReferralBonusEligibility", label: "Is this vacancy eligible for Referral Bonus?" },
+                { key: "erpamount", path: "erpAmount", label: "ERP Amount" },
+                { key: "alignedreferral", path: "ReferralInfoCheck_LMHC", label: "Are you aligned with the Referral Information section for this role?" },
+                { key: "linemanager", path: "hiringManagerName", label: "Line Manager" },
+                { key: "sourcinglead", path: "secondRecruiterName", label: "Sourcing Lead" },
+                { key: "mainrecruiter", path: "recruiterName", label: "Main Recruiter / Project Sponsor" },
+                { key: "assignedrecruiter", path: "vpOfStaffingName", label: "Assigned Recruiter" },
+                { key: "onboardingofficer", path: "sourcerName", label: "Onboarding Officer" },
+                { key: "sourcingspecialist", path: "coordinatorName", label: "Sourcing Specialist" },
+                { key: "intdescheader", path: "intJobDescHeader", label: "Internal Job Desc Header" },
+                { key: "intdescription", path: "listingLayout", label: "Internal Job Description" },
+                { key: "intdescfooter", path: "intJobDescFooter", label: "Internal Job Desc Footer" },
+                { key: "extdescheader", path: "extJobDescHeader", label: "External Job Desc Header" },
+                { key: "extdescription", path: "extListingLayout", label: "External Job Description" },
+                { key: "extdescfooter", path: "extJobDescFooter", label: "External Job Desc Footer" },
+                { key: "comments", path: "Lmcomment", label: "Additional Comments" },
+                { key: "supportdocs", path: "supportDocs", label: "Supporting Documents" },
+                { key: "uaenational", path: "custuaenation", label: "Is this role for UAE national hires?" }
+            ]
+            );
+
             Engine.getInstance().register(orTable, {
-                helper: this.oMetadataHelperr,
+                helper: this.oRMetadataHelper,
                 controller: {
                     Columns: new SelectionController({
                         targetAggregation: "columns",
@@ -443,70 +459,165 @@ sap.ui.define([
         },
 
 
-        onSelectPress: function () {
+        onGenRequsition: function () {
             var oTable = this.byId("positionsTable");
-            var aSelectedItems = oTable.getSelectedIndices();
+            var aSelectedIndices = oTable.getSelectedIndices();
+            var reqData = [];
 
-            if (aSelectedItems.length === 0) {
+            if (aSelectedIndices.length === 0) {
                 MessageToast.show("Please select at least one item");
                 return;
-            }
+            } else {
+                for (var i = 0; i < aSelectedIndices.length; i++) {
+                    var iSelectedIndex = aSelectedIndices[i];
+                    var oContext = oTable.getContextByIndex(iSelectedIndex);
+                    if (oContext) {
+                        var oPosData = oContext.getObject();
 
-            // Get selected data
-            var osData =
-                [
-                    {
-                        CompanyCode: "1000",
-                        FiscalYear: "2024",
-                        AccountingDocument: "1900000001",
-                        AccountingDocumentItem: "001",
-                        LedgerGLLineItem: "0001",
-                        Ledger: "0L",
-                        PostingDate: "2024-01-15",
-                        DocumentDate: "2024-01-15",
-                        AccountingDocumentType: "SA",
-                        AccountingDocumentHeaderText: "Sample Document",
-                        TransactionCode: "FB01",
-                        IntercompanyTransaction: "",
-                        DocumentReferenceID: "REF001",
-                        RecurringAccountingDocument: "",
-                        ReverseDocument: "",
-                        ReverseDocumentFiscalYear: "",
-                        AccountingDocumentCategory: "Standard",
-                        PostingKey: "40",
-                        GLAccount: "400000",
-                        SourceCompany: "1000",
-                        CostCenter: "1000",
-                        ProfitCenter: "1000",
-                        FunctionalArea: "1000",
-                        BusinessArea: "1000",
-                        ControllingArea: "1000",
-                        Segment: "1000",
-                        PartnerCostCenter: "",
-                        PartnerProfitCenter: "",
-                        PartnerFunctionalArea: "",
-                        PartnerBusinessArea: "",
-                        PartnerCompany: "",
-                        PartnerSegment: "",
-                        BalanceTransactionCurrency: "USD",
-                        AmountInBalanceTransacCrcy: "1000.00",
-                        TransactionCurrency: "USD",
-                        AmountInTransactionCurrency: "1000.00",
-                        CompanyCodeCurrency: "USD",
-                        AmountInCompanyCodeCurrency: "1000.00",
-                        GlobalCurrency: "USD",
-                        AmountInGlobalCurrency: "1000.00",
-                        FunctionalCurrency: "USD",
-                        AmountInFunctionalCurrency: "1000.00",
-                        BaseUnit: "EA",
-                        Quantity: "10"
+                        reqData.push({
+                            "quickApply": false,
+                            "evergreen": false,
+                            "sfstd_jobReqType": "Standard",
+                            "id": "",
+                            "positionNumber": oPosData.code,
+                            "status": "",
+                            "title": oPosData.jobTitle,
+                            "extTitle": oPosData.jobTitle,
+                            "competencies": "",
+                            "cust_functionalcompetencies": "",
+                            "country": oContext.getProperty('companyNav/countryOfRegistrationNav/twoCharCountryCode'),
+                            "cust_OpCo": oContext.getProperty('cust_opcoNav/label_defaultValue'),
+                            "Cust_company": oContext.getProperty('companyNav/name_defaultValue'),
+                            "Cust_company_code": oPosData.company,
+                            "Cust_businessUnit": oContext.getProperty('cust_BusinessUnitNav/label_defaultValue'),
+                            "division_obj": oPosData.division,
+                            "department_obj": oPosData.department,
+                            "cust_city": oPosData.cust_City,
+                            "cust_costCenterId": oPosData.costCenter,
+                            "jobStartDate": "",
+                            "numberOpenings": 1,
+                            "custaddRep": "Addition",
+                            "replacementFor": "",
+                            "roleDesc": "",
+                            "jobCode": oPosData.jobCode,
+                            "jobFunction": oPosData.cust_JobFunction,
+                            "Job_Category": "",
+                            "orgLevel": oPosData.cust_CareerLevel,
+                            "cust_jobGrade": oPosData.payGrade,
+                            "cust_HRL": oPosData.cust_HRL,
+                            "BandLevel": oPosData.cust_Band_Level,
+                            "jobType": oContext.getProperty('regularTemporaryNav/label_defaultValue'),
+                            "currency": oContext.getProperty('companyNav/countryOfRegistrationNav/currency'),
+                            "cust_salaryMin": oPosData.cust_MinimumPay,
+                            "cust_salaryMid": oPosData.cust_MidPoint,
+                            "cust_salaryMax": oPosData.cust_MaximumPay,
+                            "ReferralEligibility": "",
+                            "ReferralBonusEligibility": "",
+                            "erpAmount": "",
+                            "ReferralInfoCheck_LMHC": "",
+                            "hiringManagerName": "",
+                            "secondRecruiterName": "",
+                            "recruiterName": "",
+                            "vpOfStaffingName": "",
+                            "sourcerName": oContext.getProperty('/companyNav/cust_OnbofficerNav/defaultFullName'),
+                            "coordinatorName": "",
+                            "intJobDescHeader": "",
+                            "listingLayout": "",
+                            "intJobDescFooter": "",
+                            "extJobDescHeader": "",
+                            "extListingLayout": "",
+                            "extJobDescFooter": "",
+                            "Lmcomment": "",
+                            "supportDocs": "",
+                            "custuaenation": "",
+                            "orglevelpickid": oContext.getProperty("cust_OrgLevelNav/optionId"),
+                            "formDueDate": oPosData.effectiveStartDate
+                        }
+                        );
+
+                        // reqData.push({
+                        //     "jobCode": oPosData.jobCode,
+                        //     "positionNumber": oPosData.code,
+                        //     "country": oContext.getProperty("companyNav/countryOfRegistrationNav/twoCharCountryCode"),
+                        //     "cust_OpCo": oContext.getProperty("cust_opcoNav/label_defaultValue"),
+                        //     "Cust_company": oPosData.company,
+                        //     "currency": oContext.getProperty("companyNav/countryOfRegistrationNav/currency"),
+                        //     "cust_city": "",
+                        //     "cust_salaryMin": oPosData.cust_MinimumPay,
+                        //     "cust_salaryMid":  oPosData.cust_MidPoint,
+                        //     "cust_salaryMax": oPosData.cust_MaximumPay,
+                        //     "orglevelpickid":oContext.getProperty("cust_OrgLevelNav/optionId"),
+                        //     "uaenationalid":"1886256",
+                        //     "jobfunid":"1890683",
+                        //     "formDueDate":oPosData.effectiveStartDate,
+                        //     "addrepid":"79433"
+
+                        // });
+                        //aSelectedData.push(oSelectedRowData); // Add the data to your array
                     }
-                ]
-            var oSelectedItemsModel = new JSONModel(osData);
-            this.getView().setModel(oSelectedItemsModel, "selectedItems");
-
+                }
+            }
+            this.getView().getModel("jobReqModel").setProperty("/", reqData);
         },
+        onPostRequsitions: function (oEvent) {
+            var oTable = this.byId("reqTable");
+            var oModel = this.getOwnerComponent().getModel();
+            var aSelectedIndices = oTable.getSelectedIndices();
+            for (var i = 0; i < aSelectedIndices.length; i++) {
+                var iSelectedIndex = aSelectedIndices[i];
+                var oContext = oTable.getContextByIndex(iSelectedIndex);
+                var oReqData = oContext.getObject();
+                var oPayload =
+                {
+                    templateId: "5101",
+                    appTemplateId: "4781",
+                    statusSetId: "321",
+                    defaultLanguage: "en_GB",
+                    jobType: oReqData.jobType,
+                    "jobCode": oReqData.jobCode,
+                    "positionNumber": oReqData.positionNumber,
+                    "country": oReqData.country,
+                    "cust_OpCo": oReqData.cust_OpCo,
+                    "Cust_company": oReqData.Cust_company,
+                    "currency": oReqData.currency,
+                    "cust_city": oReqData.cust_city,
+                    "cust_salaryMin": oReqData.cust_salaryMin,
+                    "cust_salaryMid": oReqData.cust_salaryMid,
+                    "cust_salaryMax": oReqData.cust_salaryMax,
+                    "formDueDate": "/Date(" + Date.parse(new Date(oReqData.formDueDate)) + ")/",
+                    "custuaenational": {
+                        __metadata: {
+                            uri: "PicklistOption(1886256)"
+                        }
+                    },
+                    "custaddRep": {
+                        __metadata: {
+                            uri: "PicklistOption(79433)"
+                        }
+                    },
+                    "jobFunction": {
+                        __metadata: {
+                            uri: "PicklistOption(1890683)"
+                        }
+                    },
+                    "orgLevel": {
+                        __metadata: {
+                            uri: "PicklistOption(1892738)"
+                        }
 
+                    }
+                }
+                oModel.create("/JobRequisition", oPayload, {
+                    success: function (oResponse) {
+                        MessageToast.show("Successfully created Requisitions.");
+                    }.bind(this),
+                    error: function (oErr) {
+                        MessageToast.show("Failed to create Requisitions.");
+                    }
+                });
+
+            }
+        },
         onSavePress: function () {
             var oUpdateModel = this.getView().getModel("updateModel");
             var oSelectedItemsModel = this.getView().getModel("selectedItems");

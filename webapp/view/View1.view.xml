@@ -181,13 +181,14 @@
                 enableSelectAll="true"
                 alternateRowColors="true"
                 sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
+                rowsUpdated="onRowsUpdated"
             >
                 <t:rowMode>
                     <rowmodes:Interactive
                         id="_IDGenInteractive"
                         xmlns:rowmodes="sap.ui.table.rowmodes"
-                        rowCount="7"
-                        minRowCount="7"
+                        rowCount="10"
+                        minRowCount="10"
                     />
                 </t:rowMode>
                 <t:extension>
@@ -1047,6 +1048,7 @@
                 enableColumnReordering="true"
                 enableSelectAll="true"
                 ariaLabelledBy="title"
+                sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
             >
                 <t:extension>
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
@@ -1078,12 +1080,19 @@
                         />
                     </OverflowToolbar>
                 </t:extension>
-
+                <t:rowMode>
+                    <rowmodes:Interactive
+                        id="_IDGen1Interactive"
+                        xmlns:rowmodes="sap.ui.table.rowmodes"
+                        rowCount="5"
+                        minRowCount="5"
+                    />
+                </t:rowMode>
                 <t:columns>
                     <t:Column
                         id="quickapply"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="quickApply"
                         filterProperty="quickApply"
                     >
@@ -1096,7 +1105,7 @@
                     <t:Column
                         id="evergreen"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="evergreen"
                         filterProperty="evergreen"
                     >
@@ -1109,7 +1118,7 @@
                     <t:Column
                         id="reqtype"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="sfstd_jobReqType"
                         filterProperty="sfstd_jobReqType"
                     >
@@ -1122,7 +1131,7 @@
                     <t:Column
                         id="reqid"
                         width="140px"
-                        visible="true"
+                        visible="false"
                         sortProperty="id"
                         filterProperty="id"
                     >
@@ -1148,7 +1157,7 @@
                     <t:Column
                         id="reqstatus"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="status"
                         filterProperty="status"
                     >
@@ -1161,7 +1170,7 @@
                     <t:Column
                         id="jobtitleint"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="title"
                         filterProperty="title"
                     >
@@ -1174,7 +1183,7 @@
                     <t:Column
                         id="jobtitleext"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="extTitle"
                         filterProperty="extTitle"
                     >
@@ -1187,7 +1196,7 @@
                     <t:Column
                         id="competencies"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="competencies"
                         filterProperty="competencies"
                     >
@@ -1200,7 +1209,7 @@
                     <t:Column
                         id="funccompetencies"
                         width="220px"
-                        visible="true"
+                        visible="false"
                         sortProperty="cust_functionalcompetencies"
                         filterProperty="cust_functionalcompetencies"
                     >
@@ -1254,7 +1263,7 @@
                     <t:Column
                         id="companycode"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="Cust_company_code"
                         filterProperty="Cust_company_code"
                     >
@@ -1267,7 +1276,7 @@
                     <t:Column
                         id="businessunit"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="Cust_businessUnit"
                         filterProperty="Cust_businessUnit"
                     >
@@ -1280,7 +1289,7 @@
                     <t:Column
                         id="division"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="division_obj"
                         filterProperty="division_obj"
                     >
@@ -1293,7 +1302,7 @@
                     <t:Column
                         id="department"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="department_obj"
                         filterProperty="department_obj"
                     >
@@ -1319,7 +1328,7 @@
                     <t:Column
                         id="costcenter"
                         width="140px"
-                        visible="true"
+                        visible="false"
                         sortProperty="cust_costCenterId"
                         filterProperty="cust_costCenterId"
                     >
@@ -1332,7 +1341,7 @@
                     <t:Column
                         id="joiningdate"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="jobStartDate"
                         filterProperty="jobStartDate"
                     >
@@ -1345,7 +1354,7 @@
                     <t:Column
                         id="vacancies"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="numberOpenings"
                         filterProperty="numberOpenings"
                     >
@@ -1371,7 +1380,7 @@
                     <t:Column
                         id="employeename"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="replacementFor"
                         filterProperty="replacementFor"
                     >
@@ -1384,7 +1393,7 @@
                     <t:Column
                         id="roleprofile"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="roleDesc"
                         filterProperty="roleDesc"
                     >
@@ -1397,7 +1406,7 @@
                     <t:Column
                         id="jobcode"
                         width="120px"
-                        visible="true"
+                        visible="false"
                         sortProperty="jobCode"
                         filterProperty="jobCode"
                     >
@@ -1423,7 +1432,7 @@
                     <t:Column
                         id="rolecategory"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="Job_Category"
                         filterProperty="Job_Category"
                     >
@@ -1449,7 +1458,7 @@
                     <t:Column
                         id="paygrade"
                         width="130px"
-                        visible="true"
+                        visible="false"
                         sortProperty="cust_jobGrade"
                         filterProperty="cust_jobGrade"
                     >
@@ -1462,7 +1471,7 @@
                     <t:Column
                         id="hrl"
                         width="100px"
-                        visible="true"
+                        visible="false"
                         sortProperty="cust_HRL"
                         filterProperty="cust_HRL"
                     >
@@ -1475,7 +1484,7 @@
                     <t:Column
                         id="bandlevel"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="BandLevel"
                         filterProperty="BandLevel"
                     >
@@ -1501,7 +1510,7 @@
                     <t:Column
                         id="currency"
                         width="120px"
-                        visible="true"
+                        visible="false"
                         sortProperty="currency"
                         filterProperty="currency"
                     >
@@ -1553,7 +1562,7 @@
                     <t:Column
                         id="eligibleforreferral"
                         width="220px"
-                        visible="true"
+                        visible="false"
                         sortProperty="ReferralEligibility"
                         filterProperty="ReferralEligibility"
                     >
@@ -1566,7 +1575,7 @@
                     <t:Column
                         id="eligibleforbonus"
                         width="230px"
-                        visible="true"
+                        visible="false"
                         sortProperty="ReferralBonusEligibility"
                         filterProperty="ReferralBonusEligibility"
                     >
@@ -1583,7 +1592,7 @@
                     <t:Column
                         id="erpamount"
                         width="150px"
-                        visible="true"
+                        visible="false"
                         sortProperty="erpAmount"
                         filterProperty="erpAmount"
                     >
@@ -1596,7 +1605,7 @@
                     <t:Column
                         id="alignedreferral"
                         width="260px"
-                        visible="true"
+                        visible="false"
                         sortProperty="ReferralInfoCheck_LMHC"
                         filterProperty="ReferralInfoCheck_LMHC"
                     >
@@ -1611,7 +1620,7 @@
                     <t:Column
                         id="linemanager"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="hiringManagerName"
                         filterProperty="hiringManagerName"
                     >
@@ -1624,7 +1633,7 @@
                     <t:Column
                         id="sourcinglead"
                         width="160px"
-                        visible="true"
+                        visible="false"
                         sortProperty="secondRecruiterName"
                         filterProperty="secondRecruiterName"
                     >
@@ -1637,7 +1646,7 @@
                     <t:Column
                         id="mainrecruiter"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="recruiterName"
                         filterProperty="recruiterName"
                     >
@@ -1650,7 +1659,7 @@
                     <t:Column
                         id="assignedrecruiter"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="vpOfStaffingName"
                         filterProperty="vpOfStaffingName"
                     >
@@ -1663,7 +1672,7 @@
                     <t:Column
                         id="onboardingofficer"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="sourcerName"
                         filterProperty="sourcerName"
                     >
@@ -1676,7 +1685,7 @@
                     <t:Column
                         id="sourcingspecialist"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="coordinatorName"
                         filterProperty="coordinatorName"
                     >
@@ -1689,7 +1698,7 @@
                     <t:Column
                         id="intdescheader"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="intJobDescHeader"
                         filterProperty="intJobDescHeader"
                     >
@@ -1702,7 +1711,7 @@
                     <t:Column
                         id="intdescription"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="listingLayout"
                         filterProperty="listingLayout"
                     >
@@ -1715,7 +1724,7 @@
                     <t:Column
                         id="intdescfooter"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="intJobDescFooter"
                         filterProperty="intJobDescFooter"
                     >
@@ -1728,7 +1737,7 @@
                     <t:Column
                         id="extdescheader"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="extJobDescHeader"
                         filterProperty="extJobDescHeader"
                     >
@@ -1741,7 +1750,7 @@
                     <t:Column
                         id="extdescription"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="extListingLayout"
                         filterProperty="extListingLayout"
                     >
@@ -1754,7 +1763,7 @@
                     <t:Column
                         id="extdescfooter"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="extJobDescFooter"
                         filterProperty="extJobDescFooter"
                     >
@@ -1767,7 +1776,7 @@
                     <t:Column
                         id="comments"
                         width="200px"
-                        visible="true"
+                        visible="false"
                         sortProperty="Lmcomment"
                         filterProperty="Lmcomment"
                     >
@@ -1780,7 +1789,7 @@
                     <t:Column
                         id="supportdocs"
                         width="180px"
-                        visible="true"
+                        visible="false"
                         sortProperty="supportDocs"
                         filterProperty="supportDocs"
                     >
@@ -1805,79 +1814,7 @@
                 </t:columns>
             </t:Table>
 
-            <!-- <Table
-                id="jobReqModelTable"
-                items="{jobReqModel>/data}"
-            >
-                <headerToolbar>
-                    <OverflowToolbar>
-                        <Title text="Selected Items" />
-                        <ToolbarSpacer />
-                        <Label text="Update Value:" />
-                        <Input
-                            id="updateValueInput"
-                            width="150px"
-                            type="Number"
-                            value="{updateModel>/updateValue}"
-                            placeholder="Enter value"
-                        />
-                        <Button
-                            text="Save"
-                            type="Emphasized"
-                            press="onSavePress"
-                        />
-                    </OverflowToolbar>
-                </headerToolbar>
-
-                <columns>
-                    <Column>
-                        <header>
-                            <Label text="Product" />
-                        </header>
-                    </Column>
-                    <Column>
-                        <header>
-                            <Label text="Category" />
-                        </header>
-                    </Column>
-                    <Column hAlign="End">
-                        <header>
-                            <Label text="Quantity" />
-                        </header>
-                    </Column>
-                    <Column hAlign="End">
-                        <header>
-                            <Label text="Price" />
-                        </header>
-                    </Column>
-                    <Column hAlign="End">
-                        <header>
-                            <Label text="Updated Value" />
-                        </header>
-                    </Column>
-                </columns>
-
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{jobReqModel>product}" />
-                            <Text text="{jobReqModel>category}" />
-                            <Text text="{jobReqModel>quantity}" />
-                            <Text text="${jobReqModel>price}" />
-                            <Text text="{jobReqModel>value}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table> -->
-
-            <!-- <Button
-                            text="Complete"
-                            type="Success"
-                            press="onCompletePress"
-                            class="sapUiSmallMarginTop"/> -->
-            <!-- </WizardStep>
-                    
-                </Wizard> -->
+           
         </content>
     </Page>
 </mvc:View>

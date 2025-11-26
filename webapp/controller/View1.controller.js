@@ -63,6 +63,20 @@ sap.ui.define([
             this.getView().setModel(oSelectedItemsModel, "jobReqModel");
             this._registerForP13n();
             this._registerForrP13n();
+            //var oODataModel = this.getOwnerComponent().getModel();
+            var oTable = this.byId("positionsTable");
+            oTable.setBusy(true);
+            // oODataModel.attachRequestSent(function () {
+            //     oTable.setBusy(true);
+            // });
+
+            // oODataModel.attachRequestCompleted(function () {
+            //     oTable.setBusy(false);
+            // });
+        },
+        onRowsUpdated:function(oEvent){
+            var oTable = this.byId("positionsTable");
+            oTable.setBusy(false); 
         },
 
         _loadPositions: function () {
@@ -169,6 +183,7 @@ sap.ui.define([
                     aSorter.push(new Sorter(this.oMetadataHelper.getProperty(oSorter.key).path, oSorter.descending));
                 }.bind(this));
                 oTable.getBinding("rows").sort(aSorter);
+                oTable.setBusy(true);
             }
 
         },
@@ -558,11 +573,20 @@ sap.ui.define([
                 }
             }
             this.getView().getModel("jobReqModel").setProperty("/", reqData);
+            var orTable = this.byId("reqTable"); // Get the table control by its ID
+            if (orTable) {
+                var oDomRef = orTable.getDomRef(); // Get the DOM element of the table
+                if (oDomRef) {
+                    oDomRef.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll the element into view
+                }
+            }
         },
         onPostRequsitions: function (oEvent) {
             var oTable = this.byId("reqTable");
+            oTable.setBusy(true);
             var oModel = this.getOwnerComponent().getModel();
             var aSelectedIndices = oTable.getSelectedIndices();
+            this._aSI=aSelectedIndices.length;
             for (var i = 0; i < aSelectedIndices.length; i++) {
                 var iSelectedIndex = aSelectedIndices[i];
                 var oContext = oTable.getContextByIndex(iSelectedIndex);
@@ -607,16 +631,35 @@ sap.ui.define([
 
                     }
                 }
+                this.iRLength=0;
+                this.oResp=[];
                 oModel.create("/JobRequisition", oPayload, {
                     success: function (oResponse) {
-                        MessageToast.show("Successfully created Requisitions.");
+                    // this.iRLength++;
+                    // this.oResp.pus(oResponse);
+                    // if(this.iRLength===this._aSI){
+                        //this._assignJobReq(this.oResp);
+                        this.byId("reqTable").setBusy(false);
+                        this.getView().getModel("jobReqModel").setProperty("/0/id",oResponse.jobReqId);
+                        MessageToast.show("Successfully created the Job Requisitions.");
+                    //}                      
                     }.bind(this),
                     error: function (oErr) {
+                        this.iRLength++;
                         MessageToast.show("Failed to create Requisitions.");
                     }
                 });
 
             }
+        },
+
+        _assignJobReq:function(oResp){
+            var oIndices=this.byId("reqTable").getSelectedIndices();
+            var oJRModel=this.getView().getModel("jobReqModel");
+            for(var i=0;i<oResp.length;i++){
+                //if(oResp.positionNumber)
+            }
+            this.getView().getModel("jobReqModel").setProperty("/0/id",oResponse.jobReqId);
         },
         onSavePress: function () {
             var oUpdateModel = this.getView().getModel("updateModel");

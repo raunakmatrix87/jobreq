@@ -16,9 +16,9 @@ server:
             - /test-resources
           url: https://ui5.sap.com
         backend:
-          - url: https://api2.successfactors.eu
+          - path: /odata
+            url: https://api2.successfactors.eu
             destination: SF_New_Tech_Account
-            path: /odata
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -30,13 +30,3 @@ server:
       configuration:
         flp:
           theme: sap_horizon
-    - name: sap-fe-mockserver
-      beforeMiddleware: csp
-      configuration:
-        mountPath: /
-        services:
-          - urlPath: /odata/v2
-            metadataPath: ./webapp/localService/mainService/metadata.xml
-            mockdataPath: ./webapp/localService/mainService/data
-            generateMockData: true
-        annotations: []

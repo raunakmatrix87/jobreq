@@ -1,25 +1,25 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Sun Nov 23 2025 13:28:45 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Thu Nov 27 2025 13:30:57 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.19.5|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>Basic|
-|**Service Type**<br>None|
+|**Service Type**<br>SAP System (ABAP On-Premise)|
 |**Service URL**<br>N/A|
 |**Module Name**<br>jobreq|
-|**Application Title**<br>Manage Job Requisition|
+|**Application Title**<br>Manage Job Requisitions|
 |**Namespace**<br>com.sap.sj|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.142.1|
+|**UI5 Version**<br>1.143.0|
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 
 ## jobreq
 
-Manage Job Requisition
+An SAP Fiori application.
 
 ### Starting the generated app
 

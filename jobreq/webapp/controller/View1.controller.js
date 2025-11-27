@@ -74,9 +74,9 @@ sap.ui.define([
             //     oTable.setBusy(false);
             // });
         },
-        onRowsUpdated:function(oEvent){
+        onRowsUpdated: function (oEvent) {
             var oTable = this.byId("positionsTable");
-            oTable.setBusy(false); 
+            oTable.setBusy(false);
         },
 
         _loadPositions: function () {
@@ -573,6 +573,7 @@ sap.ui.define([
                 }
             }
             this.getView().getModel("jobReqModel").setProperty("/", reqData);
+            oTable.clearSelection();
             var orTable = this.byId("reqTable"); // Get the table control by its ID
             if (orTable) {
                 var oDomRef = orTable.getDomRef(); // Get the DOM element of the table
@@ -584,9 +585,11 @@ sap.ui.define([
         onPostRequsitions: function (oEvent) {
             var oTable = this.byId("reqTable");
             oTable.setBusy(true);
-            var oModel = this.getOwnerComponent().getModel();
             var aSelectedIndices = oTable.getSelectedIndices();
-            this._aSI=aSelectedIndices.length;
+            this._pendingRequests = aSelectedIndices.length;
+            this._error="";
+              var oModel = this.getOwnerComponent().getModel();
+            oModel.setUseBatch(false);
             for (var i = 0; i < aSelectedIndices.length; i++) {
                 var iSelectedIndex = aSelectedIndices[i];
                 var oContext = oTable.getContextByIndex(iSelectedIndex);
@@ -631,35 +634,45 @@ sap.ui.define([
 
                     }
                 }
-                this.iRLength=0;
-                this.oResp=[];
-                oModel.create("/JobRequisition", oPayload, {
-                    success: function (oResponse) {
-                    // this.iRLength++;
-                    // this.oResp.pus(oResponse);
-                    // if(this.iRLength===this._aSI){
-                        //this._assignJobReq(this.oResp);
-                        this.byId("reqTable").setBusy(false);
-                        this.getView().getModel("jobReqModel").setProperty("/0/id",oResponse.jobReqId);
-                        MessageToast.show("Successfully created the Job Requisitions.");
-                    //}                      
-                    }.bind(this),
-                    error: function (oErr) {
-                        this.iRLength++;
-                        MessageToast.show("Failed to create Requisitions.");
-                    }
-                });
+                this.iRLength = 0;
+                this.oResp = [];
+                this._oncreateJobReq(oPayload, iSelectedIndex);
 
             }
         },
-
-        _assignJobReq:function(oResp){
-            var oIndices=this.byId("reqTable").getSelectedIndices();
-            var oJRModel=this.getView().getModel("jobReqModel");
-            for(var i=0;i<oResp.length;i++){
-                //if(oResp.positionNumber)
+        _oncreateJobReq: function (oPayload, oIndex) {
+            var oModel = this.getOwnerComponent().getModel();
+            oModel.create("/JobRequisition", oPayload, {
+                success: function (oResponse) {
+                    this._assignJobReq(oIndex, oResponse);                    
+                }.bind(this),
+                error: function (oErr) {
+                    this._assignJobReq(oIndex, null,oErr);
+                    //MessageToast.show("Failed to create Requisitions.");
+                }.bind(this)
+            });
+        },
+        _assignJobReq: function (oIndex, oResp,oErr) {
+            var oTable = this.byId("reqTable");
+            var reqModel=this.getView().getModel("jobReqModel"); 
+               var oModel = this.getOwnerComponent().getModel();
+              
+            if(oErr!==undefined){
+              this._error=this._error+","+"Job Requsitions creation failed for position "+reqModel.getProperty("/"+oIndex+"/positionNumber");
+            }else{
+               reqModel.setProperty("/" + oIndex + "/id", oResp.jobReqId);
             }
-            this.getView().getModel("jobReqModel").setProperty("/0/id",oResponse.jobReqId);
+            this._pendingRequests--;
+            if (this._pendingRequests === 0) {
+                oTable.setBusy(false);
+                oTable.clearSelection();
+                oModel.setUseBatch(true); 
+                if(this._error===""){
+                sap.m.MessageToast.show("Job Requsitions created successfully.");
+                }else{
+                  MessageBox.error(this._error);  
+                }        
+            }
         },
         onSavePress: function () {
             var oUpdateModel = this.getView().getModel("updateModel");

@@ -1131,7 +1131,7 @@
                     <t:Column
                         id="reqid"
                         width="140px"
-                        visible="false"
+                        visible="true"
                         sortProperty="id"
                         filterProperty="id"
                     >

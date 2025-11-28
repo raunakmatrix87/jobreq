@@ -175,7 +175,7 @@
             <t:Table
                 id="positionsTable"
                 rowMode="Interactive"
-                rows="{path:'/Position', filters : [{ path : 'effectiveStatus', operator : 'EQ', value1 : 'A'}],parameters:{expand:'cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav,companyNav,companyNav/countryOfRegistrationNav,companyNav/cust_OnbofficerNav'}}"
+                rows="{path:'/Position', filters : [{ path : 'effectiveStatus', operator : 'EQ', value1 : 'A'}],parameters:{expand:'cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav,companyNav,companyNav/countryOfRegistrationNav,companyNav/cust_OnbofficerNav,costCenterNav'}}"
                 selectionBehavior="Row"
                 ariaLabelledBy="title"
                 enableSelectAll="true"
@@ -356,7 +356,7 @@
                         </t:template>
                     </t:Column>
                     <t:Column
-                        id="iversion"
+                        id="idivision"
                         filterProperty="division"
                         sortProperty="division"
                     >
@@ -420,7 +420,7 @@
                         <t:template>
                             <Text
                                 id="_IDGenText9"
-                                text="{costCenter}"
+                                text="{costCenterNav/name_defaultValue}"
                                 wrapping="false"
                             />
                         </t:template>

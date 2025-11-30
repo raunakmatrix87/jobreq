@@ -58,85 +58,113 @@ sap.ui.define([
                     "CountryRegion": "Pakistan",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Aqsa Tariq"
+                    "AssignedRecruiter": "Aqsa Tariq",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "atariq@maf.ae"
                 },
                 {
                     "CountryRegion": "Georgia",
                     "MainRecruiter": "Natia Ukhurgunashvili",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mari Iarajuli"
+                    "AssignedRecruiter": "Mari Iarajuli",
+                    "MainRecruiterEmail": "atariq@maf.ae",
+                    "AssignedRecruiterEmail": "MIarajuli@maf.ae"
                 },
                 {
                     "CountryRegion": "United Arab Emirates",
                     "MainRecruiter": "Kohar Kayabalian",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Hossam Saleh"
+                    "AssignedRecruiter": "Hossam Saleh",
+                    "MainRecruiterEmail": "MIarajuli@maf.ae",
+                    "AssignedRecruiterEmail": "hhsaleh@mafcarrefour.com"
                 },
                 {
                     "CountryRegion": "Kenya",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Caroline Muya"
+                    "AssignedRecruiter": "Caroline Muya",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "cmuya@maf.ae"
                 },
                 {
                     "CountryRegion": "Uganda",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Caroline Muya"
+                    "AssignedRecruiter": "Caroline Muya",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "cmuya@maf.ae"
                 },
                 {
                     "CountryRegion": "Lebanon",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mazen Kassab"
+                    "AssignedRecruiter": "Mazen Kassab",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "Mkassab@maf.ae"
                 },
                 {
                     "CountryRegion": "Saudi Arabia",
                     "MainRecruiter": "Mahmoud Kamal",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Salma Alfehaid"
+                    "AssignedRecruiter": "Salma Alfehaid",
+                    "MainRecruiterEmail": "maothm@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "salfehaid@maf.ae"
                 },
                 {
                     "CountryRegion": "Bahrain",
                     "MainRecruiter": "Mahmoud Kamal",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mmaiuak"
+                    "AssignedRecruiter": "Mmaiuak",
+                    "MainRecruiterEmail": "maothm@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "mmaiouak@maf.ae"
                 },
                 {
                     "CountryRegion": "Kuwait",
                     "MainRecruiter": "Mahmoud Kamal",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mmaiuak"
+                    "AssignedRecruiter": "Mmaiuak",
+                    "MainRecruiterEmail": "maothm@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "mmaiouak@maf.ae"
                 },
                 {
                     "CountryRegion": "Qatar",
                     "MainRecruiter": "Mahmoud Kamal",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mmaiuak"
+                    "AssignedRecruiter": "Mmaiuak",
+                    "MainRecruiterEmail": "maothm@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "mmaiouak@maf.ae"
                 },
                 {
                     "CountryRegion": "Oman",
                     "MainRecruiter": "Mahmoud Kamal",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mmaiuak"
+                    "AssignedRecruiter": "Mmaiuak",
+                    "MainRecruiterEmail": "maothm@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "mmaiouak@maf.ae"
                 },
                 {
                     "CountryRegion": "Hyperstar",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Seyedeh Osveh"
+                    "AssignedRecruiter": "Seyedeh Osveh",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "snezhad@mafpars.com"
                 },
                 {
                     "CountryRegion": "Egypt",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mohamed Salah"
+                    "AssignedRecruiter": "Mohamed Salah",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "mohamels@maf.ae"
                 },
                 {
                     "CountryRegion": "Iraq",
                     "MainRecruiter": "Mohamed Mamdouh",
                     "EmployeeID": "",
-                    "AssignedRecruiter": "Mhmoud Adnan"
+                    "AssignedRecruiter": "Mhmoud Adnan",
+                    "MainRecruiterEmail": "mohameabd@mafcarrefour.com",
+                    "AssignedRecruiterEmail": "malaydi@maf.ae"
                 }
             ]
 
@@ -146,70 +174,90 @@ sap.ui.define([
                     "IsUAEHire": "Yes",
                     "SourcingLead": "Fatima Khawaja Farhan Uddin",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Ousama Ali"
+                    "SourcingSpecialist": "Ousama Ali",
+                    "SourcingLeadEmail": "Fatima.sheikh@maf.ae",
+                    "SourcingSpecialistEmail": "Ousama.Chmissa@maf.ae"
                 },
                 {
                     "OpCo": "MAFP",
                     "IsUAEHire": "Yes",
                     "SourcingLead": "Fatima Khawaja Farhan Uddin",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Hessa Khalid Obaid Khadim Moh"
+                    "SourcingSpecialist": "Hessa Khalid Obaid Khadim Moh",
+                    "SourcingLeadEmail": "Fatima.sheikh@maf.ae",
+                    "SourcingSpecialistEmail": "Hessa.KMohammad@maf.ae"
                 },
                 {
                     "OpCo": "MAFL",
                     "IsUAEHire": "Yes",
                     "SourcingLead": "Fatima Khawaja Farhan Uddin",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Hessa Khalid Obaid Khadim Moh"
+                    "SourcingSpecialist": "Hessa Khalid Obaid Khadim Moh",
+                    "SourcingLeadEmail": "Fatima.sheikh@maf.ae",
+                    "SourcingSpecialistEmail": "Hessa.KMohammad@maf.ae"
                 },
                 {
                     "OpCo": "MAFGS",
                     "IsUAEHire": "Yes",
                     "SourcingLead": "Lenzil Leslie Henriques",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Lenzil Leslie Henriques"
+                    "SourcingSpecialist": "Lenzil Leslie Henriques",
+                    "SourcingLeadEmail": "Lenzil.Henriques@maf.ae",
+                    "SourcingSpecialistEmail": "Lenzil.Henriques@maf.ae"
                 },
                 {
                     "OpCo": "MAFE",
                     "IsUAEHire": "Yes",
                     "SourcingLead": "Jawaher Almteiri",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Jawaher Almteiri"
+                    "SourcingSpecialist": "Jawaher Almteiri",
+                    "SourcingLeadEmail": "Jawaher.Almteiri@maf.ae",
+                    "SourcingSpecialistEmail": "Jawaher.Almteiri@maf.ae"
                 },
                 {
                     "OpCo": "MAFR",
                     "IsUAEHire": "No",
                     "SourcingLead": "Mariam Hesham Mohy ElDin Monib",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Eslam Mohamed Hosny"
+                    "SourcingSpecialist": "Eslam Mohamed Hosny",
+                    "SourcingLeadEmail": "Mariam.Hesham@maf.ae",
+                    "SourcingSpecialistEmail": "Eslam.Hosney@maf.ae"
                 },
                 {
                     "OpCo": "MAFL",
                     "IsUAEHire": "No",
                     "SourcingLead": "Yara Belal Badr Eldin Elnabara",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Tasniem Badr ElDin Kamal Mohamed Abdu"
+                    "SourcingSpecialist": "Tasniem Badr ElDin Kamal Mohamed Abdu",
+                    "SourcingLeadEmail": "Yara.Belal@maf.ae",
+                    "SourcingSpecialistEmail": "tasneem.badreldeen@maf.ae"
                 },
                 {
                     "OpCo": "MAFE",
                     "IsUAEHire": "No",
                     "SourcingLead": "Yara Belal Badr Eldin Elnabara",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": "Nour Elgahel"
+                    "SourcingSpecialist": "Nour Elgahel",
+                    "SourcingLeadEmail": "Yara.Belal@maf.ae",
+                    "SourcingSpecialistEmail": "nour.elgahel@maf.ae"
                 },
                 {
                     "OpCo": "MAFGS",
                     "IsUAEHire": "No",
                     "SourcingLead": "",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": ""
+                    "SourcingSpecialist": "",
+                    "SourcingLeadEmail": "",
+                    "SourcingSpecialistEmail": ""
                 },
                 {
                     "OpCo": "MAFP",
                     "IsUAEHire": "No",
                     "SourcingLead": "",
                     "SourcingLeadEmployeeID": "",
-                    "SourcingSpecialist": ""
+                    "SourcingSpecialist": "",
+                    "SourcingLeadEmail": "",
+                    "SourcingSpecialistEmail": ""
                 }
             ]
 
@@ -719,6 +767,10 @@ sap.ui.define([
                         "secondRecruiterName": srData !== undefined ? srData.SourcingLead : "",
                         "recruiterName": reData !== undefined ? reData.MainRecruiter : "",
                         "vpOfStaffingName": reData !== undefined ? reData.AssignedRecruiter : "",
+                        "SourcingLeadEmail": srData !== undefined ? srData.SourcingLeadEmail : "",
+                        "MainRecruiterEmail": reData !== undefined ? reData.MainRecruiterEmail : "",
+                        "AssignedRecruiterEmail": reData !== undefined ? reData.AssignedRecruiterEmail : "",
+                        "SourcingSpecialistEmail": srData !== undefined ? srData.SourcingSpecialistEmail : "",
                         "sourcerName": oContext.getProperty('/companyNav/cust_OnbofficerNav/defaultFullName'),
                         "coordinatorName": srData !== undefined ? srData.SourcingSpecialist : "",
                         "intJobDescHeader": "",
@@ -821,28 +873,28 @@ sap.ui.define([
                     "secondRecruiter": {
                         "results": [
                             {
-                                "userName": oReqData.secondRecruiterName,
+                                "userName": oReqData.SourcingLeadEmail,
                             }
                         ]
                     },
                     "coordinator": {
                         "results": [
                             {
-                                "userName": oReqData.coordinatorName,
+                                "userName": oReqData.SourcingSpecialistEmail,
                             }
                         ]
                     },
                     "vpOfStaffing": {
                         "results": [
                             {
-                                "userName": oReqData.vpOfStaffingName,
+                                "userName": oReqData.AssignedRecruiterEmail,
                             }
                         ]
                     },
                     "recruiter": {
                         "results": [
                             {
-                                "userName": oReqData.recruiterName,
+                                "userName": oReqData.SourcingLeadEmail,
                             }
                         ]
                     },

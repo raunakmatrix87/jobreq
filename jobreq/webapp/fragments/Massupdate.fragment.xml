@@ -1,0 +1,44 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout.form"
+>
+    <Dialog
+        id="addEntryDialog"
+        title="Mass Update Fields"
+    >
+        <content>
+            <l:SimpleForm>
+                <Label text="Addition/Replacement" />
+                <ComboBox id="arCBox">
+                    <core:Item
+                        id="add"
+                        key="A"
+                        text="Addition"
+                    />
+                    <core:Item
+                        id="rep"
+                        key="R"
+                        text="Replacement"
+                    />
+                </ComboBox>
+                <!-- <Label text="Age"/>
+                <Input value="{dialogModel>/Age}"/>
+                <Label text="City"/>
+                <Input value="{dialogModel>/City}"/> -->
+            </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="OK"
+                press=".onDialogOk"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                press=".onDialogCancel"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

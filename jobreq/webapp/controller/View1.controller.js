@@ -698,18 +698,20 @@ sap.ui.define([
                         title: "Confirmation",
                         onClose: function (oAction) {
                             if (oAction === sap.m.MessageBox.Action.OK) {
-                                that._generateReqData(aSelectedIndices, lModel,oTable,rModel)
+                                that._generateReqData(aSelectedIndices, lModel, oTable, rModel)
                             }
                         }
                     });
                 } else {
-                   this._generateReqData(aSelectedIndices, lModel,oTable,rModel);
+                    this._generateReqData(aSelectedIndices, lModel, oTable, rModel);
                 }
             }
-           
+
         },
-        _generateReqData: function (aSelectedIndices, lModel,oTable,rModel) {
-            var reqData = [];
+        _generateReqData: function (aSelectedIndices, lModel, oTable, rModel) {
+            //var reqData = [];
+            oTable.setBusy(true);
+            var aPromises = [];
             for (var i = 0; i < aSelectedIndices.length; i++) {
                 var iSelectedIndex = aSelectedIndices[i];
                 var oContext = oTable.getContextByIndex(iSelectedIndex);
@@ -721,7 +723,7 @@ sap.ui.define([
                     var matches = oPcO.match(/\b(\w)/g); // ['J','S','O','N']
                     var acronym = matches.join('');
                     var srData = lModel.sourcerData.find(item => item.OpCo === acronym && item.IsUAEHire.toLowerCase() === "Yes".toLowerCase());
-                    reqData.push({
+                    var reqObj = {
                         "quickApply": false,
                         "evergreen": false,
                         "sfstd_jobReqType": "Standard",
@@ -764,6 +766,7 @@ sap.ui.define([
                         "erpAmount": "",
                         "ReferralInfoCheck_LMHC": "",
                         "hiringManagerName": "",
+                        "hiringManagerEmail": "",
                         "secondRecruiterName": srData !== undefined ? srData.SourcingLead : "",
                         "recruiterName": reData !== undefined ? reData.MainRecruiter : "",
                         "vpOfStaffingName": reData !== undefined ? reData.AssignedRecruiter : "",
@@ -785,18 +788,54 @@ sap.ui.define([
                         "orglevelpickid": oContext.getProperty("cust_OrgLevelNav/optionId"),
                         "formDueDate": oPosData.effectiveStartDate
                     }
-                    );
+                    var aPromise = this._fetchLMData(reqObj).then(function (oResponse) {
+                        if (oResponse.response.results.length > 0) {
+                            oResponse.reqObj.hiringManagerName = oResponse.response.results[0].managerUserNav.displayName;
+                            oResponse.reqObj.hiringManagerEmail = oResponse.response.results[0].managerUserNav.username;
+
+                        }
+                        return oResponse.reqObj;
+                    });
+                    aPromises.push(aPromise);
                 }
             }
-             rModel.setProperty("/", reqData);
-            oTable.clearSelection();
-            var orTable = this.byId("reqTable"); // Get the table control by its ID
-            if (orTable) {
-                var oDomRef = orTable.getDomRef(); // Get the DOM element of the table
-                if (oDomRef) {
-                    oDomRef.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll the element into view
+
+            Promise.all(aPromises).then(function (allReqObjs) {
+                rModel.setProperty("/", allReqObjs);
+                oTable.clearSelection();
+                  oTable.setBusy(false);
+
+                var orTable = this.byId("reqTable");
+                if (orTable) {
+                    var oDomRef = orTable.getDomRef();
+                    if (oDomRef) {
+                        oDomRef.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
                 }
-            }
+            }.bind(this));
+        },
+        _fetchLMData: function (oReqData) {
+            return new Promise(function (resolve, reject) {
+                var oModel = this.getView().getModel();
+                var mUrlParameters = {
+                    "$expand": "managerUserNav"
+                };
+                var aFilters = [
+                    new sap.ui.model.Filter("position", sap.ui.model.FilterOperator.EQ, oReqData.positionNumber),
+                ];
+                // Perform OData read call (modify as per your service)
+                oModel.read('/EmpJob', {
+                    filters: aFilters,
+                    urlParameters: mUrlParameters,
+                    success: function (oResponse) {
+                        resolve({"response":oResponse,"reqObj":oReqData});
+                    },
+                    error: function (oError) {
+                        reject(oError);
+                    }
+                });
+            }.bind(this));
+
         },
         onPostRequsitions: function (oEvent) {
             var oTable = this.byId("reqTable");
@@ -870,34 +909,6 @@ sap.ui.define([
                     "division_obj": {
                         "externalCode": oReqData.division_obj
                     },
-                    "secondRecruiter": {
-                        "results": [
-                            {
-                                "userName": oReqData.SourcingLeadEmail,
-                            }
-                        ]
-                    },
-                    "coordinator": {
-                        "results": [
-                            {
-                                "userName": oReqData.SourcingSpecialistEmail,
-                            }
-                        ]
-                    },
-                    "vpOfStaffing": {
-                        "results": [
-                            {
-                                "userName": oReqData.AssignedRecruiterEmail,
-                            }
-                        ]
-                    },
-                    "recruiter": {
-                        "results": [
-                            {
-                                "userName": oReqData.SourcingLeadEmail,
-                            }
-                        ]
-                    },
                     "custaddRep": {
                         __metadata: {
                             uri: "PicklistOption(79433)"
@@ -913,6 +924,51 @@ sap.ui.define([
                             uri: "PicklistOption(1892738)"
                         }
 
+                    }
+                }
+                if (oReqData.SourcingLeadEmail !== '') {
+                    oPayload.secondRecruiter = {
+                        "results": [
+                            {
+                                "userName": oReqData.SourcingLeadEmail,
+                            }
+                        ]
+                    }
+                }
+                if (oReqData.MainRecruiterEmail !== '') {
+                    oPayload.recruiter = {
+                        "results": [
+                            {
+                                "userName": oReqData.MainRecruiterEmail,
+                            }
+                        ]
+                    }
+                }
+                if (oReqData.AssignedRecruiterEmail !== '') {
+                    oPayload.vpOfStaffing = {
+                        "results": [
+                            {
+                                "userName": oReqData.AssignedRecruiterEmail,
+                            }
+                        ]
+                    }
+                }
+                if (oReqData.SourcingSpecialistEmail !== '') {
+                    oPayload.coordinator = {
+                        "results": [
+                            {
+                                "userName": oReqData.SourcingSpecialistEmail,
+                            }
+                        ]
+                    }
+                }
+                if (oReqData.hiringManagerEmail !== '') {
+                    oPayload.hiringManager = {
+                        "results": [
+                            {
+                                "userName": oReqData.hiringManagerEmail,
+                            }
+                        ]
                     }
                 }
                 this.iRLength = 0;
@@ -976,12 +1032,41 @@ sap.ui.define([
             MessageToast.show("All items updated with value: " + sValue);
         },
 
-        onCompletePress: function () {
-            MessageBox.success("Wizard completed successfully!");
+
+        onOpenDialog: function () {
+            var oView = this.getView();
+            if (!this._pDialog) {
+                this._pDialog = sap.ui.core.Fragment.load({
+                    id: oView.getId(),
+                    name: "com.sap.sj.jobreq.fragments.Massupdate", // Replace with your fragment path
+                    controller: this
+                }).then(function (oDialog) {
+                    oView.addDependent(oDialog);
+                    return oDialog;
+                });
+            }
+            this._pDialog.then(function (oDialog) {
+                oDialog.open();
+            });
         },
 
-        onWizardComplete: function () {
-            MessageBox.success("All steps completed!");
+        onDialogOk: function (oEvent) {
+            var reqModel = this.getView().getModel("jobReqModel");
+            var sValue = this.byId("arCBox").getSelectedKey();
+            sValue = sValue === 'A' ? 'Addition' : "Replacement";
+            var aData = reqModel.getData();
+            aData.forEach(function (item) {
+                item.custaddRep = sValue;
+            });
+            reqModel.setData(aData);
+            reqModel.refresh(true);
+            this.byId("arCBox").setSelectedKey(null);
+            this.byId("addEntryDialog").close();
+        },
+
+        onDialogCancel: function () {
+            this.byId("addEntryDialog").close();
         }
+
     });
 });

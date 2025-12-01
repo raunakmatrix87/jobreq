@@ -1061,7 +1061,7 @@
                         <Button
                             id="_IDGenButton3"
                             text="Mass Update Fields"
-                            press="onMassUpdate"
+                            press="onOpenDialog"
                         />
                         <Button
                             id="_IDGenButton4"

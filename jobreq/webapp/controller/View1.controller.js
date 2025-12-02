@@ -711,107 +711,152 @@ sap.ui.define([
         _generateReqData: function (aSelectedIndices, lModel, oTable, rModel) {
             //var reqData = [];
             oTable.setBusy(true);
+            var that = this;
             var aPromises = [];
-            for (var i = 0; i < aSelectedIndices.length; i++) {
-                var iSelectedIndex = aSelectedIndices[i];
-                var oContext = oTable.getContextByIndex(iSelectedIndex);
+            var aMessages = [];
+            for (let i = 0; i < aSelectedIndices.length; i++) {
+                let iSelectedIndex = aSelectedIndices[i];
+                let oContext = oTable.getContextByIndex(iSelectedIndex);
                 if (oContext) {
-                    var oPosData = oContext.getObject();
-                    var oCountry = oContext.getProperty('companyNav/countryOfRegistrationNav/externalName_defaultValue');
-                    var reData = lModel.recuriterData.find(item => item.CountryRegion.toLowerCase() === oCountry.toLowerCase());
-                    var oPcO = oContext.getProperty('cust_opcoNav/label_defaultValue');
-                    var matches = oPcO.match(/\b(\w)/g); // ['J','S','O','N']
-                    var acronym = matches.join('');
-                    var srData = lModel.sourcerData.find(item => item.OpCo === acronym && item.IsUAEHire.toLowerCase() === "Yes".toLowerCase());
-                    var reqObj = {
-                        "quickApply": false,
-                        "evergreen": false,
-                        "sfstd_jobReqType": "Standard",
-                        "id": "",
-                        "positionNumber": oPosData.code,
-                        "status": "",
-                        "title": oPosData.jobTitle,
-                        "extTitle": oPosData.jobTitle,
-                        "competencies": "",
-                        "cust_functionalcompetencies": "",
-                        "country": oContext.getProperty('companyNav/countryOfRegistrationNav/twoCharCountryCode'),
-                        "cust_OpCo": oContext.getProperty('cust_opcoNav/label_defaultValue'),
-                        "Cust_company": oContext.getProperty('companyNav/name_defaultValue'),
-                        "Cust_company_code": oPosData.company,
-                        "Cust_businessUnit": oContext.getProperty('cust_BusinessUnitNav/label_defaultValue'),
-                        "division_obj": oPosData.division,
-                        "department_obj": oPosData.department,
-                        "cust_city": oPosData.cust_City,
-                        "cust_costCenterId": oPosData.costCenter,
-                        "cust_costCenter": oContext.getProperty("costCenterNav/name_defaultValue"),
-                        "jobStartDate": "",
-                        "numberOpenings": 1,
-                        "custaddRep": "Addition",
-                        "replacementFor": "",
-                        "roleDesc": "",
-                        "jobCode": oPosData.jobCode,
-                        "jobFunction": oPosData.cust_JobFunction,
-                        "Job_Category": "",
-                        "orgLevel": oPosData.cust_CareerLevel,
-                        "cust_jobGrade": oPosData.payGrade,
-                        "cust_HRL": oPosData.cust_HRL,
-                        "BandLevel": oPosData.cust_Band_Level,
-                        "jobType": oContext.getProperty('regularTemporaryNav/label_defaultValue'),
-                        "currency": oContext.getProperty('companyNav/countryOfRegistrationNav/currency'),
-                        "cust_salaryMin": oPosData.cust_MinimumPay,
-                        "cust_salaryMid": oPosData.cust_MidPoint,
-                        "cust_salaryMax": oPosData.cust_MaximumPay,
-                        "ReferralEligibility": "",
-                        "ReferralBonusEligibility": "",
-                        "erpAmount": "",
-                        "ReferralInfoCheck_LMHC": "",
-                        "hiringManagerName": "",
-                        "hiringManagerEmail": "",
-                        "secondRecruiterName": srData !== undefined ? srData.SourcingLead : "",
-                        "recruiterName": reData !== undefined ? reData.MainRecruiter : "",
-                        "vpOfStaffingName": reData !== undefined ? reData.AssignedRecruiter : "",
-                        "SourcingLeadEmail": srData !== undefined ? srData.SourcingLeadEmail : "",
-                        "MainRecruiterEmail": reData !== undefined ? reData.MainRecruiterEmail : "",
-                        "AssignedRecruiterEmail": reData !== undefined ? reData.AssignedRecruiterEmail : "",
-                        "SourcingSpecialistEmail": srData !== undefined ? srData.SourcingSpecialistEmail : "",
-                        "sourcerName": oContext.getProperty('/companyNav/cust_OnbofficerNav/defaultFullName'),
-                        "coordinatorName": srData !== undefined ? srData.SourcingSpecialist : "",
-                        "intJobDescHeader": "",
-                        "listingLayout": "",
-                        "intJobDescFooter": "",
-                        "extJobDescHeader": "",
-                        "extListingLayout": "",
-                        "extJobDescFooter": "",
-                        "Lmcomment": "",
-                        "supportDocs": "",
-                        "custuaenation": "Yes",
-                        "orglevelpickid": oContext.getProperty("cust_OrgLevelNav/optionId"),
-                        "formDueDate": oPosData.effectiveStartDate
-                    }
-                    var aPromise = this._fetchLMData(reqObj).then(function (oResponse) {
-                        if (oResponse.response.results.length > 0) {
-                            oResponse.reqObj.hiringManagerName = oResponse.response.results[0].managerUserNav.displayName;
-                            oResponse.reqObj.hiringManagerEmail = oResponse.response.results[0].managerUserNav.username;
+                    let oPosData = oContext.getObject();
+                    let aPromise = this._checkJobRequisition(oPosData.code).then(function (aJResponse) {
+                        if (aJResponse.results.length === 0) {
+                            let oCountry = oContext.getProperty('companyNav/countryOfRegistrationNav/externalName_defaultValue');
+                            let reData = lModel.recuriterData.find(item => item.CountryRegion.toLowerCase() === oCountry.toLowerCase());
+                            let oPcO = oContext.getProperty('cust_opcoNav/label_defaultValue');
+                            let matches = oPcO.match(/\b(\w)/g); // ['J','S','O','N']
+                            let acronym = matches.join('');
+                            let srData = lModel.sourcerData.find(item => item.OpCo === acronym && item.IsUAEHire.toLowerCase() === "Yes".toLowerCase());
+                            let reqObj = {
+                                "quickApply": false,
+                                "evergreen": false,
+                                "sfstd_jobReqType": "Standard",
+                                "id": "",
+                                "positionNumber": oPosData.code,
+                                "status": "",
+                                "title": oPosData.jobTitle,
+                                "extTitle": oPosData.jobTitle,
+                                "competencies": "",
+                                "cust_functionalcompetencies": "",
+                                "country": oContext.getProperty('companyNav/countryOfRegistrationNav/twoCharCountryCode'),
+                                "cust_OpCo": oContext.getProperty('cust_opcoNav/label_defaultValue'),
+                                "Cust_company": oContext.getProperty('companyNav/name_defaultValue'),
+                                "Cust_company_code": oPosData.company,
+                                "Cust_businessUnit": oContext.getProperty('cust_BusinessUnitNav/label_defaultValue'),
+                                "division_obj": oPosData.division,
+                                "department_obj": oPosData.department,
+                                "cust_city": oPosData.cust_City,
+                                "cust_costCenterId": oPosData.costCenter,
+                                "cust_costCenter": oContext.getProperty("costCenterNav/name_defaultValue"),
+                                "jobStartDate": "",
+                                "numberOpenings": 1,
+                                "custaddRep": "Addition",
+                                "replacementFor": "",
+                                "roleDesc": "",
+                                "jobCode": oPosData.jobCode,
+                                "jobFunction": oPosData.cust_JobFunction,
+                                "Job_Category": "",
+                                "orgLevel": oPosData.cust_CareerLevel,
+                                "cust_jobGrade": oPosData.payGrade,
+                                "cust_HRL": oPosData.cust_HRL,
+                                "BandLevel": oPosData.cust_Band_Level,
+                                "jobType": oContext.getProperty('regularTemporaryNav/label_defaultValue'),
+                                "currency": oContext.getProperty('companyNav/countryOfRegistrationNav/currency'),
+                                "cust_salaryMin": oPosData.cust_MinimumPay,
+                                "cust_salaryMid": oPosData.cust_MidPoint,
+                                "cust_salaryMax": oPosData.cust_MaximumPay,
+                                "ReferralEligibility": "",
+                                "ReferralBonusEligibility": "",
+                                "erpAmount": "",
+                                "ReferralInfoCheck_LMHC": "",
+                                "hiringManagerName": "",
+                                "hiringManagerEmail": "",
+                                "secondRecruiterName": srData !== undefined ? srData.SourcingLead : "",
+                                "recruiterName": reData !== undefined ? reData.MainRecruiter : "",
+                                "vpOfStaffingName": reData !== undefined ? reData.AssignedRecruiter : "",
+                                "SourcingLeadEmail": srData !== undefined ? srData.SourcingLeadEmail : "",
+                                "MainRecruiterEmail": reData !== undefined ? reData.MainRecruiterEmail : "",
+                                "AssignedRecruiterEmail": reData !== undefined ? reData.AssignedRecruiterEmail : "",
+                                "SourcingSpecialistEmail": srData !== undefined ? srData.SourcingSpecialistEmail : "",
+                                "sourcerName": oContext.getProperty('/companyNav/cust_OnbofficerNav/defaultFullName'),
+                                "coordinatorName": srData !== undefined ? srData.SourcingSpecialist : "",
+                                "intJobDescHeader": "",
+                                "listingLayout": "",
+                                "intJobDescFooter": "",
+                                "extJobDescHeader": "",
+                                "extListingLayout": "",
+                                "extJobDescFooter": "",
+                                "Lmcomment": "",
+                                "supportDocs": "",
+                                "custuaenation": "Yes",
+                                "orglevelpickid": oContext.getProperty("cust_OrgLevelNav/optionId"),
+                                "formDueDate": oPosData.effectiveStartDate
+                            }
+                            return that._fetchLMData(reqObj).then(function (oResponse) {
+                                if (oResponse.response.results.length > 0) {
+                                    oResponse.reqObj.hiringManagerName = oResponse.response.results[0].managerUserNav.displayName;
+                                    oResponse.reqObj.hiringManagerEmail = oResponse.response.results[0].managerUserNav.username;
+
+                                }
+                                return oResponse.reqObj;
+                            });
+
+                        } else {
+
+                            aMessages.push("For position " + oPosData.code + " requisition is already created.");
+                            return null;
 
                         }
-                        return oResponse.reqObj;
                     });
                     aPromises.push(aPromise);
                 }
             }
 
             Promise.all(aPromises).then(function (allReqObjs) {
-                rModel.setProperty("/", allReqObjs);
-                oTable.clearSelection();
-                  oTable.setBusy(false);
 
-                var orTable = this.byId("reqTable");
+                let validReqObjs = allReqObjs.filter(item => item !== null);
+
+                if (validReqObjs.length > 0) {
+                    rModel.setProperty("/", validReqObjs);
+                }
+
+                oTable.clearSelection();
+                oTable.setBusy(false);
+
+                if (aMessages.length > 0) {
+                    MessageBox.information(aMessages.join("\n"), {
+                        title: "Info"
+                    });
+                }
+
+
+                let orTable = this.byId("reqTable");
                 if (orTable) {
-                    var oDomRef = orTable.getDomRef();
+                    let oDomRef = orTable.getDomRef();
                     if (oDomRef) {
                         oDomRef.scrollIntoView({ behavior: "smooth", block: "start" });
                     }
                 }
+            }.bind(this));
+        },
+        _checkJobRequisition: function (pNumber) {
+            return new Promise(function (resolve, reject) {
+                var oModel = this.getView().getModel();
+                var aFilters = [
+                    new sap.ui.model.Filter("positionNumber", sap.ui.model.FilterOperator.EQ, pNumber),
+                    new sap.ui.model.Filter("internalStatus", sap.ui.model.FilterOperator.EQ, 'Approved')
+                ];
+                // Perform OData read call (modify as per your service)
+                oModel.read('/JobRequisition', {
+                    filters: aFilters,
+                    success: function (oResponse) {
+                        resolve(oResponse);
+                        //resolve({"response":oResponse,"reqObj":oReqData});
+                    },
+                    error: function (oError) {
+                        reject(oError);
+                    }
+                });
             }.bind(this));
         },
         _fetchLMData: function (oReqData) {
@@ -828,7 +873,7 @@ sap.ui.define([
                     filters: aFilters,
                     urlParameters: mUrlParameters,
                     success: function (oResponse) {
-                        resolve({"response":oResponse,"reqObj":oReqData});
+                        resolve({ "response": oResponse, "reqObj": oReqData });
                     },
                     error: function (oError) {
                         reject(oError);
@@ -893,9 +938,9 @@ sap.ui.define([
                     "Cust_company": oReqData.Cust_company,
                     "currency": oReqData.currency,
                     "cust_city": oReqData.cust_city,
-                    "cust_salaryMin": oReqData.cust_salaryMin,
-                    "cust_salaryMid": oReqData.cust_salaryMid,
-                    "cust_salaryMax": oReqData.cust_salaryMax,
+                    "cust_salaryMin": oReqData.cust_salaryMin ?? "0",
+                    "cust_salaryMid": oReqData.cust_salaryMid ?? "0",
+                    "cust_salaryMax": oReqData.cust_salaryMax ?? "0",
                     "formDueDate": "/Date(" + Date.parse(new Date(oReqData.formDueDate)) + ")/",
                     internalStatus: "1",
                     "custuaenational": {
@@ -911,7 +956,7 @@ sap.ui.define([
                     },
                     "custaddRep": {
                         __metadata: {
-                            uri: "PicklistOption(79433)"
+                            uri: "PicklistOption(79432)"
                         }
                     },
                     "jobFunction": {
@@ -930,7 +975,7 @@ sap.ui.define([
                     oPayload.secondRecruiter = {
                         "results": [
                             {
-                                "userName": oReqData.SourcingLeadEmail,
+                                "userName": "mohameabd@mafcarrefour.com",
                             }
                         ]
                     }
@@ -939,7 +984,7 @@ sap.ui.define([
                     oPayload.recruiter = {
                         "results": [
                             {
-                                "userName": oReqData.MainRecruiterEmail,
+                                "userName": "mohameabd@mafcarrefour.com",
                             }
                         ]
                     }
@@ -948,7 +993,7 @@ sap.ui.define([
                     oPayload.vpOfStaffing = {
                         "results": [
                             {
-                                "userName": oReqData.AssignedRecruiterEmail,
+                                "userName": "mohameabd@mafcarrefour.com",
                             }
                         ]
                     }
@@ -957,7 +1002,7 @@ sap.ui.define([
                     oPayload.coordinator = {
                         "results": [
                             {
-                                "userName": oReqData.SourcingSpecialistEmail,
+                                "userName": "mohameabd@mafcarrefour.com",
                             }
                         ]
                     }
@@ -966,7 +1011,7 @@ sap.ui.define([
                     oPayload.hiringManager = {
                         "results": [
                             {
-                                "userName": oReqData.hiringManagerEmail,
+                                "userName": "mohameabd@mafcarrefour.com",
                             }
                         ]
                     }

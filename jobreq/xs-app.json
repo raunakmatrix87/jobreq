@@ -3,8 +3,8 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/odata/v2/(.*)$",
-      "target": "/$1",
+      "source": "^/odata/(.*)$",
+      "target": "/odata/$1",
       "destination": "SF_New_Tech_Account",
       "authenticationType": "xsuaa",
       "csrfProtection": false

@@ -24,32 +24,22 @@ sap.ui.define([
         onInit: function () {
             // this._loadPositions();
             // Sample data for dropdowns
-            var aCategories = [
-                { key: "Majid Al Futtaim Ventures", text: "Majid Al Futtaim Ventures" },
-                { key: "OpCo Europe", text: "OpCo Europe" }
-            ];
 
-            var aRegions = [
-                { key: "LifeStyle", text: "LifeStyle" },
-                { key: "L&E", text: "L&E" },
-                { key: "Cinemas", text: "Cinemas" },
-                { key: "Finance", text: "Finance" }
-            ];
+            //const oModel = this.getOwnerComponent().getModel(); // ODataModel v2
+            this._pickListData();
 
-            var aStatuses = [
-                { key: "Active", text: "Active" },
-                { key: "Pending", text: "Pending" },
-                { key: "Inactive", text: "Inactive" }
-            ];
+
+
+
 
             // Initialize models
             var oFilterModel = new JSONModel({
-                category: "",
-                region: "",
+                opco: [],
+                businessUnit: [],
                 status: "",
-                categories: aCategories,
-                regions: aRegions,
-                statuses: aStatuses
+                categories: [],
+                regions: [],
+                statuses: []
             });
 
 
@@ -266,7 +256,7 @@ sap.ui.define([
                 'sourcerData': sData
             });
 
-            this.getView().setModel(oFilterModel, "filterModel");
+            this.getView().setModel(oFilterModel, "pickListModel");
             this.getView().setModel(oLocalDataModel, "localModel");
             var oSelectedItemsModel = new JSONModel([]);
             this.getView().setModel(oSelectedItemsModel, "jobReqModel");
@@ -274,7 +264,7 @@ sap.ui.define([
             this._registerForrP13n();
             //var oODataModel = this.getOwnerComponent().getModel();
             var oTable = this.byId("positionsTable");
-            oTable.setBusy(true);
+            // oTable.setBusy(true);
             // oODataModel.attachRequestSent(function () {
             //     oTable.setBusy(true);
             // });
@@ -283,6 +273,59 @@ sap.ui.define([
             //     oTable.setBusy(false);
             // });
         },
+
+        _pickListData: function () {
+            var oModel = this.getOwnerComponent().getModel();
+            var oTable = this.byId("positionsTable");
+            var oFilter = [new Filter({
+                path: "PickListV2_id",
+                operator: FilterOperator.EQ,
+                value1: 'opco'
+            }), new Filter({
+                path: "PickListV2_id",
+                operator: FilterOperator.EQ,
+                value1: 'businessunit'
+            })]
+
+            oModel.read("/PickListValueV2", {
+                filters: oFilter,
+                urlParameters: {
+                    "$select": 'PickListV2_id,label_defaultValue,externalCode',
+                    "$orderby": "PickListV2_effectiveStartDate desc"
+                },
+                success: function (oData) {
+                    this._filterUniqueData(oData.results);
+                }.bind(this),
+
+                error: function (oErr) {
+                    MessageToast.show("Failed to load Positions");
+                }
+            });
+        },
+        _filterUniqueData: function (oFilterData) {
+            var opCoSet = [];
+            var businessSet = [];
+            var opCoUni = [];
+            var buUni = [];
+            var pModel = this.getView().getModel("pickListModel");
+            for (var i = 0; i < oFilterData.length; i++) {
+                if (oFilterData[i].PickListV2_id === 'opco') {
+                    if (!opCoSet.includes(oFilterData[i].externalCode)) {
+                        opCoSet.push(oFilterData[i].externalCode);
+                        opCoUni.push(oFilterData[i]);
+                    }
+                } else if (oFilterData[i].PickListV2_id === 'businessunit') {
+                    if (!businessSet.includes(oFilterData[i].externalCode)) {
+                        businessSet.push(oFilterData[i].externalCode);
+                        buUni.push(oFilterData[i]);
+                    }
+                }
+            }
+            pModel.setProperty("/opco", opCoUni);
+            pModel.setProperty("/businessUnit", buUni);
+        },
+
+
         onRowsUpdated: function (oEvent) {
             var oTable = this.byId("positionsTable");
             oTable.setBusy(false);
@@ -637,8 +680,28 @@ sap.ui.define([
 
             Engine.getInstance().attachStateChange(this.handleStatesChange.bind(this));
         },
-
+        onItemChange: function (oEvent) {
+            var oKey = oEvent.getSource().getSelectedKey();
+            if (oKey !== "") {
+                oEvent.getSource().setValueState("None");
+            }
+        },
         onGoPress: function () {
+            var opCo = this.byId("OpFilter").getSelectedKey();
+            var bUnit = this.byId("beFilter").getSelectedKey();
+            var oTable = this.byId("positionsTable");
+            if (!opCo || !bUnit) {
+                MessageToast.show("Please select opCo and Business Unit.")
+                opCo === "" ? this.byId("OpFilter").setValueState("Error") : "";
+                bUnit === "" ? this.byId("beFilter").setValueState("Error") : "";
+                return;
+            }
+
+            const sExpand = "cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav,companyNav,companyNav/countryOfRegistrationNav,companyNav/cust_OnbofficerNav,costCenterNav";
+            const aFilters = [
+                new sap.ui.model.Filter("effectiveStatus", sap.ui.model.FilterOperator.EQ, "A")
+            ];
+
             var aTableFilters = this.byId("jobfilterbar").getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
                 var oControl = oFilterGroupItem.getControl();
                 var aSelectedKey = oControl.getSelectedKey();
@@ -653,29 +716,14 @@ sap.ui.define([
                 }
                 return aResult;
             }, []);
-            this.byId("positionsTable").getBinding().filter(aTableFilters, FilterType.Application);
-            this.byId("positionsTable").setShowOverlay(false);
-            // var oFilterModel = this.getView().getModel("filterModel");
-            // var oTableModel = this.getView().getModel("tableModel");
-            // var oTable = this.byId("productsTable");
+            aTableFilters = aTableFilters.concat(aFilters);
 
-            // var oFilters = {
-            //     category: oFilterModel.getProperty("/category"),
-            //     region: oFilterModel.getProperty("/region"),
-            //     status: oFilterModel.getProperty("/status")
-            // };
-
-            // // Filter data based on selected criteria
-            // var filteredData = this._allTableData.filter(function (item) {
-            //     var matchCategory = !oFilters.category || item.category === oFilters.category;
-            //     var matchRegion = !oFilters.region || item.region === oFilters.region;
-            //     var matchStatus = !oFilters.status || item.status === oFilters.status;
-            //     return matchCategory && matchRegion && matchStatus;
-            // });
-
-            // oTableModel.setProperty("/data", filteredData);
-            // oTableModel.setProperty("/visible", true);
-            // oTable.removeSelections(true);
+            oTable.bindRows({
+                path: "/Position",
+                parameters: { expand: sExpand },
+                filters: aTableFilters
+            });
+            oTable.setBusy(true);
         },
 
         onSettingsPress: function () {
@@ -794,9 +842,10 @@ sap.ui.define([
                             }
                             return that._fetchLMData(reqObj).then(function (oResponse) {
                                 if (oResponse.response.results.length > 0) {
-                                    oResponse.reqObj.hiringManagerName = oResponse.response.results[0].managerUserNav.displayName;
-                                    oResponse.reqObj.hiringManagerEmail = oResponse.response.results[0].managerUserNav.username;
-
+                                    if (oResponse.response.results[0].managerUserNav !== null) {
+                                        oResponse.reqObj.hiringManagerName = oResponse.response.results[0].managerUserNav.displayName;
+                                        oResponse.reqObj.hiringManagerEmail = oResponse.response.results[0].managerUserNav.username;
+                                    }
                                 }
                                 return oResponse.reqObj;
                             });
@@ -979,24 +1028,24 @@ sap.ui.define([
                     ]
                 }
 
-               // if (oReqData.MainRecruiterEmail !== '') {
-                    oPayload.recruiter = {
-                        "results": [
-                            {
-                                "userName": "mohameabd@mafcarrefour.com",
-                            }
-                        ]
-                    }
+                // if (oReqData.MainRecruiterEmail !== '') {
+                oPayload.recruiter = {
+                    "results": [
+                        {
+                            "userName": "mohameabd@mafcarrefour.com",
+                        }
+                    ]
+                }
                 //}
                 //if (oReqData.AssignedRecruiterEmail !== '') {
-                    oPayload.vpOfStaffing = {
-                        "results": [
-                            {
-                                "userName": "mohameabd@mafcarrefour.com",
-                            }
-                        ]
-                    }
-               // }
+                oPayload.vpOfStaffing = {
+                    "results": [
+                        {
+                            "userName": "mohameabd@mafcarrefour.com",
+                        }
+                    ]
+                }
+                // }
                 oPayload.coordinator = {
                     "results": [
                         {
@@ -1005,15 +1054,15 @@ sap.ui.define([
                     ]
                 }
 
-               // if (oReqData.hiringManagerEmail !== '') {
-                    oPayload.hiringManager = {
-                        "results": [
-                            {
-                                "userName": "mohameabd@mafcarrefour.com",
-                            }
-                        ]
-                    }
-               // }
+                // if (oReqData.hiringManagerEmail !== '') {
+                oPayload.hiringManager = {
+                    "results": [
+                        {
+                            "userName": "mohameabd@mafcarrefour.com",
+                        }
+                    ]
+                }
+                // }
                 this.iRLength = 0;
                 this.oResp = [];
                 this._oncreateJobReq(oPayload, iSelectedIndex);

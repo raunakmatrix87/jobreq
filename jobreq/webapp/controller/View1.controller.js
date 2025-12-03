@@ -750,7 +750,7 @@ sap.ui.define([
                                 "cust_costCenter": oContext.getProperty("costCenterNav/name_defaultValue"),
                                 "jobStartDate": "",
                                 "numberOpenings": 1,
-                                "custaddRep": "Addition",
+                                "custaddRep": srData.custaddRep,
                                 "replacementFor": "",
                                 "roleDesc": "",
                                 "jobCode": oPosData.jobCode,
@@ -956,7 +956,7 @@ sap.ui.define([
                     },
                     "custaddRep": {
                         __metadata: {
-                            uri: "PicklistOption(79432)"
+                            uri: "PicklistOption(" + (oReqData.custaddRep === "Replacement" ? "79433" : "79432") + ")"
                         }
                     },
                     "jobFunction": {
@@ -971,15 +971,14 @@ sap.ui.define([
 
                     }
                 }
-                if (oReqData.SourcingLeadEmail !== '') {
-                    oPayload.secondRecruiter = {
-                        "results": [
-                            {
-                                "userName": "mohameabd@mafcarrefour.com",
-                            }
-                        ]
-                    }
+                oPayload.secondRecruiter = {
+                    "results": [
+                        {
+                            "userName": "mohameabd@mafcarrefour.com",
+                        }
+                    ]
                 }
+
                 if (oReqData.MainRecruiterEmail !== '') {
                     oPayload.recruiter = {
                         "results": [
@@ -998,15 +997,14 @@ sap.ui.define([
                         ]
                     }
                 }
-                if (oReqData.SourcingSpecialistEmail !== '') {
-                    oPayload.coordinator = {
-                        "results": [
-                            {
-                                "userName": "mohameabd@mafcarrefour.com",
-                            }
-                        ]
-                    }
+                oPayload.coordinator = {
+                    "results": [
+                        {
+                            "userName": "mohameabd@mafcarrefour.com",
+                        }
+                    ]
                 }
+
                 if (oReqData.hiringManagerEmail !== '') {
                     oPayload.hiringManager = {
                         "results": [

@@ -750,7 +750,7 @@ sap.ui.define([
                                 "cust_costCenter": oContext.getProperty("costCenterNav/name_defaultValue"),
                                 "jobStartDate": "",
                                 "numberOpenings": 1,
-                                "custaddRep": srData.custaddRep,
+                                "custaddRep": "Addition",
                                 "replacementFor": "",
                                 "roleDesc": "",
                                 "jobCode": oPosData.jobCode,
@@ -979,7 +979,7 @@ sap.ui.define([
                     ]
                 }
 
-                if (oReqData.MainRecruiterEmail !== '') {
+               // if (oReqData.MainRecruiterEmail !== '') {
                     oPayload.recruiter = {
                         "results": [
                             {
@@ -987,8 +987,8 @@ sap.ui.define([
                             }
                         ]
                     }
-                }
-                if (oReqData.AssignedRecruiterEmail !== '') {
+                //}
+                //if (oReqData.AssignedRecruiterEmail !== '') {
                     oPayload.vpOfStaffing = {
                         "results": [
                             {
@@ -996,7 +996,7 @@ sap.ui.define([
                             }
                         ]
                     }
-                }
+               // }
                 oPayload.coordinator = {
                     "results": [
                         {
@@ -1005,7 +1005,7 @@ sap.ui.define([
                     ]
                 }
 
-                if (oReqData.hiringManagerEmail !== '') {
+               // if (oReqData.hiringManagerEmail !== '') {
                     oPayload.hiringManager = {
                         "results": [
                             {
@@ -1013,7 +1013,7 @@ sap.ui.define([
                             }
                         ]
                     }
-                }
+               // }
                 this.iRLength = 0;
                 this.oResp = [];
                 this._oncreateJobReq(oPayload, iSelectedIndex);

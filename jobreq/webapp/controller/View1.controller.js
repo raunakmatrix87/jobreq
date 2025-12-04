@@ -439,93 +439,81 @@ sap.ui.define([
             }
 
         },
-        onExport: function () {
+        onExportPositions: function () {
             if (!this._oTable) {
                 this._oTable = this.byId("positionsTable");
             }
 
             const oTable = this._oTable;
             const oRowBinding = oTable.getBinding("rows");
-            const aCols = this.createColumnConfig();
+            const oModel = this.getView().getModel();
+            oModel.setSizeLimit(100000)
+
+            const aColumns = oTable.getColumns()
+                .filter(col => col.getVisible())
+                .map(function (oCol) {
+                    const oTemplate = oCol.getTemplate();
+                    const oBindingInfo = oTemplate && oTemplate.getBindingInfo && oTemplate.getBindingInfo("text");
+                    const sPath = oBindingInfo && oBindingInfo.parts ? oBindingInfo.parts[0].path : null;
+
+                    return {
+                        label: oCol.getLabel().getText(), // header text
+                        property: sPath,                  // data path in the model
+                        type: "string",                   // or "number", "date", "boolean"
+                        width: 20                         // Excel column width
+                    };
+                }).filter(c => !!c.property);
+
             const oSettings = {
-                workbook: {
-                    columns: aCols,
-                    hierarchyLevel: "Level"
-                },
-                dataSource: {
-                    type: "odata",
-                    dataUrl: oRowBinding.getDownloadUrl(),
-                    serviceUrl: this.getOwnerComponent().getModel().sServiceUrl,
-                    count: oRowBinding.getLength()
-                },
-                fileName: "TPD SUMMARY_" + this.formatDate(new Date()) + ".xlsx",
-                worker: false // We need to disable worker because we are using a MockServer as OData Service
+                workbook: { columns: aColumns },
+                dataSource: oRowBinding,             // respects filtering/sorting/paging automatically
+                fileName: "Positions.xlsx"
             };
+
 
             const oSheet = new Spreadsheet(oSettings);
             oSheet.build().finally(function () {
                 oSheet.destroy();
             });
         },
-        createColumnConfig: function () {
-            const aCols = [];
+        onExportreq: function () {
+           if (!this._oTable) {
+                this._oTable = this.byId("reqTable");
+            }
 
-            aCols.push({
-                label: "TPD ID",
-                property: "TPDNumber",
-                type: EdmType.String,
+            const oTable = this._oTable;
+            const oRowBinding = oTable.getBinding("rows");
+            // const oModel = this.getView().getModel();
+            // oModel.setSizeLimit(100000)
+
+            const aColumns = oTable.getColumns()
+                .filter(col => col.getVisible())
+                .map(function (oCol) {
+                    const oTemplate = oCol.getTemplate();
+                    const oBindingInfo = oTemplate && oTemplate.getBindingInfo && oTemplate.getBindingInfo("text");
+                    const sPath = oBindingInfo && oBindingInfo.parts ? oBindingInfo.parts[0].path : null;
+
+                    return {
+                        label: oCol.getLabel().getText(), // header text
+                        property: sPath,                  // data path in the model
+                        type: "string",                   // or "number", "date", "boolean"
+                        width: 20                         // Excel column width
+                    };
+                }).filter(c => !!c.property);
+
+            const oSettings = {
+                workbook: { columns: aColumns },
+                dataSource: oRowBinding,             // respects filtering/sorting/paging automatically
+                fileName: "Requisitions.xlsx"
+            };
+
+
+            const oSheet = new Spreadsheet(oSettings);
+            oSheet.build().finally(function () {
+                oSheet.destroy();
             });
-
-            aCols.push({
-                label: "PART NUMBER",
-                type: EdmType.String,
-                property: "PolestarPartNumber",
-            });
-
-            aCols.push({
-                label: "PART NAME",
-                property: "PartName",
-                type: EdmType.String
-            });
-
-            aCols.push({
-                label: "STATUS",
-                property: "StatusText",
-                type: EdmType.String
-            });
-
-            aCols.push({
-                label: "SUPPLIER ID",
-                property: "SupplierDetails_SupplierId",
-                type: EdmType.String
-            });
-
-            aCols.push({
-                label: "SUPPLIER CODE",
-                property: "SupplierDetails_SupplierCode",
-                type: EdmType.String,
-            });
-
-            aCols.push({
-                label: "R&D CONTACT",
-                property: "PolestarRDContact",
-                type: EdmType.String
-            });
-
-            aCols.push({
-                label: "SQM CONTACT",
-                property: "PolestarSQMContact",
-                type: EdmType.String,
-            });
-            //     aCols.push({
-            //     label: "Deviation Parts",
-            //     property: "AffectedPrograms",
-            //     type: EdmType.String,
-            //     formatter: this.formatNavigationData
-            // });
-
-            return aCols;
         },
+   
         _registerForP13n: function () {
             var oView = this.getView();
             var oTable = oView.byId("positionsTable");
@@ -699,7 +687,8 @@ sap.ui.define([
 
             const sExpand = "cust_opcoNav,cust_BusinessUnitNav,cust_Organization_NameNav,cust_OpcoLevelNav,cust_JobFamilyNav,employeeClassNav,regularTemporaryNav,cust_OrgLevelNav,cust_RoleArchetypeNav,cust_BudgetedNonBudgetedNav,cust_roleClassNav,cust_HRLNav,cust_LevelNav,cust_Executive_LevelNav,cust_BandNav,cust_Band_LevelNav,cust_SuccessionurgencyNav,cust_PositionJobFunctionNav,companyNav,companyNav/countryOfRegistrationNav,companyNav/cust_OnbofficerNav,costCenterNav";
             const aFilters = [
-                new sap.ui.model.Filter("effectiveStatus", sap.ui.model.FilterOperator.EQ, "A")
+                new sap.ui.model.Filter("effectiveStatus", sap.ui.model.FilterOperator.EQ, "A"),
+                new sap.ui.model.Filter("vacant", sap.ui.model.FilterOperator.EQ, true)
             ];
 
             var aTableFilters = this.byId("jobfilterbar").getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
@@ -737,7 +726,7 @@ sap.ui.define([
             var rModel = this.getView().getModel("jobReqModel");
             var lModel = this.getView().getModel("localModel").getData();
             if (aSelectedIndices.length === 0) {
-                MessageToast.show("Please select at least one item");
+                MessageToast.show("Please select at least one position");
                 return;
             } else {
                 if (rModel.getData().length !== 0) {
@@ -1126,6 +1115,12 @@ sap.ui.define([
 
 
         onOpenDialog: function () {
+            var oTable = this.getView().byId("reqTable");
+            var oSelected = oTable.getSelectedIndices();
+            if (oSelected.length === 0) {
+                MessageBox.warning("Please select atleast one Requisition.")
+                return;
+            }
             var oView = this.getView();
             if (!this._pDialog) {
                 this._pDialog = sap.ui.core.Fragment.load({
@@ -1143,19 +1138,36 @@ sap.ui.define([
         },
 
         onDialogOk: function (oEvent) {
+            var oTable = this.getView().byId("reqTable");
+            var oSelectedIndi = oTable.getSelectedIndices();
             var reqModel = this.getView().getModel("jobReqModel");
             var sValue = this.byId("arCBox").getSelectedKey();
             sValue = sValue === 'A' ? 'Addition' : "Replacement";
-            var aData = reqModel.getData();
-            aData.forEach(function (item) {
-                item.custaddRep = sValue;
+            oSelectedIndi.forEach(function (uiIndex) {
+                const oCtx = oTable.getContextByIndex(uiIndex);
+                if (!oCtx) { return; }
+                const sRowPath = oCtx.getPath();
+                reqModel.setProperty(`${sRowPath}/custaddRep`, sValue);
             });
-            reqModel.setData(aData);
-            reqModel.refresh(true);
+            this.getView().byId("reqTable").clearSelection();
             this.byId("arCBox").setSelectedKey(null);
             this.byId("addEntryDialog").close();
         },
-
+        onRemove: function (oEvt) {
+            var oSelectedIndices = this.getView().byId("reqTable").getSelectedIndices();
+            var oReqModel = this.getView().getModel("jobReqModel");
+            var oReqData = oReqModel.getData();
+            oSelectedIndices.sort((a, b) => b - a);
+            if (oSelectedIndices.length > 0) {
+                for (var i = 0; i < oSelectedIndices.length; i++) {
+                    oReqData.splice(oSelectedIndices[i], 1)
+                }
+                oReqModel.setProperty("/", oReqData);
+                this.getView().byId("reqTable").clearSelection();
+            } else {
+                MessageBox.warning("Please select atleast one requisition");
+            }
+        },
         onDialogCancel: function () {
             this.byId("addEntryDialog").close();
         }

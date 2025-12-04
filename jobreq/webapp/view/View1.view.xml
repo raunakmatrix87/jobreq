@@ -210,7 +210,7 @@
                             <Button
                                 id="_IDGenButton1"
                                 icon="sap-icon://excel-attachment"
-                                press="onExport"
+                                press="onExportPositions"
                             />
                             <Button
                                 id="_IDGenButton2"
@@ -283,7 +283,7 @@
                         <t:template>
                             <Text
                                 id="_IDGenText1"
-                                text="{effectiveStatus}"
+                                text="{=${effectiveStatus} === 'A'?'Active': ${effectiveStatus}}"
                                 wrapping="false"
                                
                             />
@@ -1069,6 +1069,7 @@
                             text="Save Requisitions"
                             press="onPostRequsitions"
                         />
+                        <Button id="idremove" text="Delete Requisitions" press="onRemove"/>
                         <Button
                             id="_IDGenButton5"
                             icon="sap-icon://action-settings"
@@ -1077,7 +1078,7 @@
                         <Button
                             id="_IDGenButton6"
                             icon="sap-icon://excel-attachment"
-                            press="onExport"
+                            press="onExportreq"
                         />
                     </OverflowToolbar>
                 </t:extension>

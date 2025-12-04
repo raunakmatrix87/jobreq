@@ -38,6 +38,7 @@
                         <fb:control>
                             <ComboBox
                                 id="OpFilter"
+                                required="true"
                                 items="{path: 'pickListModel>/opco'}" change="onItemChange" >
                                 <core:Item
                                     id="_IDGenItem1"
@@ -57,6 +58,7 @@
                         <fb:control>
                             <ComboBox
                                 id="beFilter"
+                                required="true"
                                 items="{pickListModel>/businessUnit}"
                                 change="onItemChange"
                             >

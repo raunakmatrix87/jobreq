@@ -27,6 +27,7 @@ sap.ui.define([
 
             //const oModel = this.getOwnerComponent().getModel(); // ODataModel v2
             this._pickListData();
+            //this._jobCodeData();
 
 
 
@@ -36,8 +37,8 @@ sap.ui.define([
             var oFilterModel = new JSONModel({
                 opco: [],
                 businessUnit: [],
-                status: "",
-                categories: [],
+                hrl: [],
+                jobCode: [],
                 regions: [],
                 statuses: []
             });
@@ -274,6 +275,22 @@ sap.ui.define([
             // });
         },
 
+        // _jobCodeData:function(){
+        //     var oModel = this.getOwnerComponent().getModel();
+        //     oModel.read("/FOJobCode", {
+        //         urlParameters: {
+        //             "$select": 'externalCode,name_defaultValue'
+        //         },
+        //         success: function (oData) {
+        //             this._filterUniqJCData(oData.results);
+        //         }.bind(this),
+
+        //         error: function (oErr) {
+        //             MessageToast.show("Failed to fetch jobcode");
+        //         }
+        //     });
+        // },
+
         _pickListData: function () {
             var oModel = this.getOwnerComponent().getModel();
             var oTable = this.byId("positionsTable");
@@ -285,6 +302,10 @@ sap.ui.define([
                 path: "PickListV2_id",
                 operator: FilterOperator.EQ,
                 value1: 'businessunit'
+            }), new Filter({
+                path: "PickListV2_id",
+                operator: FilterOperator.EQ,
+                value1: 'HRL'
             })]
 
             oModel.read("/PickListValueV2", {
@@ -298,15 +319,30 @@ sap.ui.define([
                 }.bind(this),
 
                 error: function (oErr) {
-                    MessageToast.show("Failed to load Positions");
+                    MessageToast.show("Failed to fetch OpCo,HRL,Business unit picklist");
                 }
             });
         },
+        // _filterUniqJCData:function(oJobCodeData){
+        //     var jcSet=[];
+        //     var jcodes=[];
+        //     var pModel = this.getView().getModel("pickListModel");
+        //     for (var i = 0; i < oJobCodeData.length; i++) {
+        //             if (!jcSet.includes(oJobCodeData[i].externalCode)) {
+        //                 jcSet.push(oJobCodeData[i].externalCode);
+        //                 jcodes.push(oJobCodeData[i]);
+        //             }            
+        //     }
+        //     pModel.setProperty("/jobCode", jcodes);
+ 
+        // },
         _filterUniqueData: function (oFilterData) {
             var opCoSet = [];
             var businessSet = [];
             var opCoUni = [];
             var buUni = [];
+            var hrlSet=[];
+            var hrl=[];
             var pModel = this.getView().getModel("pickListModel");
             for (var i = 0; i < oFilterData.length; i++) {
                 if (oFilterData[i].PickListV2_id === 'opco') {
@@ -319,10 +355,16 @@ sap.ui.define([
                         businessSet.push(oFilterData[i].externalCode);
                         buUni.push(oFilterData[i]);
                     }
+                }else if (oFilterData[i].PickListV2_id === 'HRL') {
+                    if (!hrlSet.includes(oFilterData[i].externalCode)) {
+                        hrlSet.push(oFilterData[i].externalCode);
+                        hrl.push(oFilterData[i]);
+                    }
                 }
             }
             pModel.setProperty("/opco", opCoUni);
             pModel.setProperty("/businessUnit", buUni);
+            pModel.setProperty("/hrl", hrl);
         },
 
 
@@ -590,6 +632,7 @@ sap.ui.define([
 
             this.oRMetadataHelper = new MetadataHelper([
                 { key: "quickapply", path: "quickApply", label: "Quick Apply" },
+                { key: "idbno", path: "FL_Prof_flag", label: "Batch Number" },
                 { key: "evergreen", path: "evergreen", label: "Evergreen Job Requisition" },
                 { key: "reqtype", path: "sfstd_jobReqType", label: "Job Requisition Type" },
                 { key: "reqid", path: "id", label: "Requisition ID" },
@@ -677,11 +720,14 @@ sap.ui.define([
         onGoPress: function () {
             var opCo = this.byId("OpFilter").getSelectedKey();
             var bUnit = this.byId("beFilter").getSelectedKey();
+            var hrl=this.byId("oHRLFilter").getSelectedKey();
+            //var jcode=this.byId("oHRLFilter").getSelectedKey();
             var oTable = this.byId("positionsTable");
             if (!opCo || !bUnit) {
                 MessageToast.show("Please select opCo and Business Unit.")
                 opCo === "" ? this.byId("OpFilter").setValueState("Error") : "";
                 bUnit === "" ? this.byId("beFilter").setValueState("Error") : "";
+                hrl === "" ? this.byId("oHRLFilter").setValueState("Error") : "";
                 return;
             }
 
@@ -769,6 +815,7 @@ sap.ui.define([
                                 "evergreen": false,
                                 "sfstd_jobReqType": "Standard",
                                 "id": "",
+                                "FL_Prof_flag":"",
                                 "positionNumber": oPosData.code,
                                 "status": "",
                                 "title": oPosData.jobTitle,
@@ -950,6 +997,7 @@ sap.ui.define([
                     "Cust_businessUnit": oReqData.Cust_businessUnit,
                     "cust_costCenterId": oReqData.cust_costCenter,
                     "Cust_company_code": oReqData.Cust_company_code,
+                    "FL_Prof_flag":oReqData.jobCode+"_"+Date.parse(new Date()),
                     //"divisionR": oReqData.division_obj,
                     //"department_obj": oReqData.department_obj,
                     "cust_jobGrade": oReqData.cust_jobGrade,
@@ -1079,6 +1127,7 @@ sap.ui.define([
                 this._error = this._error + "," + "Job Requsitions creation failed for position " + reqModel.getProperty("/" + oIndex + "/positionNumber");
             } else {
                 reqModel.setProperty("/" + oIndex + "/id", oResp.jobReqId);
+                reqModel.setProperty("/"+oIndex+"/FL_Prof_flag",oResp.FL_Prof_flag);
             }
             this._pendingRequests--;
             if (this._pendingRequests === 0) {

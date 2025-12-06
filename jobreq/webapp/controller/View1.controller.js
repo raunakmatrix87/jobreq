@@ -15,31 +15,24 @@ sap.ui.define([
     'sap/m/p13n/SortController',
     'sap/m/p13n/GroupController',
     'sap/m/p13n/MetadataHelper',
-    'sap/m/table/ColumnWidthController'
-], (Controller, JSONModel, MessageToast, MessageBox, Filter, FilterOperator, FilterType, exportLibrary, Spreadsheet, Sorter, CoreLibrary, Engine, SelectionController, SortController, GroupController, MetadataHelper, ColumnWidthController) => {
+    'sap/m/table/ColumnWidthController',
+    'sap/m/SearchField',
+    'sap/ui/core/Fragment'
+], (Controller, JSONModel, MessageToast, MessageBox, Filter, FilterOperator, FilterType, exportLibrary, Spreadsheet, Sorter, CoreLibrary, Engine, SelectionController, SortController, GroupController, MetadataHelper, ColumnWidthController, SearchField, Fragment) => {
     "use strict";
     const EdmType = exportLibrary.EdmType;
 
     return Controller.extend("com.sap.sj.jobreq.controller.View1", {
         onInit: function () {
-            // this._loadPositions();
-            // Sample data for dropdowns
-
-            //const oModel = this.getOwnerComponent().getModel(); // ODataModel v2
             this._pickListData();
-            //this._jobCodeData();
-
-
-
-
-
+            this._getUserData();
             // Initialize models
             var oFilterModel = new JSONModel({
                 opco: [],
                 businessUnit: [],
                 hrl: [],
                 jobCode: [],
-                regions: [],
+                userData: {},
                 statuses: []
             });
 
@@ -264,7 +257,7 @@ sap.ui.define([
             this._registerForP13n();
             this._registerForrP13n();
             //var oODataModel = this.getOwnerComponent().getModel();
-            var oTable = this.byId("positionsTable");
+            //var oTable = this.byId("positionsTable");
             // oTable.setBusy(true);
             // oODataModel.attachRequestSent(function () {
             //     oTable.setBusy(true);
@@ -274,22 +267,129 @@ sap.ui.define([
             //     oTable.setBusy(false);
             // });
         },
+        _getUserData: function () {
+            //var pModel = this.getView().getModel("pickListModel");
+            jQuery.ajax({
+                url: "/user-api/currentUser",
+                method: "GET",
+                success: function (data) {
+                    console.log("Current User Data:", data);
+                    this.getView().getModel("pickListModel").setProperty("/userData", data);
+                }.bind(this),
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching user data:", errorThrown);
+                }
+            });
+        },
 
-        // _jobCodeData:function(){
-        //     var oModel = this.getOwnerComponent().getModel();
-        //     oModel.read("/FOJobCode", {
-        //         urlParameters: {
-        //             "$select": 'externalCode,name_defaultValue'
-        //         },
-        //         success: function (oData) {
-        //             this._filterUniqJCData(oData.results);
-        //         }.bind(this),
+        onValueHelpJCRequested: function (oEvent) {
+            var oView = this.getView();
+            //var that=this;
+            //var oId = oEvent.getSource().getId();
+            this._oJCBasicSearchField = new SearchField();
+            var sFragName = "com.sap.sj.jobreq.fragments.JobCode";
+            this._JcodeDialog = Fragment.load({
+                id: oView.getId(),
+                name: sFragName,
+                controller: this
+            }).then(function (oDialog) {
+                oView.addDependent(oDialog);
+                this._oJCVHD = oDialog;
+                var oFilterBar = oDialog.getFilterBar();
+                oFilterBar.setFilterBarExpanded(false);
+                oFilterBar.setBasicSearch(this._oJCBasicSearchField);
 
-        //         error: function (oErr) {
-        //             MessageToast.show("Failed to fetch jobcode");
-        //         }
-        //     });
-        // },
+                // Trigger filter bar search when the basic search is fired
+                this._oJCBasicSearchField.attachSearch(function () {
+                    oFilterBar.search();
+                });
+                oDialog.getTableAsync().then(function (oTable) {
+
+                    //oTable.setModel(this.oProductsModel);
+                    if (oTable.bindRows) {
+                        // Bind rows to the ODataModel and add columns
+                        oTable.bindAggregation("rows", {
+                            path: "/FOJobCode",
+                            parameters: { $count: true },
+                            events: {
+                                dataReceived: function () {
+                                    oDialog.update();
+                                }
+                            },
+                            length: 500
+                        });
+                        var oColumnProductCode = new sap.ui.table.Column({ label: new sap.m.Label({ text: "Code" }), template: new sap.m.Text({ wrapping: false, text: "{externalCode}" }) });
+                        oColumnProductCode.data({
+                            fieldName: "Id"
+                        });
+                        var oColumnProductName = new sap.ui.table.Column({ label: new sap.m.Label({ text: "Description" }), template: new sap.m.Text({ wrapping: false, text: "{name_defaultValue}" }) });
+                        oColumnProductName.data({
+                            fieldName: "Description"
+                        });
+
+
+                        oTable.addColumn(oColumnProductCode);
+                        oTable.addColumn(oColumnProductName);
+                    }
+                    oDialog.update();
+                    //oDialog.setTokens(that.byId(oId).getTokens());
+                }.bind(this));
+                oDialog.open();
+                //return oDialog;
+            }.bind(this));
+        },
+        onJCValueCancelPress: function (oEvent) {
+            this._oJCVHD.close();
+        },
+        onJCValueAfterClose: function (oEvent) {
+            this._oJCVHD.destroy();
+        },
+        onJCValueOkPress: function (oEvent) {
+            var aTokens = oEvent.getParameter("tokens");
+            var rowValue = aTokens[0].getAggregation("customData")[0].getValue();
+            this.byId("jcodeVHelp").setValue(rowValue.externalCode + "(" + rowValue.name_defaultValue + ")");
+            this.byId("jcodeVHelp").setValueState("None");
+            this._oJCVHD.close();
+        },
+        onFilterBarJCSearch: function (oEvent) {
+            var sSearchQuery = this._oJCBasicSearchField.getValue(),
+                aSelectionSet = oEvent.getParameter("selectionSet");
+            var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+                if (oControl.getValue()) {
+                    aResult.push(new Filter({
+                        path: oControl.getName(),
+                        operator: FilterOperator.Contains,
+                        value1: oControl.getValue()
+                    }));
+                }
+
+                return aResult;
+            }, []);
+
+            aFilters.push(new Filter({
+                filters: [
+                    new Filter({ path: "externalCode", operator: FilterOperator.Contains, value1: sSearchQuery }),
+                    new Filter({ path: "name_defaultValue", operator: FilterOperator.Contains, value1: sSearchQuery }),
+                ],
+                and: false
+            }));
+
+            this._filterJCTable(new Filter({
+                filters: aFilters,
+                and: true
+            }));
+        },
+        _filterJCTable: function (oFilter) {
+            var oJCVHD = this._oJCVHD;
+
+            oJCVHD.getTableAsync().then(function (oTable) {
+                if (oTable.bindRows) {
+                    oTable.getBinding("rows").filter(oFilter);
+                }
+                // This method must be called after binding update of the table.
+                oJCVHD.update();
+            });
+        },
 
         _pickListData: function () {
             var oModel = this.getOwnerComponent().getModel();
@@ -334,15 +434,15 @@ sap.ui.define([
         //             }            
         //     }
         //     pModel.setProperty("/jobCode", jcodes);
- 
+
         // },
         _filterUniqueData: function (oFilterData) {
             var opCoSet = [];
             var businessSet = [];
             var opCoUni = [];
             var buUni = [];
-            var hrlSet=[];
-            var hrl=[];
+            var hrlSet = [];
+            var hrl = [];
             var pModel = this.getView().getModel("pickListModel");
             for (var i = 0; i < oFilterData.length; i++) {
                 if (oFilterData[i].PickListV2_id === 'opco') {
@@ -355,7 +455,7 @@ sap.ui.define([
                         businessSet.push(oFilterData[i].externalCode);
                         buUni.push(oFilterData[i]);
                     }
-                }else if (oFilterData[i].PickListV2_id === 'HRL') {
+                } else if (oFilterData[i].PickListV2_id === 'HRL') {
                     if (!hrlSet.includes(oFilterData[i].externalCode)) {
                         hrlSet.push(oFilterData[i].externalCode);
                         hrl.push(oFilterData[i]);
@@ -519,7 +619,7 @@ sap.ui.define([
             });
         },
         onExportreq: function () {
-           if (!this._oTable) {
+            if (!this._oTable) {
                 this._oTable = this.byId("reqTable");
             }
 
@@ -555,7 +655,7 @@ sap.ui.define([
                 oSheet.destroy();
             });
         },
-   
+
         _registerForP13n: function () {
             var oView = this.getView();
             var oTable = oView.byId("positionsTable");
@@ -720,14 +820,15 @@ sap.ui.define([
         onGoPress: function () {
             var opCo = this.byId("OpFilter").getSelectedKey();
             var bUnit = this.byId("beFilter").getSelectedKey();
-            var hrl=this.byId("oHRLFilter").getSelectedKey();
-            //var jcode=this.byId("oHRLFilter").getSelectedKey();
+            var hrl = this.byId("oHRLFilter").getSelectedKey();
+            var jcode = this.byId("jcodeVHelp").getValue();
             var oTable = this.byId("positionsTable");
-            if (!opCo || !bUnit) {
+            if (!opCo || !bUnit || !hrl || !jcode) {
                 MessageToast.show("Please select opCo and Business Unit.")
                 opCo === "" ? this.byId("OpFilter").setValueState("Error") : "";
                 bUnit === "" ? this.byId("beFilter").setValueState("Error") : "";
                 hrl === "" ? this.byId("oHRLFilter").setValueState("Error") : "";
+                jcode === "" ? this.byId("jcodeVHelp").setValueState("Error") : "";
                 return;
             }
 
@@ -739,15 +840,25 @@ sap.ui.define([
 
             var aTableFilters = this.byId("jobfilterbar").getFilterGroupItems().reduce(function (aResult, oFilterGroupItem) {
                 var oControl = oFilterGroupItem.getControl();
-                var aSelectedKey = oControl.getSelectedKey();
-                if (aSelectedKey !== '') {
+                if (oControl.getId().indexOf("VHelp") !== -1) {
                     var aFilters = new Filter({
                         path: oFilterGroupItem.getName(),
-                        operator: FilterOperator.EQ,
-                        value1: aSelectedKey
+                        operator: FilterOperator.Contains,
+                        value1: oControl.getValue().split("(")[0].trim()
                     });
-
                     aResult.push(aFilters);
+                }
+                else {
+                    var aSelectedKey = oControl.getSelectedKey();
+                    if (aSelectedKey !== '') {
+                        var aFilters = new Filter({
+                            path: oFilterGroupItem.getName(),
+                            operator: FilterOperator.EQ,
+                            value1: aSelectedKey
+                        });
+
+                        aResult.push(aFilters);
+                    }
                 }
                 return aResult;
             }, []);
@@ -815,7 +926,7 @@ sap.ui.define([
                                 "evergreen": false,
                                 "sfstd_jobReqType": "Standard",
                                 "id": "",
-                                "FL_Prof_flag":"",
+                                "FL_Prof_flag": "",
                                 "positionNumber": oPosData.code,
                                 "status": "",
                                 "title": oPosData.jobTitle,
@@ -967,8 +1078,25 @@ sap.ui.define([
             }.bind(this));
 
         },
+        formatDate: function (dObj) {
+            const today = new Date(dObj);
+
+            // Extract day, month, and year
+            let day = today.getDate();
+            let month = today.getMonth() + 1; // Month is 0-indexed, so add 1
+            let year = today.getFullYear();
+
+            // Add leading zero to day and month if needed
+            day = day < 10 ? '0' + day : day;
+            month = month < 10 ? '0' + month : month;
+
+            // Format the date as ddmmyyyy
+            const formattedDate = `${day}${month}${year}`;
+            return formattedDate;
+        },
         onPostRequsitions: function (oEvent) {
             var oTable = this.byId("reqTable");
+            var pModel = this.getView().getModel("pickListModel");
             var aSelectedIndices = oTable.getSelectedIndices();
             if (aSelectedIndices.length === 0) {
                 MessageBox.warning("Select any one requesition to save")
@@ -980,6 +1108,7 @@ sap.ui.define([
             this._pendingRequests = aSelectedIndices.length;
             this._error = "";
             var oModel = this.getOwnerComponent().getModel();
+            var userName = pModel.getProperty("/userData/firstname") + " " + pModel.getProperty("/userData/lastname")
             oModel.setUseBatch(false);
             for (var i = 0; i < aSelectedIndices.length; i++) {
                 var iSelectedIndex = aSelectedIndices[i];
@@ -997,7 +1126,14 @@ sap.ui.define([
                     "Cust_businessUnit": oReqData.Cust_businessUnit,
                     "cust_costCenterId": oReqData.cust_costCenter,
                     "Cust_company_code": oReqData.Cust_company_code,
-                    "FL_Prof_flag":oReqData.jobCode+"_"+Date.parse(new Date()),
+                    "FL_Prof_flag": oReqData.jobCode + "_" + this.formatDate(new Date()) + "_" + userName,
+                    "originator": {
+                        "results": [
+                            {
+                                "userName": pModel.getProperty("/userData/email")
+                            }
+                        ]
+                    },
                     //"divisionR": oReqData.division_obj,
                     //"department_obj": oReqData.department_obj,
                     "cust_jobGrade": oReqData.cust_jobGrade,
@@ -1122,12 +1258,17 @@ sap.ui.define([
             var oTable = this.byId("reqTable");
             var reqModel = this.getView().getModel("jobReqModel");
             var oModel = this.getOwnerComponent().getModel();
-
+            var jobPositions = [];
             if (oErr !== undefined) {
                 this._error = this._error + "," + "Job Requsitions creation failed for position " + reqModel.getProperty("/" + oIndex + "/positionNumber");
             } else {
                 reqModel.setProperty("/" + oIndex + "/id", oResp.jobReqId);
-                reqModel.setProperty("/"+oIndex+"/FL_Prof_flag",oResp.FL_Prof_flag);
+                reqModel.setProperty("/" + oIndex + "/FL_Prof_flag", oResp.FL_Prof_flag);
+                jobPositions.push({
+                    "positionId": oResp.positionNumber,
+                    "jobTitle": oResp.jobReqLocale.results[0].jobTitle,
+                    "requisitionId": oResp.jobReqId
+                });
             }
             this._pendingRequests--;
             if (this._pendingRequests === 0) {
@@ -1139,7 +1280,51 @@ sap.ui.define([
                 } else {
                     MessageBox.error(this._error);
                 }
+                this.triggerEmail(jobPositions);
             }
+        },
+        _getAppPath: function () {
+            var appId = this.getOwnerComponent().getManifestEntry("/sap.app/id");
+
+            var appPath = appId.replaceAll(".", "/");
+
+            var appModulePath = jQuery.sap.getModulePath(appPath);
+            return appModulePath;
+        },
+        triggerEmail: function (oEmailPayload) {
+            var pModel = this.getView().getModel("pickListModel");
+            var payload = {
+                "recipientEmail": "raunakfiori.sap@gmail.com",
+                "ccEmails":  pModel.getProperty("/userData/email"),
+                "jobPositions": oEmailPayload
+            }
+            var appPath = this._getAppPath();
+            var settings = {
+                headers: { "Content-type": "application/json" },
+                method: 'POST',
+                url: appPath + "/odata/v4/catalog/sendMail",
+                data: JSON.stringify(payload)
+            }
+
+            $.ajax(settings)
+                .done((results, textStatus, request) => {
+                    console.log(results);
+
+                })
+                .fail((err) => {
+
+                })
+            //      jQuery.ajax({
+            //        url: appPath+"/odata/v4/catalog/sendMail",
+            //        method: "POST",
+            //        success: function (data) {
+            //            console.log("Current User Data:", data);
+            //             this.getView().getModel("pickListModel").setProperty("/userData",data);
+            //        }.bind(this),
+            //        error: function (jqXHR, textStatus, errorThrown) {
+            //            console.error("Error fetching user data:", errorThrown);
+            //        }
+            //    });
         },
         onSavePress: function () {
             var oUpdateModel = this.getView().getModel("updateModel");

@@ -1,0 +1,49 @@
+<core:FragmentDefinition
+    xmlns="sap.ui.comp.valuehelpdialog"
+    xmlns:m="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+>
+    <ValueHelpDialog
+        id="idTVHelp"
+        title="Choose Job Code"
+        supportMultiselect="false"
+        ok=".onJCValueOkPress"
+        cancel=".onJCValueCancelPress"
+        afterClose=".onJCValueAfterClose"
+        supportRanges="false"
+        key="externalCode"
+        descriptionKey="name_defaultValue"
+    >
+        <filterBar>
+            <fb:FilterBar
+                advancedMode="true"
+                search=".onFilterBarJCSearch"
+                isRunningInValueHelpDialog="true"
+            >
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem
+                        groupName="__$INTERNAL$"
+                        name="Code"
+                        label="Code"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <m:Input name="externalCode" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem
+                        groupName="__$INTERNAL$"
+                        name="Description"
+                        label="Description"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <m:Input name="name_defaultValue" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+        </filterBar>
+    </ValueHelpDialog>
+</core:FragmentDefinition>

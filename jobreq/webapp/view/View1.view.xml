@@ -80,8 +80,8 @@
                         <fb:control>
                             <ComboBox
                                 id="oHRLFilter"
-                                required="true"
                                 items="{pickListModel>/hrl}"
+                                required="true"
                                 change="onItemChange"
                             >
                                 <core:Item
@@ -100,18 +100,30 @@
                         visibleInFilterBar="true"
                     >
                         <fb:control>
-                            <ComboBox
-                                id="oUFilter"
-                                required="true"
-                                items="{path:'/FOJobCode'}"
+                       <Input
+                       required="true"
+    id="jcodeVHelp"
+    valueHelpRequest=".onValueHelpJCRequested"
+    showSuggestion="true"
+    showValueHelp="true"
+    suggestionRows="{ path: '/FOJobCode'}"
+>
+    <suggestionColumns>
+        <Column>
+            <Label text="Code" />
+        </Column>
+        <Column>
+            <Label text="Description" />
+        </Column>
+    </suggestionColumns>
+    <suggestionRows>
+        <ColumnListItem>
+            <Label text="{externalCode}" />
+            <Label text="{name_defaultValue}" />
+        </ColumnListItem>
+    </suggestionRows>
+</Input>
 
-                            >
-                                <core:Item
-                                    id="_IDGenItem4"
-                                    key="{externalCode}"
-                                    text="{name_defaultValue}"
-                                />
-                            </ComboBox>
                         </fb:control>
                     </fb:FilterGroupItem>
                     <fb:FilterGroupItem

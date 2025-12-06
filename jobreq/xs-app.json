@@ -2,12 +2,24 @@
   "welcomeFile": "/index.html",
   "authenticationMethod": "route",
   "routes": [
+      {
+      "source": "^/odata/v4/(.*)$",
+      "target": "/odata/v4/$1",
+      "destination": "SMTPCAP",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
     {
       "source": "^/odata/(.*)$",
       "target": "/odata/$1",
       "destination": "SF_New_Tech_Account",
       "authenticationType": "xsuaa",
       "csrfProtection": false
+    },
+    {
+      "source": "^/user-api/(.*)$",
+      "target": "/$1",
+      "service": "sap-approuter-userapi"
     },
     {
       "source": "^/resources/(.*)$",

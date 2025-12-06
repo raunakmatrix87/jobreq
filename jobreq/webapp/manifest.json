@@ -24,6 +24,13 @@
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+        "EmailService": {
+        "uri": "/odata/v4/",
+        "type": "OData",
+        "settings": {
+          "annotations": []
+        }
       }
     }
   },
@@ -65,6 +72,15 @@
       },
       "": {
         "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "EmailModel": {
+        "dataSource": "EmailService",
         "preload": true,
         "settings": {
           "operationMode": "Server",

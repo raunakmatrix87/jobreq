@@ -1,5 +1,11 @@
 {
   "authenticationMethod": "none",
-  "routes": [],
+  "routes": [
+    {
+      "source": "^/user-api/(.*)$",
+      "target": "/$1",
+      "service": "sap-approuter-userapi"
+    }
+  ],
   "welcomeFile": "/comsapsjjobreq"
 }

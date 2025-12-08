@@ -1186,6 +1186,11 @@ sap.ui.define([
                             uri: "PicklistOption(1890683)"
                         }
                     },
+                    "status": {
+                        "__metadata": {
+                            "uri": "PicklistOption(79414)"
+                        }
+                    },
                     "orgLevel": {
                         __metadata: {
                             uri: "PicklistOption(1892738)"
@@ -1258,29 +1263,42 @@ sap.ui.define([
             var oTable = this.byId("reqTable");
             var reqModel = this.getView().getModel("jobReqModel");
             var oModel = this.getOwnerComponent().getModel();
-            var jobPositions = [];
+
+            if (!this._successfulJobPositions) {
+                this._successfulJobPositions = [];
+            }
+
             if (oErr !== undefined) {
-                this._error = this._error + "," + "Job Requsitions creation failed for position " + reqModel.getProperty("/" + oIndex + "/positionNumber");
+                this._error = this._error + "," + "Job Requisitions creation failed for position " + reqModel.getProperty("/" + oIndex + "/positionNumber");
             } else {
                 reqModel.setProperty("/" + oIndex + "/id", oResp.jobReqId);
                 reqModel.setProperty("/" + oIndex + "/FL_Prof_flag", oResp.FL_Prof_flag);
-                jobPositions.push({
+
+                this._successfulJobPositions.push({
                     "positionId": oResp.positionNumber,
                     "jobTitle": oResp.jobReqLocale.results[0].jobTitle,
                     "requisitionId": oResp.jobReqId
                 });
             }
+
             this._pendingRequests--;
+
             if (this._pendingRequests === 0) {
                 oTable.setBusy(false);
                 oTable.clearSelection();
                 oModel.setUseBatch(true);
+
                 if (this._error === "") {
-                    sap.m.MessageToast.show("Job Requsitions created successfully.");
+                    sap.m.MessageToast.show("Job Requisitions created successfully.");
                 } else {
                     MessageBox.error(this._error);
                 }
-                this.triggerEmail(jobPositions);
+
+                if (this._successfulJobPositions && this._successfulJobPositions.length > 0) {
+                    this.triggerEmail(this._successfulJobPositions);
+                }
+
+                this._successfulJobPositions = [];
             }
         },
         _getAppPath: function () {
@@ -1295,7 +1313,8 @@ sap.ui.define([
             var pModel = this.getView().getModel("pickListModel");
             var payload = {
                 "recipientEmail": "raunakfiori.sap@gmail.com",
-                "ccEmails":  pModel.getProperty("/userData/email"),
+                //"recipientEmail": "Mehak.Kochhar-e@maf.ae",
+                "ccEmails": pModel.getProperty("/userData/email"),
                 "jobPositions": oEmailPayload
             }
             var appPath = this._getAppPath();
